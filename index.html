@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Duong Thai Bao | Developer</title>
+		<script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+		<script src="https://unpkg.com/@c-frame/aframe-physics-system@4.2.2/dist/aframe-physics-system.min.js"></script>
+
+		<script>
+			AFRAME.registerComponent("player", {
+				schema: {
+					name: { type: "string", default: "player 1" },
+					hp: { type: "number", default: 100 },
+				},
+				init: function () {
+					console.info("----- INIT -----");
+					console.log(this.data);
+					const target = this.el;
+
+					this.el.addEventListener("hit", (data) => {
+						console.info("----- HIT EVENT -----");
+						const currentHP = this.el.getAttribute("player").hp;
+						const newHP = Math.max(currentHP - data.detail, 0);
+						console.log(`🩸 HP: ${currentHP} → ${newHP}`);
+						this.el.setAttribute("player", { hp: newHP });
+					});
+				},
+				update: function (oldData) {
+					console.info("----- UPDATE -----");
+					console.log("Old:", oldData);
+					console.log("New:", this.data);
+
+					if (this.data.hp == 0) {
+						if (this.el.components["static-body"]) {
+							console.log("Có static-body");
+							console.log(this.el.components);
+							setTimeout(() => {
+								this.el.removeAttribute("static-body");
+								console.log("Remove cho bắn xuyên");
+							}, 0);
+						}
+						this.el.setAttribute("animation", {
+							property: "scale",
+							to: "0 0 0",
+							dur: 300,
+							easing: "easeOutQuad",
+						});
+						setTimeout(() => {
+							this.el.parentNode.removeChild(this.el);
+						}, 300);
+					}
+				},
+				remove: function () {
+					const target = document.createElement("a-box");
+					target.setAttribute("id", "target");
+					target.setAttribute("player", "");
+					target.setAttribute(
+						"dynamic-body",
+						"shape: sphere; mass: 5000; linearDamping: 0; angularDamping: 0;"
+					);
+					const randomX = Math.random() * 10 - 1;
+					target.setAttribute("position", randomX + " 4 -10");
+					target.setAttribute("depth", "1");
+					target.setAttribute("height", "2");
+					target.setAttribute("width", "2");
+					target.setAttribute("color", "tomato");
+
+					document.querySelector("#scene").appendChild(target);
+				},
+			});
+		</script>
+	</head>
+	<body>
+		<a-scene physics="debug: false" id="scene">
+			<!-- Camera người chơi -->
+			<a-entity
+				id="player_camera"
+				camera
+				position="0 1.6 0"
+				look-controls="pointerLockEnabled: true"
+				simple-movement
+                gravity-movement
+			>
+				<a-cursor></a-cursor>
+			</a-entity>
+
+			<!-- Target để test va chạm -->
+			<a-box
+				id="target"
+				player="hp: 100"
+				position="0 1 -10"
+				depth="1"
+				height="2"
+				width="2"
+				color="tomato"
+				static-body
+			></a-box>
+
+			<!-- Mặt đất -->
+			<a-plane
+				rotation="-90 0 0"
+				width="30"
+				height="30"
+				color="#7BC8A4"
+				static-body
+			></a-plane>
+
+			<!-- Ánh sáng -->
+			<a-light type="ambient" color="#fff"></a-light>
+			<a-light
+				type="directional"
+				position="2 4 1"
+				intensity="0.5"
+			></a-light>
+		</a-scene>
+
+		<script>
+			let velocity = new THREE.Vector3();
+			let direction = new THREE.Vector3();
+			const speed = 5;
+			const rig = document.querySelector("#player_camera");
+			const camera = document.querySelector("#player_camera");
+			const keys = {};
+
+			document.addEventListener("keydown", (e) => (keys[e.code] = true));
+			document.addEventListener("keyup", (e) => (keys[e.code] = false));
+
+			AFRAME.registerComponent("simple-movement", {
+				init: function () {
+					this.raycaster = new THREE.Raycaster();
+				},
+				tick: function (time, deltaTime) {
+					deltaTime = deltaTime / 1000;
+					direction.set(0, 0, 0);
+
+					if (keys["KeyW"]) direction.z -= 1;
+					if (keys["KeyS"]) direction.z += 1;
+					if (keys["KeyA"]) direction.x -= 1;
+					if (keys["KeyD"]) direction.x += 1;
+
+					if (direction.length() > 0) {
+						direction.normalize();
+
+						const dir = camera.object3D.getWorldDirection(
+							new THREE.Vector3()
+						);
+						const move = new THREE.Vector3(
+							dir.x * direction.z + dir.z * direction.x,
+							0,
+							dir.z * direction.z - dir.x * direction.x
+						).normalize();
+
+						// Raycast check
+						const from = rig.object3D.position.clone();
+						this.raycaster.set(from, move);
+						const intersects = this.raycaster.intersectObjects(
+							Array.from(document.querySelectorAll("a-box")).map(
+								(box) => box.object3D
+							),
+							true
+						);
+
+						const blockDistance = 1.2; // khoảng cách gần quá thì block
+						if (
+							intersects.length === 0 ||
+							intersects[0].distance > blockDistance
+						) {
+							rig.object3D.position.addScaledVector(
+								move,
+								speed * deltaTime
+							);
+						}
+					}
+				},
+			});
+
+			rig.setAttribute("simple-movement", "");
+		</script>
+
+		<script>
+			AFRAME.registerComponent("gravity-movement", {
+				init: function () {
+					this.velocityY = 0;
+					this.gravity = -9.8; // m/s²
+					this.grounded = false;
+				},
+				tick: function (time, deltaTime) {
+					const dt = deltaTime / 1000;
+					const pos = this.el.object3D.position;
+
+					// Raycast từ chân player xuống
+					const downRay = new THREE.Raycaster(
+						new THREE.Vector3(pos.x, pos.y, pos.z),
+						new THREE.Vector3(0, -1, 0)
+					);
+
+					const intersects = downRay.intersectObjects(
+						Array.from(
+							document.querySelectorAll("a-plane, a-box")
+						).map((el) => el.object3D),
+						true
+					);
+
+					if (intersects.length > 0 && intersects[0].distance < 1.6) {
+						// Đang đứng trên mặt đất
+						this.velocityY = 0;
+						this.grounded = true;
+					} else {
+						// Rơi xuống
+						this.velocityY += this.gravity * dt;
+						pos.y += this.velocityY * dt;
+						this.el.object3D.position.y = pos.y;
+						this.grounded = false;
+					}
+				},
+			});
+		</script>
+
+		<script>
+			document.addEventListener("keydown", (e) => {
+				if (e.code === "Space") {
+					const scene = document.querySelector("a-scene");
+					const camera = document.querySelector("#player_camera");
+
+					// Tạo viên đạn
+					const bullet = document.createElement("a-sphere");
+					bullet.setAttribute("radius", 0.1);
+					bullet.setAttribute("color", "yellow");
+					bullet.setAttribute("dynamic-body", "");
+
+					// Lấy vị trí và hướng nhìn từ camera
+					const camPos = new THREE.Vector3();
+					const camDir = new THREE.Vector3();
+					camera.object3D.getWorldPosition(camPos); // Tọa độ hiện tại của camera
+					camera.object3D.getWorldDirection(camDir); // Hướng nhìn
+
+					// ✅ Physics cài đặt chuẩn: không quay, không chậm, không rơi
+					// dynamic-body: Là vật thể chuyển động
+					// mass: 1: Trọng lượng (có thể tăng)
+					// linearDamping: 0: Không làm chậm khi bay
+					// angularDamping: 0: Không xoay tào lao, giữ hướng chuẩn
+					bullet.setAttribute(
+						"dynamic-body",
+						"shape: sphere; mass: 1; linearDamping: 0; angularDamping: 0;"
+					);
+
+					bullet.setAttribute(
+						"position",
+						`${camPos.x} ${camPos.y} ${camPos.z}`
+					); //Gán vị trí ban đầu cho viên đạn đúng nơi người chơi đang đứng
+
+					scene.appendChild(bullet);
+
+					// Áp lực đẩy viên đạn bay
+					bullet.addEventListener("body-loaded", () => {
+						const force = camDir.multiplyScalar(-7000);
+						bullet.body.applyForce(
+							new CANNON.Vec3(force.x, force.y, force.z),
+							new CANNON.Vec3().copy(bullet.body.position)
+						);
+					});
+
+					bullet.addEventListener("collide", (e) => {
+						// console.log("Va chạm: ", e.detail.body.el.id);
+						const target = e.detail.body.el;
+						if (target && target.components.player) {
+							console.log("💥 Player collide emit...");
+							target.emit("hit", 25);
+						}
+					});
+				}
+			});
+		</script>
+	</body>
+</html>
