@@ -44,6 +44,7 @@
 
                 <a-asset-item id="model-tentframe" src="assets/models/TentFrame.glb"></a-asset-item>
                 <a-asset-item id="model-pictureframe" src="assets/models/PictureFrame.glb"></a-asset-item>
+                <a-asset-item id="model-bed" src="assets/models/Bed.glb"></a-asset-item>
                 <!-- <a-asset-item id="model-smartphone" src="assets/models/Smartphone.glb"></a-asset-item> -->
             </a-assets>
 
@@ -60,9 +61,9 @@
             <!-- Tường phải -->
                 <a-box material="src: #wall-m" position="5.475 1.519 4.379" width="7.39" height="4.550" depth="0.05" shadow></a-box>
             <!-- Tường trái  color="#FCDCB1"-->
-                <a-box material="src: #wall-m" position="1.812 1.519 7.005" rotation="0 -90 0" width="5.230" height="4.550" depth="0.05" shadow></a-box> 
+                <a-box material="src: #wall-m" position="1.812 1.519 7.971" rotation="0 -90 0" width="7.230" height="4.550" depth="0.05" shadow></a-box> 
             <!-- Sàn nhà color="#D4BEAA" -->
-                <a-box material="src: #floor-m" width="7.420" height="5.250" depth="0.100" position="5.463 0 6.978" rotation="-90 0 0"></a-box>
+                <a-box material="src: #floor-m" width="7.420" height="7.230" depth="0.100" position="5.463 0.001 7.981" rotation="-90 0 0"></a-box>
             
             
             <!-- Outsite -->
@@ -84,6 +85,9 @@
             <a-entity gltf-model="#model-tentframe" position="8.836 1.159 4.784" scale="0.320 0.400 0.5" rotation="0 90 0"></a-entity>
             <a-entity gltf-model="#model-pictureframe" position="8.810 1.318 4.806" scale="0.300 0.600 0.480" rotation="0 -90.000 20.110"></a-entity>
 
+            
+            <a-entity gltf-model="#model-bed" position="3.325 0.019 6.365" scale="1.300 1.100 1.500" rotation="0 0 0"></a-entity>
+
             <!-- <a-entity gltf-model="#model-smartphone" position="8.500 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity> -->
 
             <!-- Ánh sáng -->
@@ -93,8 +97,7 @@
 
             <!-- Một bóng đèn chill -->
             <!-- <a-entity light="type: point; intensity: 0.6; distance: 10; decay: 2; color: #ffccaa"
-                position="8.379 2.300 8.201">
-            </a-entity> -->
+                position="8.379 2.300 8.201"> </a-entity> -->
 
 
             <!-- Target cho ánh sáng directional -->
