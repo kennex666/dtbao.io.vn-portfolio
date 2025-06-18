@@ -38,7 +38,7 @@
                 <a-asset-item id="model-desk" src="assets/models/desk.glb"></a-asset-item>
                 <a-asset-item id="model-monitor" src="assets/models/Monitor.glb"></a-asset-item>
                 <a-asset-item id="model-keyboard" src="assets/models/Keyboard.glb"></a-asset-item>
-                <a-asset-item id="model-mouse" src="assets/models/Mouse2.glb"></a-asset-item>
+                <a-asset-item id="model-mouse" src="assets/models/Mouse.glb"></a-asset-item>
                 <a-asset-item id="model-mousepad" src="assets/models/Mousepad.glb"></a-asset-item>
                 <a-asset-item id="model-lightdesk" src="assets/models/LightDesk.glb"></a-asset-item>
 
@@ -54,8 +54,23 @@
                 <a-asset-item id="model-clock" src="assets/models/Clock.glb"></a-asset-item>
                 <a-asset-item id="model-aircondi" src="assets/models/Airconditioner.glb"></a-asset-item>
                 <a-asset-item id="model-window" src="assets/models/WindowLarge.glb"></a-asset-item>
-                <a-asset-item id="model-standingdesk" src="assets/models/StandingDesk.glb"></a-asset-item>bookshelf
+                <a-asset-item id="model-curtains" src="assets/models/CurtainsDouble.glb"></a-asset-item>
+                
+                <a-asset-item id="model-socket" src="assets/models/WallSocket.glb"></a-asset-item>
+                <a-asset-item id="model-lamp" src="assets/models/Lamp.glb"></a-asset-item>
+                <a-asset-item id="model-cat" src="assets/models/cat.glb"></a-asset-item>
                 <!-- <a-asset-item id="model-smartphone" src="assets/models/Smartphone.glb"></a-asset-item> -->
+                 
+                <!-- Mixin  -->
+                <a-mixin id="hexagon"
+                    geometry="primitive: cylinder; radius: 1; height: 0.1; segmentsRadial: 6"
+                    rotation="90 0 0"
+                    scale="0.2 0.2 0.2"
+                    material="color: #111; emissive: #fdf5e6; emissiveIntensity: 0.8; metalness: 0.1; roughness: 0.4"
+                    light="type: point; intensity: 1; distance: 30; decay: 1.5; color: #fdf5e6"
+                    shadow="cast: true">
+                </a-mixin>
+
             </a-assets>
 
             <!-- Controllers color="#FFEAD2" -->
@@ -83,23 +98,25 @@
             <!-- Insite -->
 
             <!-- Workspace -->
-            <a-entity gltf-model="#model-chair" position="7.732 0.077 5.502" scale="1.3 1.5 1.3" rotation="0 180 0"></a-entity>
-            <a-entity gltf-model="#model-desk" position="7.523 0.077 4.903" scale="1.67 2.5 1.480" rotation="0 0 0"></a-entity>
-            <a-entity gltf-model="#model-monitor" position="7.567 1.158 4.706" scale="0.003 0.003 0.003" rotation="0 0 0"></a-entity>
-            <a-entity gltf-model="#model-keyboard" position="7.587 1.151 5.069" scale="0.002 0.002 0.002" rotation="0 0 0"></a-entity>
-            <a-entity gltf-model="#model-mouse" position="8.2 1.159 5.091" scale="0.030 0.030 0.030" rotation="0 180 0"></a-entity>
-            <a-entity gltf-model="#model-mousepad" position="8.200 1.159 5.075" scale="0.120 0.120 0.120" rotation="0 180 0"></a-entity>
-            <a-entity gltf-model="#model-lightdesk" position="8.500 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
-
-            
+            <a-entity gltf-model="#model-chair" position="7.117 0.077 5.502" scale="1.3 1.5 1.3" rotation="0 180 0"></a-entity>
+            <a-entity gltf-model="#model-desk" position="6.789 0.077 4.903" scale="2.370 2.5 1.480" rotation="0 0 0"></a-entity>
+            <a-entity gltf-model="#model-monitor" position="7.157 1.158 4.706" scale="0.003 0.003 0.003" rotation="0 0 0"></a-entity>
+            <a-entity gltf-model="#model-keyboard" position="7.161 1.151 5.069" scale="0.002 0.002 0.002" rotation="0 0 0"></a-entity>
+            <a-entity gltf-model="#model-mouse" position="7.775 1.159 5.091" scale="1 1 1" rotation="0 0 0"></a-entity>
+            <a-entity gltf-model="#model-mousepad" position="7.763 1.159 5.075" scale="0.120 0.120 0.120" rotation="0 180 0"></a-entity>
+            <a-entity gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
             <a-entity gltf-model="#model-tentframe" position="8.836 1.159 4.784" scale="0.320 0.400 0.5" rotation="0 90 0"></a-entity>
             <a-entity gltf-model="#model-pictureframe" position="8.810 1.318 4.806" scale="0.300 0.600 0.480" rotation="0 -90.000 20.110"></a-entity>
 
             
+
             <a-entity gltf-model="#model-bed" position="3.325 0.019 6.365" scale="1.300 1.100 1.500" rotation="0 0 0"></a-entity>
             <a-entity gltf-model="#model-wardrobe" position="2.325 -0.141 9.623" scale="1 1 1" rotation="0 90 0"></a-entity>
             <a-entity gltf-model="#model-couch" position="6.455 -0.250 9.623" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity>
-            <a-entity gltf-model="#model-nightstand" position="4.641 0.034 4.958" scale="0.910 1 0.76" rotation="0 0 0"></a-entity>
+            <a-entity gltf-model="#model-cat" position="6.455 -0.250 9.623" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity>
+            <a-entity gltf-model="#model-nightstand" position="4.641 0.034 4.812" scale="0.910 1 0.76" rotation="0 0 0"></a-entity>
+            <a-entity gltf-model="#model-socket" position="4.368 1.077 4.414" scale="0.910 1 0.76" rotation="0 -90 0"></a-entity>
+            <a-entity gltf-model="#model-lamp" position="4.645 0.863 4.713" scale="0.005 0.005 0.005" rotation="0 0 0"></a-entity>
             <a-entity gltf-model="#model-floatingshelf" position="3.667 2.068 4.686" scale="2.120 2.510 1.630" rotation="0 0 0"></a-entity>
             <a-entity gltf-model="#model-books" position="2.443 2.068 4.981" scale="5.730 7.120 5.240" rotation="0 180 0"></a-entity>
             <a-entity gltf-model="#model-book" position="3.869 2.147 4.747" scale="0.490 0.700 0.900" rotation="0 90 90"></a-entity>
@@ -107,9 +124,8 @@
             <a-entity gltf-model="#model-aircondi" position="1.926 3.385 9.647" scale="0.002 0.002 0.001" rotation="0 90 0"></a-entity>
             
             <a-entity gltf-model="#model-window" position="1.871 1.126 6.619" scale="1.2 1.2 1.2" rotation="0 90 0"></a-entity>
+            <a-entity gltf-model="#model-curtains" position="1.973 0.662 6.619" scale="0.700 0.630 0.7" rotation="0 90 0"></a-entity>
             <a-entity gltf-model="#model-standingdesk" position="2.064 0.770 6.619" scale="0.850 0.590 0.600" rotation="0 90 0"></a-entity>
-            
-            <a-entity gltf-model="#model-bookshelf" position="4.641 0.034 4.958" scale="0.910 1 0.76" rotation="0 0 0"></a-entity>
 
             <!-- <a-entity gltf-model="#model-smartphone" position="8.500 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity> -->
 
@@ -119,11 +135,32 @@
             
 
             <!-- Một bóng đèn chill -->
-            <!-- <a-entity light="type: point; intensity: 0.6; distance: 10; decay: 2; color: #ffccaa"
-                position="8.379 2.300 8.201"> </a-entity> -->
+            <!-- <a-entity light="type: point; intensity: 6; distance: 25; decay: 1.5; color: #ffccaa"
+                position="8.063 1.686 4.940" scale="0.5 0.5 0.5"> </a-entity>
+                
+            <a-entity light="type: point; intensity: 4; distance: 30; decay: 1.5; color: #ffccaa"
+            position="4.736 1.662 5.054" scale="0.5 0.5 0.5"> </a-entity> -->
+
+            
+            <!-- <a-entity light="type: point; intensity: 15.000; distance: 25; decay: 1; color: #ffccaa"
+            position="6.200 3.665 7.355" scale="0.5 0.5 0.5"> </a-entity> -->
+            
 
 
-            <!-- Target cho ánh sáng directional -->
+            <!-- Ánh sáng từ đèn tổ ong -->
+            <!-- <a-entity mixin="hexagon" position="2.807 3.524 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="3.549 3.514 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="2.993 3.210 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="3.366 3.202 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="3.734 3.202 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="4.101 3.202 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="2.810 2.892 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="3.175 2.892 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="3.550 2.892 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="3.924 2.892 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="3.361 2.575 4.409"></a-entity>
+            <a-entity mixin="hexagon" position="4.116 2.575 4.409"></a-entity> -->
+            
         </a-scene>
 	</body>
 
