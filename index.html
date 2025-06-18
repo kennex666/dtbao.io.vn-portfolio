@@ -23,6 +23,12 @@
         <meta name="theme-color" content="#ffffff" />
 		<script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
 		<script src="https://unpkg.com/@c-frame/aframe-physics-system@4.2.2/dist/aframe-physics-system.min.js"></script>
+
+        <style>
+            .a-enter-vr{
+                display: none;
+            }
+        </style>
 	</head>
 
 	<body>
@@ -79,7 +85,12 @@
             <a-plane color="#222" width="60" height="60" depth="3" rotation="-90 0 0" shadow="receive: true"></a-plane>
 
             <!-- Camera -->
-            <a-entity look-controls="enabled: true" camera wasd-controls lock-camera position="8.379 2.300 8.201"></a-entity>
+            <a-entity 
+            camera 
+            look-controls="enabled: true" 
+            raycaster="objects: .clickable" 
+            cursor="fuse: false; rayOrigin: mouse" 
+            wasd-controls lock-camera position="8.379 2.300 8.201"></a-entity>
 
             <!-- World here (❁´◡`❁) -->
 
@@ -162,7 +173,7 @@
                 <a-entity mixin="hexagon" position="4.116 2.575 4.409"></a-entity>
              </a-entity>
 
-        Tương tác <!--  -->
+        <!-- Tương tác -->
              
          <!-- Màn hình -->
         <a-entity>
@@ -184,14 +195,14 @@
          <a-entity>
              <a-entity class="light" visible="false" light="type: point; intensity: 6; distance: 25; decay: 1.5; color: #ffccaa"
              position="8.063 1.686 4.940" scale="0.5 0.5 0.5"> </a-entity>
-             <a-entity class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
+             <a-entity turn-the-light class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
          </a-entity>
      
          <!-- Đèn ngủ -->
         <a-entity>
             <a-entity class="light" visible="false" light="type: point; intensity: 4; distance: 30; decay: 1.5; color: #ffccaa"
             position="4.736 1.662 5.054" scale="0.5 0.5 0.5"> </a-entity>
-            <a-entity class="clickable" gltf-model="#model-lamp" position="4.645 0.863 4.713" scale="0.005 0.005 0.005" rotation="0 0 0"></a-entity>
+            <a-entity turn-the-light class="clickable" gltf-model="#model-lamp" position="4.645 0.863 4.713" scale="0.005 0.005 0.005" rotation="0 0 0"></a-entity>
         </a-entity>
     
         
@@ -204,6 +215,19 @@
             init: function() {
                 // this.el.components["look-controls"].pause();
                 this.el.object3D.rotation.set(-1.143, 0, 0);
+            }
+        })
+
+        
+        AFRAME.registerComponent("turn-the-light", {
+            init: function() {
+                // this.el.components["look-controls"].pause();
+                const light = this.el.parentNode.querySelector(".light");
+
+                this.el.addEventListener("click", () => {
+			    const isVisible = light.getAttribute("visible");
+                    light.setAttribute("visible", !isVisible);
+                });
             }
         })
     </script>
