@@ -26,8 +26,79 @@
 	</head>
 
 	<body>
-        
+        <a-scene shadow="type: pcfsoft">
+            <!-- Assets -->
+            <a-assets>
+                <!-- Material -->
+                <img id="floor-m" src="assets/images/materials/arizona.png" crossorigin="anonymous">
+                <img id="wall-m" src="assets/images/materials/wood.jpg" crossorigin="anonymous">
+                <!-- Model  -->
+                <a-asset-item id="model-forest1" src="assets/models/frs/forest1.glb"></a-asset-item>
+
+                
+                <a-asset-item id="model-chair" src="assets/models/Chair.glb"></a-asset-item>
+                <a-asset-item id="model-desk" src="assets/models/desk.glb"></a-asset-item>
+                <a-asset-item id="model-monitor" src="assets/models/Monitor.glb"></a-asset-item>
+                
+                <a-asset-item id="model-keyboard" src="assets/models/Keyboard.glb"></a-asset-item>
+                <a-asset-item id="model-mouse" src="assets/models/Mouse2.glb"></a-asset-item>
+                <a-asset-item id="model-mousepad" src="assets/models/Mousepad.glb"></a-asset-item>
+            </a-assets>
+
+            <!-- Controllers color="#FFEAD2" -->
+            <a-sky color="#0a0a1f"></a-sky>
+            <a-plane color="#222" width="60" height="60" depth="3" rotation="-90 0 0" shadow="receive: true"></a-plane>
+
+            <!-- Camera -->
+            <a-entity look-controls="enabled: true" camera wasd-controls lock-camera position="8.379 2.300 8.201"></a-entity>
+
+            <!-- World here (❁´◡`❁) -->
+
+            <!-- Nhà -->
+            <!-- Tường phải -->
+                <a-box material="src: #wall-m" position="5.475 1.519 4.379" width="7.39" height="4.550" depth="0.05" shadow></a-box>
+            <!-- Tường trái  color="#FCDCB1"-->
+                <a-box material="src: #wall-m" position="1.812 1.519 7.005" rotation="0 -90 0" width="5.230" height="4.550" depth="0.05" shadow></a-box> 
+            <!-- Sàn nhà color="#D4BEAA" -->
+                <a-box material="src: #floor-m" width="7.420" height="5.250" depth="0.100" position="5.463 0 6.978" rotation="-90 0 0"></a-box>
+            
+            
+            <!-- Outsite -->
+            <a-entity gltf-model="#model-forest1" position="-18.755 2.718 -9.942" scale="10 10 10" rotation="0 30 0"></a-entity>
+
+
+            <!-- Insite -->
+            <a-entity gltf-model="#model-chair" position="8.029 0.077 5.502" scale="1.3 1.5 1.3" rotation="0 180 0"></a-entity>
+            <a-entity gltf-model="#model-desk" position="7.846 0.077 4.903" scale="1.3 2.5 1.480" rotation="0 0 0"></a-entity>
+            <a-entity gltf-model="#model-monitor" position="8.103 1.158 4.706" scale="0.003 0.003 0.003" rotation="0 0 0"></a-entity>
+            <a-entity gltf-model="#model-keyboard" position="8.118 1.151 5.069" scale="0.002 0.002 0.002" rotation="0 0 0"></a-entity>
+            <a-entity gltf-model="#model-mouse" position="8.765 1.159 5.091" scale="0.030 0.030 0.030" rotation="0 180 0"></a-entity>
+            <a-entity gltf-model="#model-mousepad" position="8.768 1.163 5.093" scale="0.120 0.120 0.120" rotation="0 180 0"></a-entity>
+
+
+            <!-- Ánh sáng -->
+           <!-- <a-light type="ambient" color="#fff" intensity="2"></a-light> -->
+            <!-- <a-light type="directional" color="#fff" intensity="1.2" position="5 10 -5" target="#target"></a-light> -->
+            
+
+            <!-- Một bóng đèn chill -->
+            <!-- <a-entity light="type: point; intensity: 0.6; distance: 10; decay: 2; color: #ffccaa"
+                position="8.379 2.300 8.201">
+            </a-entity> -->
+
+
+            <!-- Target cho ánh sáng directional -->
+        </a-scene>
 	</body>
+
+    <script>
+        AFRAME.registerComponent("lock-camera", {
+            init: function() {
+                // this.el.components["look-controls"].pause();
+                this.el.object3D.rotation.set(-1.143, 0, 0);
+            }
+        })
+    </script>
 
     <footer>
     </footer>
