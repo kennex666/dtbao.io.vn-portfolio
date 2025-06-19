@@ -11,9 +11,28 @@ AFRAME.registerComponent("turn-the-light", {
 });
 
 AFRAME.registerComponent("hover-highlight", {
+	schema: {
+		title: {
+			type: "string",
+			default: ""
+		},
+		description: {
+			type: "string",
+			default: ""
+		},
+		color: {
+			type: "string",
+			default: ""
+		},
+		adjustTitle: {
+			type: "number",
+			default: 0
+		}
+	},
 	init: function () {
 		const el = this.el;
 		const arrow = document.querySelector("#hover-arrow");
+		const text = document.querySelector("#hover-text");
 		let isHovering = false;
 
 		const box = new THREE.Box3();
@@ -32,13 +51,30 @@ AFRAME.registerComponent("hover-highlight", {
 			);
 
 			arrow.object3D.position.copy(topPosition);
+			
 			arrow.setAttribute("visible", true);
+
+			if (this.data.title){
+				
+				const topPosition2 = new THREE.Vector3(
+					(box.min.x + box.max.x) / 2,
+					box.max.y + 0.5 + this.data.adjustTitle,
+					(box.min.z + box.max.z) / 2
+				);
+
+				text.object3D.position.copy(topPosition2);
+				text.setAttribute("visible", true);
+				text.setAttribute("value", this.data.title);
+			}
 		});
 
 		el.addEventListener("mouseleave", () => {
 			if (!isHovering || !arrow) return;
 			isHovering = false;
 
+			if (this.data.title){
+				text.setAttribute("visible", false);
+			}
 			arrow.setAttribute("visible", false);
 		});
 	},

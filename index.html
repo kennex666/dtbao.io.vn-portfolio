@@ -23,6 +23,9 @@
         <meta name="theme-color" content="#ffffff" />
 		<script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
 		<script src="https://unpkg.com/@c-frame/aframe-physics-system@4.2.2/dist/aframe-physics-system.min.js"></script>
+        <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-render-order-component@1.1.0/dist/aframe-render-order-component.min.js"></script> 
+
         <style>
             .a-enter-vr{
                 display: none;
@@ -92,6 +95,7 @@
 
             <!-- Camera -->
             <a-entity 
+            id="camera"
             camera 
             look-controls="enabled: true" 
             raycaster="objects: .clickable" 
@@ -123,10 +127,14 @@
             <a-entity gltf-model="#model-mouse" position="7.775 1.159 5.091" scale="1 1 1" rotation="0 0 0"></a-entity>
             <a-entity gltf-model="#model-mousepad" position="7.763 1.159 5.075" scale="0.120 0.120 0.120" rotation="0 180 0"></a-entity>
             
-            <!-- Picture -->
+            <!-- Picture frame -->
             <a-entity>
-                <a-entity gltf-model="#model-tentframe" position="8.836 1.159 4.784" scale="0.320 0.400 0.5" rotation="0 90 0"></a-entity>
-                <a-entity gltf-model="#model-pictureframe" position="8.810 1.318 4.806" scale="0.300 0.600 0.480" rotation="0 -90.000 20.110"></a-entity>
+                <a-entity gltf-model="#model-tentframe" position="8.736 1.159 4.784" scale="0.320 0.400 0.5" rotation="0 -110 0"></a-entity>
+                <a-entity gltf-model="#model-pictureframe" position="8.710 1.318 4.806" scale="0.300 0.600 0.480" rotation="0 -110 20.110"></a-entity>
+                <a-plane id="frame-screen"
+                width="0.270" height="0.238"
+                material="src: #computer-bg; shader: flat"
+                position="8.729 1.332 4.829" scale="1 1 1" rotation="-21.170 -20.000 0"></a-plane>
             </a-entity>
 
             
@@ -140,7 +148,9 @@
             
             <a-entity gltf-model="#model-floatingshelf" position="3.667 2.068 4.686" scale="2.120 2.510 1.630" rotation="0 0 0"></a-entity>
             <a-entity gltf-model="#model-books" position="2.443 2.068 4.981" scale="5.730 7.120 5.240" rotation="0 180 0"></a-entity>
-            <a-entity gltf-model="#model-book" position="3.869 2.147 4.747" scale="0.490 0.700 0.900" rotation="0 90 90"></a-entity>
+
+            <a-entity hover-highlight="title: Experiences" class="clickable" gltf-model="#model-book" position="3.869 2.147 4.747" scale="0.490 0.700 0.900" rotation="0 90 90"></a-entity>
+
             <a-entity gltf-model="#model-clock" position="4.680 2.095 4.672" scale="0.005 0.005 0.005" rotation="-90 0 90"></a-entity>
             <a-entity gltf-model="#model-aircondi" position="1.926 3.385 9.647" scale="0.002 0.002 0.001" rotation="0 90 0"></a-entity>
             
@@ -192,7 +202,7 @@
             </a-entity>
 
             <a-entity position="6.649 1.078 10.287">
-                <a-entity hover-highlight class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
+                <a-entity hover-highlight="title: Visitors" class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
                 <a-entity firefly="spread: 0.2; count: 10; size: 0.005; randomSize: 0.001; light: true;" position="0 0.1 0"></a-entity>
             </a-entity>
             <!-- Ánh sáng -->
@@ -261,24 +271,36 @@
          <a-entity>
              <a-entity class="light" visible="false" light="type: point; intensity: 6; distance: 25; decay: 1.5; color: #ffccaa"
              position="8.063 1.686 4.940" scale="0.5 0.5 0.5"> </a-entity>
-             <a-entity hover-highlight turn-the-light class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
+             <a-entity hover-highlight="title: Turn on/off" turn-the-light class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
          </a-entity>
      
          <!-- Đèn ngủ -->
         <a-entity>
             <a-entity class="light" visible="false" light="type: point; intensity: 4; distance: 30; decay: 1.5; color: #ffccaa"
             position="4.736 1.662 5.054" scale="0.5 0.5 0.5"> </a-entity>
-            <a-entity hover-highlight turn-the-light class="clickable" gltf-model="#model-lamp" position="4.645 0.863 4.713" scale="0.005 0.005 0.005" rotation="0 0 0"></a-entity>
+            <a-entity hover-highlight="title: Turn on/off; adjustTitle: 0.3" turn-the-light class="clickable" gltf-model="#model-lamp" position="4.645 0.863 4.713" scale="0.005 0.005 0.005" rotation="0 0 0"></a-entity>
         </a-entity>
 
         <!-- Mũi tên hover -->
-        <a-entity id="hover-arrow"
-            geometry="primitive: cone; radiusBottom: 0.05; radiusTop: 0; height: 0.15"
-            material="color: yellow; emissive: yellow; emissiveIntensity: 0.6"
-            rotation="180 0 0"
-            visible="false"
-            animation="property: material.emissiveIntensity; from: 0.3; to: 1.2; dir: alternate; dur: 1000; loop: true"
-            animation__scale="property: scale; from: 1 1 1; to: 1.3 1.3 1.3; dur: 1500; loop: true; dir: alternate">
+        <a-entity>
+            <a-entity id="hover-arrow"
+                geometry="primitive: cone; radiusBottom: 0.05; radiusTop: 0; height: 0.15"
+                material="color: yellow; emissive: yellow; emissiveIntensity: 0.6"
+                rotation="180 0 0"
+                visible="false"
+                animation="property: material.emissiveIntensity; from: 0.3; to: 1.2; dir: alternate; dur: 1000; loop: true"
+                animation__scale="property: scale; from: 1 1 1; to: 1.3 1.3 1.3; dur: 1500; loop: true; dir: alternate">
+            </a-entity>
+        
+            <a-text id="hover-text"
+                value="Hello, Bảo!"
+                look-at="#camera"
+                color="#fff"
+                scale="1 1 1"
+                visible="false"
+                align="center"
+	            render-order="10">
+            </a-text>
         </a-entity>
 
         <!-- <a-entity gltf-model="#model-bookshelf" position="3.325 -0.141 9.623" scale="1 1 1" rotation="0 90 0"></a-entity> -->
