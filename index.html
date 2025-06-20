@@ -46,9 +46,10 @@
             <!-- Assets -->
             <a-assets>
                 <!-- Material -->
-                <img id="floor-m" src="assets/images/materials/arizona.png" crossorigin="anonymous">
-                <img id="wall-m" src="assets/images/materials/wood.jpg" crossorigin="anonymous">
-                <img id="computer-bg" src="assets/images/hdr/cpt-bg.jpg" crossorigin="anonymous">
+                <img id="floor-m" src="assets/images/materials/arizona.png">
+                <img id="wall-m" src="assets/images/materials/wood.jpg">
+                <img id="computer-bg" src="assets/images/hdr/cpt-bg.jpg">
+                <img id="logo" src="assets/images/logo.png">
                 <!-- Model  -->
                 <a-asset-item id="model-forest1" src="assets/models/frs/forest1.glb"></a-asset-item>
                 <a-asset-item id="model-chair" src="assets/models/Chair.glb"></a-asset-item>
@@ -59,22 +60,14 @@
                 <a-asset-item id="model-mousepad" src="assets/models/Mousepad.glb"></a-asset-item>
                 <a-asset-item id="model-lightdesk" src="assets/models/LightDesk.glb"></a-asset-item>
 
-                <a-asset-item id="model-tentframe" src="assets/models/TentFrame.glb"></a-asset-item>
                 <a-asset-item id="model-pictureframe" src="assets/models/PictureFrame.glb"></a-asset-item>
-                <a-asset-item id="model-bed" src="assets/models/Bed.glb"></a-asset-item>
-                <a-asset-item id="model-wardrobe" src="assets/models/SmallWardrobe.glb"></a-asset-item>
-                <a-asset-item id="model-couch" src="assets/models/CouchMedium.glb"></a-asset-item>
-                <a-asset-item id="model-nightstand" src="assets/models/NightStand.glb"></a-asset-item>
                 <a-asset-item id="model-floatingshelf" src="assets/models/FloatingShelf.glb"></a-asset-item>
                 <a-asset-item id="model-books" src="assets/models/books.glb"></a-asset-item>
                 <a-asset-item id="model-book" src="assets/models/book.glb"></a-asset-item>
                 <a-asset-item id="model-clock" src="assets/models/Clock.glb"></a-asset-item>
                 <a-asset-item id="model-aircondi" src="assets/models/Airconditioner.glb"></a-asset-item>
-                <a-asset-item id="model-window" src="assets/models/WindowLarge.glb"></a-asset-item>
-                <a-asset-item id="model-curtains" src="assets/models/CurtainsDouble.glb"></a-asset-item>
                 
                 <a-asset-item id="model-socket" src="assets/models/WallSocket.glb"></a-asset-item>
-                <a-asset-item id="model-lamp" src="assets/models/Lamp.glb"></a-asset-item>
                 <a-asset-item id="model-table" src="assets/models/Table.glb"></a-asset-item>
                 <a-asset-item id="model-stool" src="assets/models/Stool.glb"></a-asset-item>
                 <a-asset-item id="model-vase" src="assets/models/PlasticCup.glb"></a-asset-item>
@@ -84,6 +77,11 @@
                 
                 <a-asset-item id="model-openbook" src="assets/models/openbook.glb"></a-asset-item>
                 <a-asset-item id="model-bedsidelamp" src="assets/models/BedsideLamp.glb"></a-asset-item>
+                <a-asset-item id="model-board" src="assets/models/Whiteboard.glb"></a-asset-item>
+                <a-asset-item id="model-bonsai" src="assets/models/Bonsai.glb"></a-asset-item>
+                <a-asset-item id="model-guitar" src="assets/models/Guitar.glb"></a-asset-item>
+                <a-asset-item id="model-tank" src="assets/models/Tank.glb"></a-asset-item>
+                <a-asset-item id="model-soldier" src="assets/models/Soldier.glb"></a-asset-item>
 
                 <!-- Mixin  -->
                 <a-mixin id="hexagon"
@@ -108,7 +106,7 @@
             look-controls="enabled: true" 
             raycaster="objects: .clickable" 
             cursor="fuse: false; rayOrigin: mouse" 
-            wasd-controls lock-camera position="8.379 2.100 8.201"></a-entity>
+            wasd-controls lock-camera position="8.379 1.8 8.201"></a-entity>
 
             <!-- World here (❁´◡`❁) -->
 
@@ -137,21 +135,22 @@
             
             <!-- Picture frame -->
             <a-entity>
-                <a-entity gltf-model="#model-tentframe" position="8.736 1.159 4.784" scale="0.320 0.400 0.5" rotation="0 -110 0"></a-entity>
-                <a-entity gltf-model="#model-pictureframe" position="8.710 1.318 4.806" scale="0.300 0.600 0.480" rotation="0 -110 20.110"></a-entity>
-                <a-plane id="frame-screen"
-                width="0.270" height="0.238"
-                material="src: #computer-bg; shader: flat"
-                position="8.729 1.332 4.829" scale="1 1 1" rotation="-21.170 -20.000 0"></a-plane>
+                <a-entity gltf-model="#model-pictureframe" position="6.337 1.318 4.806" scale="0.3 0.6 0.48"></a-entity>
+                <a-plane id="frame-screen" material="shader: flat; src: #computer-bg" position="6.356 1.335 4.808" rotation="" geometry="height: 0.245; width: 0.275"></a-plane>
             </a-entity>
 
+            <!-- Bonsai -->
             
+            <a-entity gltf-model="#model-bonsai" position="8.778 1.46078 4.65582" scale="0.3 0.3 0.3" rotation="0 160 0"></a-entity>
 
-            <a-entity gltf-model="#model-bed" position="3.325 0.019 6.365" scale="1.300 1.100 1.630" rotation="0 0 0"></a-entity>
-            <a-entity gltf-model="#model-wardrobe" position="2.220 0.092 9.804" scale="0.710 0.790 1.060" rotation="0 90 0"></a-entity>
-            <!-- <a-entity gltf-model="#model-couch" position="6.455 -0.250 9.623" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity> -->
+             
+            <a-entity gltf-model="#model-guitar" position="2.00008 1.14225 4.94932" scale="1.4 1.4 1.4" rotation="-6 90 0"></a-entity>
+
+            <a-entity gltf-model="#model-soldier" position="5.44674 0.38589 4.98354" scale="0.02 0.02 0.02" rotation="0 -13.57 0"></a-entity>
+            <a-entity gltf-model="#model-tank" position="5.42132 0.11425 5.0018" scale="0.1 0.1 0.1" rotation="0 140 0"></a-entity>
+
             <a-entity gltf-model="#model-cat" position="6.455 -0.250 9.623" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity>
-            <a-entity gltf-model="#model-nightstand" position="4.641 0.034 4.812" scale="0.910 1 0.76" rotation="0 0 0"></a-entity>
+
             <a-entity gltf-model="#model-socket" position="4.368 1.077 4.414" scale="0.910 1 0.76" rotation="0 -90 0"></a-entity>
             
             <a-entity gltf-model="#model-floatingshelf" position="3.667 2.068 4.686" scale="2.120 2.510 1.630" rotation="0 0 0"></a-entity>
@@ -178,10 +177,8 @@
                     value="Hi!" align="center" font="dejavu" width="4.310"></a-text>
             </a-entity>
 
-            <a-entity gltf-model="#model-aircondi" position="1.926 3.385 9.647" scale="0.002 0.002 0.001" rotation="0 90 0"></a-entity>
+            <a-entity gltf-model="#model-aircondi" position="1.926 3.385 6.445" scale="0.002 0.002 0.001" rotation="0 90 0"></a-entity>
             
-            <a-entity gltf-model="#model-window" position="1.871 1.126 6.619" scale="1.2 1.2 1.2" rotation="0 90 0"></a-entity>
-            <a-entity gltf-model="#model-curtains" position="1.973 0.662 6.619" scale="0.700 0.630 0.7" rotation="0 90 0"></a-entity>
             <a-entity gltf-model="#model-standingdesk" position="2.064 0.770 6.619" scale="0.850 0.590 0.600" rotation="0 90 0"></a-entity>
 
             <!-- Bộ bàn ghế -->
@@ -229,7 +226,7 @@
 
             <a-entity position="6.649 1.078 10.287">
                 <a-entity hover-highlight="title: Visitors" class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
-                <a-entity firefly="spread: 0.2; count: 10; size: 0.007; randomSize: 0.001; light: true;" position="0 0.1 0"></a-entity>
+                <a-entity firefly="spread: 0.2; count: 20; size: 0.007; randomSize: 0.001; light: true;" position="0 0.12 0"></a-entity>
             </a-entity>
             <!-- Ánh sáng -->
            <!-- <a-light type="ambient" color="#fff" intensity="2"></a-light> -->
@@ -293,6 +290,11 @@
            </a-entity>
         </a-light>
 
+        <!-- logo -->
+        <a-plane id="logo" width="0.1" height="0.1" material="src: #logo;" position="1.873 2.783 11.165" rotation="0 90 0" ></a-plane>
+        
+        <a-plane id="logo" width="0.1" height="0.1" material="src: #logo;" position="6.147 1.163 5.277" rotation="-90 0 0" ></a-plane>
+
         <!-- Đèn bàn -->
          <a-entity>
              <a-entity class="light" visible="false" light="type: point; intensity: 6; distance: 25; decay: 1.5; color: #ffccaa"
@@ -301,11 +303,9 @@
          </a-entity>
      
          <!-- Đèn ngủ -->
-        <a-entity>
-            <a-entity class="light" visible="false" light="type: point; intensity: 4; distance: 30; decay: 1.5; color: #ffccaa"
-            position="4.736 1.662 5.054" scale="0.5 0.5 0.5"> </a-entity>
-            <a-entity hover-highlight="title: Turn on/off; adjustTitle: 0.3; color: #4caf50" turn-the-light class="clickable" gltf-model="#model-lamp" position="4.645 0.863 4.713" scale="0.005 0.005 0.005" rotation="0 0 0"></a-entity>
-        </a-entity>
+        
+         <!-- Đèn bảng -->
+         <a-entity class="light" light="color: #f0e4b7; decay: 0.91; distance: 2.84; intensity: 0.68; type: point" position="3.7175 2.17062 9.77798" scale="0.5 0.5 0.5"> </a-entity>
 
         <!-- Mũi tên hover -->
         <a-entity>
@@ -329,7 +329,7 @@
             </a-text>
         </a-entity>
 
-        <!-- <a-entity gltf-model="#model-bookshelf" position="3.325 -0.141 9.623" scale="1 1 1" rotation="0 90 0"></a-entity> -->
+        <a-entity gltf-model="#model-board" position="1.867 2.019 9.661" scale="2.700 3.070 1" rotation="0 90 0"></a-entity>
 
         </a-scene>
 
