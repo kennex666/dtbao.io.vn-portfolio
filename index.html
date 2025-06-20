@@ -80,8 +80,11 @@
                 <a-asset-item id="model-board" src="assets/models/Whiteboard.glb"></a-asset-item>
                 <a-asset-item id="model-bonsai" src="assets/models/Bonsai.glb"></a-asset-item>
                 <a-asset-item id="model-guitar" src="assets/models/Guitar.glb"></a-asset-item>
+                <a-asset-item id="model-headphone" src="assets/models/Headphones.glb"></a-asset-item>
+                <a-asset-item id="model-ball" src="assets/models/Football.glb"></a-asset-item>
                 <a-asset-item id="model-tank" src="assets/models/Tank.glb"></a-asset-item>
                 <a-asset-item id="model-soldier" src="assets/models/Soldier.glb"></a-asset-item>
+                <a-asset-item id="model-boxes" src="assets/models/CardboardBoxes.glb"></a-asset-item>
 
                 <!-- Mixin  -->
                 <a-mixin id="hexagon"
@@ -106,7 +109,7 @@
             look-controls="enabled: true" 
             raycaster="objects: .clickable" 
             cursor="fuse: false; rayOrigin: mouse" 
-            wasd-controls lock-camera position="8.379 1.8 8.201"></a-entity>
+            wasd-controls lock-camera position="8.379 1.9 8.201"></a-entity>
 
             <!-- World here (❁´◡`❁) -->
 
@@ -135,8 +138,8 @@
             
             <!-- Picture frame -->
             <a-entity>
-                <a-entity gltf-model="#model-pictureframe" position="6.337 1.318 4.806" scale="0.3 0.6 0.48"></a-entity>
-                <a-plane id="frame-screen" material="shader: flat; src: #computer-bg" position="6.356 1.335 4.808" rotation="" geometry="height: 0.245; width: 0.275"></a-plane>
+                <a-entity gltf-model="#model-pictureframe" position="5.63027 1.31766 4.84156" scale="0.3 0.6 0.48" rotation="0 -70 10"></a-entity>
+                <a-plane id="frame-screen" material="shader: flat; src: #computer-bg" position="5.65461 1.33331 4.8414" rotation="-10.24 20 0" geometry="height: 0.245; width: 0.275"></a-plane>
             </a-entity>
 
             <!-- Bonsai -->
@@ -144,11 +147,15 @@
             <a-entity gltf-model="#model-bonsai" position="8.778 1.46078 4.65582" scale="0.3 0.3 0.3" rotation="0 160 0"></a-entity>
 
              
-            <a-entity gltf-model="#model-guitar" position="2.00008 1.14225 4.94932" scale="1.4 1.4 1.4" rotation="-6 90 0"></a-entity>
+            <a-entity gltf-model="#model-guitar" position="2.00008 1.93378 5.19422" scale="1.4 1.4 1.4" rotation="-6 90 0"></a-entity>
+            
+            <a-entity gltf-model="#model-ball" position="2.10559 0.23173 4.64923" scale="0.05 0.05 0.05"></a-entity>
 
-            <a-entity gltf-model="#model-soldier" position="5.44674 0.38589 4.98354" scale="0.02 0.02 0.02" rotation="0 -13.57 0"></a-entity>
-            <a-entity gltf-model="#model-tank" position="5.42132 0.11425 5.0018" scale="0.1 0.1 0.1" rotation="0 140 0"></a-entity>
+            <a-entity gltf-model="#model-boxes" position="5.56048 0.00314 4.7791" scale="0.69 0.8 0.6"></a-entity>
+            <a-entity gltf-model="#model-headphone" position="6.307 1.15858 4.53124" scale="2.4 2.4 2.4" rotation="-20 0 0"></a-entity>
 
+            <a-entity gltf-model="#model-soldier" position="8.7698 1.30576 5.0811" scale="0.01 0.01 0.01" rotation="0 -65 0"></a-entity>
+            <a-entity gltf-model="#model-tank" position="8.76543 1.16118 5.06438" scale="0.05 0.05 0.05" rotation="0 30 0"></a-entity>
             <a-entity gltf-model="#model-cat" position="6.455 -0.250 9.623" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity>
 
             <a-entity gltf-model="#model-socket" position="4.368 1.077 4.414" scale="0.910 1 0.76" rotation="0 -90 0"></a-entity>
