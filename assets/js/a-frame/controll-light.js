@@ -10,24 +10,25 @@ AFRAME.registerComponent("turn-the-light", {
 	},
 });
 
+// Tuongw tacs
 AFRAME.registerComponent("hover-highlight", {
 	schema: {
 		title: {
 			type: "string",
-			default: ""
+			default: "",
 		},
 		description: {
 			type: "string",
-			default: ""
+			default: "",
 		},
 		color: {
 			type: "string",
-			default: ""
+			default: "#ffffff",
 		},
 		adjustTitle: {
 			type: "number",
-			default: 0
-		}
+			default: 0,
+		},
 	},
 	init: function () {
 		const el = this.el;
@@ -43,7 +44,7 @@ AFRAME.registerComponent("hover-highlight", {
 
 			// Tính bounding box trong không gian thế giới
 			box.setFromObject(el.object3D);
-			
+
 			const topPosition = new THREE.Vector3(
 				(box.min.x + box.max.x) / 2,
 				box.max.y + 0.2,
@@ -51,11 +52,10 @@ AFRAME.registerComponent("hover-highlight", {
 			);
 
 			arrow.object3D.position.copy(topPosition);
-			
+
 			arrow.setAttribute("visible", true);
 
-			if (this.data.title){
-				
+			if (this.data.title) {
 				const topPosition2 = new THREE.Vector3(
 					(box.min.x + box.max.x) / 2,
 					box.max.y + 0.5 + this.data.adjustTitle,
@@ -65,6 +65,7 @@ AFRAME.registerComponent("hover-highlight", {
 				text.object3D.position.copy(topPosition2);
 				text.setAttribute("visible", true);
 				text.setAttribute("value", this.data.title);
+				text.setAttribute("color", this.data.color);
 			}
 		});
 
@@ -72,7 +73,7 @@ AFRAME.registerComponent("hover-highlight", {
 			if (!isHovering || !arrow) return;
 			isHovering = false;
 
-			if (this.data.title){
+			if (this.data.title) {
 				text.setAttribute("visible", false);
 			}
 			arrow.setAttribute("visible", false);

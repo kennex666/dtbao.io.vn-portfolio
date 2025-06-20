@@ -6,5 +6,11 @@ const GRAPHIC_ENUM = {
 }
 const settings = {
     audio: false,
-    graphic: GRAPHIC_ENUM.medium
+    graphic: GRAPHIC_ENUM.medium,
+    controllers: {
+        changeGraphic: (level) => {
+            settings.graphic = level;
+            scene.emit("graphic-changed", { level }, false);
+        }
+    }
 }
