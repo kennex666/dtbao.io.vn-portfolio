@@ -1,5 +1,8 @@
 <html lang="en">
 	<head>
+        <noscript>
+            <meta http-equiv="refresh" content="0; url=/nojs.html" />
+        </noscript>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Duong Thai Bao | Developer</title>
@@ -33,11 +36,58 @@
 		<script src="https://unpkg.com/@c-frame/aframe-physics-system@4.2.2/dist/aframe-physics-system.min.js"></script>
         <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script>
         <script src="https://unpkg.com/aframe-render-order-component@1.1.0/dist/aframe-render-order-component.min.js"></script> 
+        <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
 
         <style>
             .a-enter-vr{
                 display: none;
             }
+            .watermark {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                z-index: 9999;
+                pointer-events: none;
+                user-select: none;
+                filter: invert(1) brightness(2);
+                animation: pulse 4s ease-in-out infinite;
+                opacity: 1;
+            }
+
+            .watermark.hidden {
+                opacity: 0;
+            }
+
+            .watermark img {
+                display: none;
+                width: auto;
+                height: auto;
+                max-width: 250px;
+                max-height: none;
+            }
+
+            .watermark img.active {
+                display: block;
+            }
+
+            #watermark-hover-area {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100px;
+                height: 100px;
+                z-index: 9998;
+            }
+
+            @keyframes pulse {
+                0%, 100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.3;
+                }
+            }
+
         </style>
 	</head>
 
@@ -50,6 +100,9 @@
                 <img id="wall-m" src="assets/images/materials/wood.jpg">
                 <img id="computer-bg" src="assets/images/hdr/cpt-bg.jpg">
                 <img id="logo" src="assets/images/logo.png">
+                <img id="giaykhen_kn" src="assets/images/giaykhen_kn.jpg">
+                <img id="giaygdsc" src="assets/images/giay_gdsc.jpg">
+                <img id="giaywtm" src="assets/images/giay_wtm.jpg">
                 <!-- Model  -->
                 <a-asset-item id="model-forest1" src="assets/models/frs/forest1.glb"></a-asset-item>
                 <a-asset-item id="model-chair" src="assets/models/Chair.glb"></a-asset-item>
@@ -85,6 +138,7 @@
                 <a-asset-item id="model-tank" src="assets/models/Tank.glb"></a-asset-item>
                 <a-asset-item id="model-soldier" src="assets/models/Soldier.glb"></a-asset-item>
                 <a-asset-item id="model-boxes" src="assets/models/CardboardBoxes.glb"></a-asset-item>
+                <a-asset-item id="model-frame" src="assets/models/Frame.glb"></a-asset-item>
 
                 <!-- Mixin  -->
                 <a-mixin id="hexagon"
@@ -109,7 +163,8 @@
             look-controls="enabled: true" 
             raycaster="objects: .clickable" 
             cursor="fuse: false; rayOrigin: mouse" 
-            wasd-controls lock-camera position="8.379 1.9 8.201"></a-entity>
+            lock-camera position="8.320 2.100 11.519"
+            custom-look></a-entity>
 
             <!-- World here (❁´◡`❁) -->
 
@@ -119,7 +174,7 @@
             <!-- Tường trái  color="#FCDCB1"-->
                 <a-box material="src: #wall-m" position="1.812 1.519 7.971" rotation="0 -90 0" width="7.230" height="4.550" depth="0.05" shadow></a-box> 
             <!-- Sàn nhà color="#D4BEAA" -->
-                <a-box material="src: #floor-m" width="7.420" height="7.230" depth="0.100" position="5.463 0.001 7.981" rotation="-90 0 0"></a-box>
+                <a-box id="floor" visible="false" material="src: #floor-m" width="7.420" height="7.230" depth="0.100" position="5.463 0.001 7.981" rotation="-90 0 0"></a-box>
             
             
             <!-- Outsite -->
@@ -139,7 +194,7 @@
             <!-- Picture frame -->
             <a-entity>
                 <a-entity gltf-model="#model-pictureframe" position="5.63027 1.31766 4.84156" scale="0.3 0.6 0.48" rotation="0 -70 10"></a-entity>
-                <a-plane id="frame-screen" material="shader: flat; src: #computer-bg" position="5.65461 1.33331 4.8414" rotation="-10.24 20 0" geometry="height: 0.245; width: 0.275"></a-plane>
+                <a-plane id="frame-screen" material="src: #computer-bg" position="5.65461 1.33331 4.8414" rotation="-10.24 20 0" geometry="height: 0.245; width: 0.275"></a-plane>
             </a-entity>
 
             <!-- Bonsai -->
@@ -235,6 +290,7 @@
                 <a-entity hover-highlight="title: Visitors" class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
                 <a-entity firefly="spread: 0.2; count: 20; size: 0.007; randomSize: 0.001; light: true;" position="0 0.12 0"></a-entity>
             </a-entity>
+        
             <!-- Ánh sáng -->
            <!-- <a-light type="ambient" color="#fff" intensity="2"></a-light> -->
             <!-- <a-light type="directional" color="#fff" intensity="1.2" position="5 10 -5" target="#target"></a-light> -->
@@ -258,7 +314,7 @@
                 position="7.394 3.738 9.146">
             </a-light>
             <!-- sáng trắng ấm -->
-            <a-light type="ambient" color="#fef6e4" intensity="0.1"></a-light>
+            <a-light type="ambient" color="#fef6e4" intensity="0.280"></a-light>
 
             
 
@@ -298,9 +354,9 @@
         </a-light>
 
         <!-- logo -->
-        <a-plane id="logo" width="0.1" height="0.1" material="src: #logo;" position="1.873 2.783 11.165" rotation="0 90 0" ></a-plane>
+        <a-plane width="0.1" height="0.1" material="src: #logo;" position="1.876 2.783 11.165" rotation="0 90 0" ></a-plane>
         
-        <a-plane id="logo" width="0.1" height="0.1" material="src: #logo;" position="6.147 1.163 5.277" rotation="-90 0 0" ></a-plane>
+        <a-plane width="0.1" height="0.1" material="src: #logo;" position="6.147 1.163 5.277" rotation="-90 0 0" ></a-plane>
 
         <!-- Đèn bàn -->
          <a-entity>
@@ -312,8 +368,7 @@
          <!-- Đèn ngủ -->
         
          <!-- Đèn bảng -->
-         <a-entity class="light" light="color: #f0e4b7; decay: 0.91; distance: 2.84; intensity: 0.68; type: point" position="3.7175 2.17062 9.77798" scale="0.5 0.5 0.5"> </a-entity>
-
+         <a-entity class="light" light="color: #f0e4b7; decay: 1.52; distance: 4.33; intensity: 1; type: point" position="3.88907 2.17062 9.77798" scale="0.5 0.5 0.5"> </a-entity>
         <!-- Mũi tên hover -->
         <a-entity>
             <a-entity id="hover-arrow"
@@ -337,10 +392,61 @@
         </a-entity>
 
         <a-entity gltf-model="#model-board" position="1.867 2.019 9.661" scale="2.700 3.070 1" rotation="0 90 0"></a-entity>
+        <a-plane id="board_screen" width="0.5" height="0.3" position="1.875 2.019 9.661" rotation="0 90 0" geometry="height: 1.69; width: 3.17" material="src: assets/images/boards/board_step_1.png"></a-plane>
+        <!-- Tường ghi chú -->
+        <a-entity>
+            <a-plane width="0.5" height="0.3" position="1.85823 2.61969 7.44678" rotation="-180 -90 0" geometry="width: 0.4"></a-plane>
+            <a-text value="Hihi" color="black" align="center" position="1.85823 2.61969 7.44678" rotation="0 90 0" scale="0.3 0.3 0.3"></a-text> 
+        </a-entity>
 
+        <!-- Certificate -->
+        <a-entity>
+            <a-plane material="color: #ffffff; src: #giaygdsc" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
+            <a-entity gltf-model="#model-frame" position="5.98106 2.59227 4.42252" scale="1.43 0.93 1"></a-entity>      
+        </a-entity>
+        
+        <a-entity>
+            <a-plane material="color: #ffffff; src: #giaykhen_kn" position="7.19763 2.59612 4.43263" geometry="width: 1.414" scale="0.6 0.6 0.6"></a-plane>
+            <a-entity gltf-model="#model-frame" position="7.19828 2.59227 4.42252" scale="1.35 0.93 1"></a-entity>
+        </a-entity>
+        
+        <a-entity>
+            <a-plane material="color: #ffffff; src: #giaywtm" position="8.3696 2.58829 4.433" geometry="width: 1.366" scale="0.6 0.6 0.6"></a-plane>
+            <a-entity gltf-model="#model-frame" position="8.36251 2.59227 4.42252" scale="1.32 0.93 1"></a-entity>
+        </a-entity>
+
+
+
+            <!-- Intro -->
+             
+        <a-cylinder id="intro__range" position="7.08655 1.8961 10.16491" radius="4" height="7" material="opacity: 1; side: back; color: #222; opacity: 0.850">
+        </a-cylinder>
+
+        <a-troika-text
+            id="intro__text"
+            value="Đang khởi động..."
+            align="center"
+            position="6.711 1.984 9.87"
+            rotation="-25.019 2.59 -2.194"
+            font-size="0.16"
+            max-width="3"
+            look-at="#camera"
+            shader="flat"
+            color="#fff"
+            fill-opacity="1"
+            animation__blink="property: fill-opacity; from: 1; to: 0.5; dur: 3000; dir: alternate; loop: true">
+        </a-troika-text>
         </a-scene>
 
-	</body>
+        <!-- Vùng hover "kích hoạt lại" watermark -->
+        <div id="watermark-hover-area"></div>
+        <div class="watermark">
+            <img src="assets/images/watermark/guide_1.png" alt="Guide 1">
+            <img src="assets/images/watermark/guide_2.png" alt="Guide 1">
+        </div>
+        
+
+    </body>
 
     <script src="assets/js/settings.js"></script>
     <script src="assets/js/a-frame/controll-light.js"></script>
@@ -348,7 +454,55 @@
     <script src="assets/js/a-frame/firefly.js"></script>
     <script src="assets/js/controllBar.js"></script>
     <script src="assets/js/a-frame/clock.js"></script>
+    <script src="assets/js/a-frame/custom-look.js"></script>
     <script src="assets/js/index.js"></script>
+
+    <script>
+        const images = document.querySelectorAll('.watermark img');
+        const watermark = document.querySelector('.watermark');
+        const hoverArea = document.getElementById('watermark-hover-area');
+    
+        let index = 0;
+        let cycleCount = 0;
+        let maxCycles = 2;
+        let interval = null;
+    
+        function rotateWatermark() {
+            images.forEach((img, i) => {
+                img.classList.toggle('active', i === index);
+            });
+            index = (index + 1) % images.length;
+    
+            if (index === 0) {
+                cycleCount++;
+                if (cycleCount >= maxCycles) {
+                    stopWatermark();
+                }
+            }
+        }
+    
+        function startWatermark() {
+            if (interval) return; // tránh gọi lại nếu đã chạy
+    
+            watermark.style.display="block"
+            index = 0;
+            cycleCount = 0;
+            rotateWatermark();
+            interval = setInterval(rotateWatermark, 5500);
+        }
+    
+        function stopWatermark() {
+            clearInterval(interval);
+            interval = null;
+            watermark.style.display="none";
+        }
+        // Khi hover vào vùng góc dưới, watermark hiện lại
+        hoverArea.addEventListener('mouseenter', () => {
+            startWatermark();
+        });
+    </script>
+    
+    
     <footer>
     </footer>
 </html>
