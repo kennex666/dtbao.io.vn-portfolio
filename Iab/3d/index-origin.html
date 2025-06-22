@@ -1,0 +1,122 @@
+<html lang="en">
+	<head>
+		<noscript>
+			<meta http-equiv="refresh" content="0; url=/nojs.html" />
+		</noscript>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Duong Thai Bao | Developer</title>
+		<meta
+			name="description"
+			content="Portfolio 3D của Dương Thái Bảo ヾ(≧▽≦*)o | Jasper Kennex (@Kennex666)"
+		/>
+		<meta
+			name="keywords"
+			content="Duong Thai Bao, developer, portfolio, Kennex666, Jasper Kennex, Kennex"
+		/>
+		<meta name="author" content="Duong Thai Bao (Jasper Kennex)" />
+		<meta property="og:title" content="Duong Thai Bao | Developer" />
+		<meta
+			property="og:description"
+			content="Portfolio 3D của Dương Thái Bảo ヾ(≧▽≦*)o | Jasper Kennex (@Kennex666)"
+		/>
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://dtbao.io.vn" />
+		<meta
+			property="og:image"
+			content="https://dtbao.io.vn/assets/images/player-card-min.png"
+		/>
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Duong Thai Bao | Developer" />
+		<meta
+			name="twitter:description"
+			content="Portfolio 3D của Dương Thái Bảo ヾ(≧▽≦*)o | Jasper Kennex (@Kennex666)"
+		/>
+		<meta
+			name="twitter:image"
+			content="https://dtbao.io.vn/assets/images/player-card-min.png"
+		/>
+		<meta name="application-name" content="Bao's Portfolio" />
+		<meta name="generator" content="A-Frame, Three.js, HTML5, JavaScript" />
+
+		<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+		<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+	</head>
+	<body>
+		<div id="session-error">
+			<h2>⚠️ Invalid Session</h2>
+			<p>Your session is invalid or has expired.<br>
+			Please <a href="#" onclick="location.reload()">click here</a> to try again.</p>
+		</div>
+		<style>
+			#session-error {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background-color: #fff0f0;
+				border: 2px solid #ff4d4f;
+				color: #a8071a;
+				width: 90%;
+				max-width: 480px;
+				padding: 30px 20px;
+				border-radius: 12px;
+				text-align: center;
+				font-family: 'Segoe UI', sans-serif;
+				box-shadow: 0 4px 16px rgba(255, 77, 79, 0.2);
+				z-index: 9999;
+				animation: popin 0.4s ease-out;
+				display: none;
+			}
+
+			#session-error h2 {
+				font-size: 24px;
+				margin-bottom: 16px;
+				color: #cf1322;
+			}
+
+			#session-error p {
+				font-size: 16px;
+				line-height: 1.6;
+			}
+
+			#session-error a {
+				font-weight: bold;
+				color: #cf1322;
+				text-decoration: underline;
+				cursor: pointer;
+			}
+
+			@keyframes popin {
+				0% {
+					transform: translate(-50%, -60%) scale(0.9);
+					opacity: 0;
+				}
+				100% {
+					transform: translate(-50%, -50%) scale(1);
+					opacity: 1;
+				}
+			}
+		</style>
+
+		<script>
+			const params = new URLSearchParams(window.location.search);
+
+			const id = params.get("x-authorize-id");
+			
+			if (id) {
+				document.getElementById("session-error").style.display = "block";
+
+				console.log("SSID have been deactivated", id)
+			} else {
+				function gssid() {
+					sessionId = crypto.randomUUID?.() || Math.random().toString(36).substring(2);
+					return sessionId;
+				}
+				const mySessionId = gssid();
+				console.log("No sssid: create")
+				window.location.href="/lab/3d/?x-authorize-id=" + mySessionId;
+			}
+		</script>
+	</body>
+</html>

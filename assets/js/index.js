@@ -20,6 +20,20 @@ function loadScript (element, current = 0, options = {}){
 }
 
 const sceneScript = {
+	dev: {
+		init: () => {
+			const text = document.querySelector("#intro__text");
+			const introRange = document.querySelector("#intro__range");
+			const floor = document.querySelector("#floor");
+			text.setAttribute("visible", "false");
+			startWatermark();
+			camera.setAttribute("wasd-controls", "enabled: true");
+			introRange.setAttribute("visible", false);
+			floor.setAttribute("visible", true);
+		},
+		detroy: () => {
+		},
+	},
 	firstTime: {
 		script: [
 			{
@@ -114,11 +128,11 @@ window.onload = () => {
 
     if (camera.hasLoaded) {
         camera.emit("update-xy", { x: -0.076, y: 0.766 });
-        sceneScript.welcomeBack.init();
+        sceneScript.dev.init();
     } else {
         camera.addEventListener("loaded", () => {
             camera.emit("update-xy", { x: -0.076, y: 0.766 });
-            sceneScript.welcomeBack.init();
+            sceneScript.dev.init();
         });
     }
 }

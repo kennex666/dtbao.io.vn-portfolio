@@ -51,7 +51,7 @@
                 user-select: none;
                 filter: invert(1) brightness(2);
                 animation: pulse 4s ease-in-out infinite;
-                opacity: 1;
+                opacity: 0.7;
             }
 
             .watermark.hidden {
@@ -81,10 +81,10 @@
 
             @keyframes pulse {
                 0%, 100% {
-                    opacity: 1;
+                    opacity: 0.7;
                 }
                 50% {
-                    opacity: 0.3;
+                    opacity: 0.2;
                 }
             }
 
@@ -133,12 +133,16 @@
                 <a-asset-item id="model-board" src="assets/models/Whiteboard.glb"></a-asset-item>
                 <a-asset-item id="model-bonsai" src="assets/models/Bonsai.glb"></a-asset-item>
                 <a-asset-item id="model-guitar" src="assets/models/Guitar.glb"></a-asset-item>
-                <a-asset-item id="model-headphone" src="assets/models/Headphones.glb"></a-asset-item>
+                <a-asset-item id="model-stereo" src="assets/models/Stereo.glb"></a-asset-item>
                 <a-asset-item id="model-ball" src="assets/models/Football.glb"></a-asset-item>
                 <a-asset-item id="model-tank" src="assets/models/Tank.glb"></a-asset-item>
                 <a-asset-item id="model-soldier" src="assets/models/Soldier.glb"></a-asset-item>
-                <a-asset-item id="model-boxes" src="assets/models/CardboardBoxes.glb"></a-asset-item>
+                <a-asset-item id="model-bookshelf" src="assets/models/Bookshelf.glb"></a-asset-item>
                 <a-asset-item id="model-frame" src="assets/models/Frame.glb"></a-asset-item>
+                <a-asset-item id="model-calendar" src="assets/models/Calendar.glb"></a-asset-item>
+                <a-asset-item id="model-pigbank" src="assets/models/Piggybank.glb"></a-asset-item>
+                <a-asset-item id="model-lampwall" src="assets/models/LampWall.glb"></a-asset-item>
+
 
                 <!-- Mixin  -->
                 <a-mixin id="hexagon"
@@ -193,21 +197,34 @@
             
             <!-- Picture frame -->
             <a-entity>
-                <a-entity gltf-model="#model-pictureframe" position="5.63027 1.31766 4.84156" scale="0.3 0.6 0.48" rotation="0 -70 10"></a-entity>
-                <a-plane id="frame-screen" material="src: #computer-bg" position="5.65461 1.33331 4.8414" rotation="-10.24 20 0" geometry="height: 0.245; width: 0.275"></a-plane>
+                <a-entity gltf-model="#model-pictureframe" position="5.36648 1.31766 4.75755" scale="0.3 0.6 0.48" rotation="0 -90 10"></a-entity>
+                <a-plane id="frame-screen" material="src: #computer-bg" position="5.38873 1.33331 4.76327" rotation="-10.24 0 0" geometry="height: 0.245; width: 0.275"></a-plane>
             </a-entity>
 
             <!-- Bonsai -->
-            
             <a-entity gltf-model="#model-bonsai" position="8.778 1.46078 4.65582" scale="0.3 0.3 0.3" rotation="0 160 0"></a-entity>
+
+            
+            <!-- To do list -->
+            <a-plane width="0.5" height="0.3" position="8.15024 1.16096 5.05375" rotation="-90 -14 0" geometry="height: 0.35; width: 0.27"></a-plane>
+
+            <!-- Note workspace -->
+            <a-entity>
+                <a-plane width="0.5" height="0.3" position="5.7996 1.79411 4.40828" geometry="width: 0.4"></a-plane>            
+                <a-plane width="0.5" height="0.3" position="8.66464 1.8187 4.40828" geometry="width: 0.4"></a-plane>
+            </a-entity>
 
              
             <a-entity gltf-model="#model-guitar" position="2.00008 1.93378 5.19422" scale="1.4 1.4 1.4" rotation="-6 90 0"></a-entity>
             
             <a-entity gltf-model="#model-ball" position="2.10559 0.23173 4.64923" scale="0.05 0.05 0.05"></a-entity>
 
-            <a-entity gltf-model="#model-boxes" position="5.56048 0.00314 4.7791" scale="0.69 0.8 0.6"></a-entity>
-            <a-entity gltf-model="#model-headphone" position="6.307 1.15858 4.53124" scale="2.4 2.4 2.4" rotation="-20 0 0"></a-entity>
+            <a-entity gltf-model="#model-bookshelf" position="5.31114 0.39626 4.6856" custom-color="color: #331A14" shadow="" rotation="0 90 0" scale="1.22 1.12 0.88"></a-entity>
+            
+            <a-entity gltf-model="#model-calendar" position="4.76535 1.15332 4.81843" shadow="" scale="0.015 0.015 0.015" rotation="0 10 0"></a-entity>
+            <a-entity gltf-model="#model-pigbank" position="5.75827 1.2744 4.75782" shadow="" scale="0.25 0.25 0.25" rotation="0 -30 0"></a-entity>
+
+            <a-entity gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"></a-entity>
 
             <a-entity gltf-model="#model-soldier" position="8.7698 1.30576 5.0811" scale="0.01 0.01 0.01" rotation="0 -65 0"></a-entity>
             <a-entity gltf-model="#model-tank" position="8.76543 1.16118 5.06438" scale="0.05 0.05 0.05" rotation="0 30 0"></a-entity>
@@ -300,10 +317,9 @@
 
             
             <!-- Sáng xanh nhẹ -->
-            <!-- <a-entity light="type: point; color: #fef6e4; intensity: 1.2; distance: 10; decay: 1.5"
-                position="7.394 3.738 9.146"
-                scale="0.5 0.5 0.5">
-            </a-entity> -->
+            <a-entity light="color: #fef6e4; decay: 2; distance: 20; intensity: 4; type: point" position="5.42627 3.33935 7.86563" scale="0.5 0.5 0.5">
+            </a-entity>
+
             <a-light
                 type="point"
                 color="#fcd5ce"          
@@ -360,8 +376,8 @@
 
         <!-- Đèn bàn -->
          <a-entity>
-             <a-entity class="light" visible="false" light="type: point; intensity: 6; distance: 25; decay: 1.5; color: #ffccaa"
-             position="8.063 1.686 4.940" scale="0.5 0.5 0.5"> </a-entity>
+             <a-entity class="light" visible="false" light="color: #ffccaa; decay: 3.16; distance: 20; intensity: 1.95; type: point" position="7.96972 1.50853 5.04942" scale="0.19 0.27 0.19"> </a-entity>
+             
              <a-entity hover-highlight="title: Turn on/off" turn-the-light class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
          </a-entity>
      
@@ -380,39 +396,54 @@
                 animation__scale="property: scale; from: 1 1 1; to: 1.3 1.3 1.3; dur: 1500; loop: true; dir: alternate">
             </a-entity>
         
-            <a-text id="hover-text"
-                value="Hello, Bảo!"
+            <a-troika-text id="hover-text"
+                value="not-set"
                 look-at="#camera"
                 color="#fff"
-                scale="1 1 1"
                 visible="false"
                 align="center"
-	            render-order="10">
-            </a-text>
+                font-size="0.16"
+                max-width="3"
+	            render-order="10"
+                stroke-width="0.001">
+            </a-troika-text>
         </a-entity>
 
         <a-entity gltf-model="#model-board" position="1.867 2.019 9.661" scale="2.700 3.070 1" rotation="0 90 0"></a-entity>
+
+        <a-entity>
+            <a-entity gltf-model="#model-lampwall" position="1.82037 3.09881 11.1405" rotation="0 -90 0" force-flat-shader></a-entity>
+            <a-entity gltf-model="#model-lampwall" position="1.82037 3.09881 8.16895" rotation="0 -90 0" force-flat-shader></a-entity>
+
+            <a-light position="3.2078 3.34189 11.4609" type="point" light="color: #fef6e4; decay: 1.5; distance: 10; intensity: 1.4" scale="0.04 0.04 0.04"></a-light>
+            <a-light position="3.2078 3.34189 7.95726" type="point" light="color: #fef6e4; decay: 1.5; distance: 3; intensity: 1.4" scale="0.04 0.04 0.04"></a-light>
+        </a-entity>
+
+
         <a-plane id="board_screen" width="0.5" height="0.3" position="1.875 2.019 9.661" rotation="0 90 0" geometry="height: 1.69; width: 3.17" material="src: assets/images/boards/board_step_1.png"></a-plane>
-        <!-- Tường ghi chú -->
+
+        <!-- Tường ghi chú | Giấy notes -->
         <a-entity>
             <a-plane width="0.5" height="0.3" position="1.85823 2.61969 7.44678" rotation="-180 -90 0" geometry="width: 0.4"></a-plane>
             <a-text value="Hihi" color="black" align="center" position="1.85823 2.61969 7.44678" rotation="0 90 0" scale="0.3 0.3 0.3"></a-text> 
         </a-entity>
 
         <!-- Certificate -->
-        <a-entity>
-            <a-plane material="color: #ffffff; src: #giaygdsc" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
-            <a-entity gltf-model="#model-frame" position="5.98106 2.59227 4.42252" scale="1.43 0.93 1"></a-entity>      
-        </a-entity>
-        
-        <a-entity>
-            <a-plane material="color: #ffffff; src: #giaykhen_kn" position="7.19763 2.59612 4.43263" geometry="width: 1.414" scale="0.6 0.6 0.6"></a-plane>
-            <a-entity gltf-model="#model-frame" position="7.19828 2.59227 4.42252" scale="1.35 0.93 1"></a-entity>
-        </a-entity>
-        
-        <a-entity>
-            <a-plane material="color: #ffffff; src: #giaywtm" position="8.3696 2.58829 4.433" geometry="width: 1.366" scale="0.6 0.6 0.6"></a-plane>
-            <a-entity gltf-model="#model-frame" position="8.36251 2.59227 4.42252" scale="1.32 0.93 1"></a-entity>
+        <a-entity position="-0.018 -0.140 0">
+            <a-entity>
+                <a-plane class="clickable" redirect="url: https://developers.google.com/community" hover-highlight="title: Chapter Lead 23-24 @ Industrial University of HCMC - Google Developer Student Clubs; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;" material="color: #ffffff; src: #giaygdsc" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
+                <a-entity gltf-model="#model-frame" position="5.98106 2.59227 4.42252" scale="1.43 0.93 1"></a-entity>      
+            </a-entity>
+            
+            <a-entity>
+                <a-plane class="clickable" redirect="url: https://tinhdoanbinhphuoc.vn/tin-tuc-doan-hoi-doi/cuoc-thi-khoi-nghiep-doi-moi-sang-tao-tinh-binh-phuoc-lan-thu-i-nam-2021-4390.html"  hover-highlight="title: Won the top 3 in the 1st startup innovation competition in Bình Phước province, Vietnam; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #giaykhen_kn" position="7.19763 2.59612 4.43263" geometry="width: 1.414" scale="0.6 0.6 0.6"></a-plane>
+                <a-entity gltf-model="#model-frame" position="7.19828 2.59227 4.42252" scale="1.35 0.93 1"></a-entity>
+            </a-entity>
+            
+            <a-entity>
+                <a-plane class="clickable" redirect="url: https://wtmhcmc.com/" hover-highlight="title: Member @ Women Techmakers Ho Chi Minh city; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #giaywtm" position="8.3696 2.58829 4.433" geometry="width: 1.366" scale="0.6 0.6 0.6"></a-plane>
+                <a-entity gltf-model="#model-frame" position="8.36251 2.59227 4.42252" scale="1.32 0.93 1"></a-entity>
+            </a-entity>
         </a-entity>
 
 
@@ -442,7 +473,9 @@
         <div id="watermark-hover-area"></div>
         <div class="watermark">
             <img src="assets/images/watermark/guide_1.png" alt="Guide 1">
-            <img src="assets/images/watermark/guide_2.png" alt="Guide 1">
+            <img src="assets/images/watermark/guide_2.png" alt="Guide 2">
+            <img src="assets/images/watermark/guide_3.png" alt="Guide 3">
+            <img src="assets/images/watermark/guide_4.png" alt="Guide 4">
         </div>
         
 
@@ -464,7 +497,7 @@
     
         let index = 0;
         let cycleCount = 0;
-        let maxCycles = 2;
+        let maxCycles = 1;
         let interval = null;
     
         function rotateWatermark() {
@@ -494,7 +527,13 @@
         function stopWatermark() {
             clearInterval(interval);
             interval = null;
-            watermark.style.display="none";
+            images.forEach((img, i) => {
+                img.classList.toggle('active', i === images.length-1);
+            });
+
+            setTimeout(() => {
+                watermark.style.display="none";
+            }, 10000)
         }
         // Khi hover vào vùng góc dưới, watermark hiện lại
         hoverArea.addEventListener('mouseenter', () => {
