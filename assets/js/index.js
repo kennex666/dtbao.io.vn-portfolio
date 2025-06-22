@@ -27,7 +27,7 @@ const sceneScript = {
 			const floor = document.querySelector("#floor");
 			text.setAttribute("visible", "false");
 			startWatermark();
-			camera.setAttribute("wasd-controls", "enabled: true");
+			camera.setAttribute("wasd-controls", "enabled: true; acceleration: 24");
 			introRange.setAttribute("visible", false);
 			floor.setAttribute("visible", true);
 		},

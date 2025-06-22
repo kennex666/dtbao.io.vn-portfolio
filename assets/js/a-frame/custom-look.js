@@ -8,6 +8,12 @@ AFRAME.registerComponent("custom-look", {
 				lookControls.yawObject.rotation.y = t.detail.y;
 			}
 		});
+		window.addEventListener("wheel", (e) => {
+			const dir = e.deltaY > 0 ? -0.2 : 0.2; 
+			const pos = this.el.getAttribute("position");
+			pos.y += dir;
+			this.el.setAttribute("position", pos);
+		});
 	},
 	getCurrentRotation: function () {
 		let lookControls = this.el.components["look-controls"];
