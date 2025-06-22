@@ -29,6 +29,22 @@ AFRAME.registerComponent("hover-highlight", {
 			type: "number",
 			default: 0,
 		},
+		enabledLookAt: {
+			type: "boolean",
+			default: true,
+		},
+		rotation: {
+			type: "string",
+			default: "",
+		},
+		fontSize: {
+			type: "number",
+			default: 0.16,
+		},
+		maxWidth: {
+			type: "number",
+			default: 3
+		},
 	},
 	init: function () {
 		const el = this.el;
@@ -63,9 +79,24 @@ AFRAME.registerComponent("hover-highlight", {
 				);
 
 				text.object3D.position.copy(topPosition2);
-				text.setAttribute("visible", true);
-				text.setAttribute("value", this.data.title);
 				text.setAttribute("color", this.data.color);
+				text.setAttribute("max-width", this.data.maxWidth);
+				text.setAttribute("font-size", this.data.fontSize);
+				text.setAttribute("value", this.data.title);
+				if (this.data.enabledLookAt) {
+					text.setAttribute("look-at", "#camera");
+				} else {
+					text.removeAttribute("look-at");
+					this.data.rotation &&
+						text.setAttribute(
+							"rotation",
+							this.data.rotation.toString().trim()
+						);
+				}
+				
+				setTimeout(() => {
+					text.setAttribute("visible", true);
+				}, 1);
 			}
 		});
 
@@ -80,3 +111,17 @@ AFRAME.registerComponent("hover-highlight", {
 		});
 	},
 });
+
+AFRAME.registerComponent("redirect", {
+	schema: {
+		url: {
+			type: "string",
+			default: "#"
+		}
+	},
+	init: function(){
+		this.el.addEventListener("click", () =>{
+			window.open(this.data.url, "__blank");
+		})
+	}
+})
