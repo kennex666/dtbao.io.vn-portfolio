@@ -103,6 +103,7 @@
                 <img id="giaykhen_kn" src="assets/images/giaykhen_kn.jpg">
                 <img id="giaygdsc" src="assets/images/giay_gdsc.jpg">
                 <img id="giaywtm" src="assets/images/giay_wtm.jpg">
+                <img id="img-to-do-list" src="assets/images/to-do-list.jpg">
                 <!-- Model  -->
                 <a-asset-item id="model-forest1" src="assets/models/frs/forest1.glb"></a-asset-item>
                 <a-asset-item id="model-chair" src="assets/models/Chair.glb"></a-asset-item>
@@ -142,6 +143,7 @@
                 <a-asset-item id="model-calendar" src="assets/models/Calendar.glb"></a-asset-item>
                 <a-asset-item id="model-pigbank" src="assets/models/Piggybank.glb"></a-asset-item>
                 <a-asset-item id="model-lampwall" src="assets/models/LampWall.glb"></a-asset-item>
+                <a-asset-item id="model-pencil" src="assets/models/Pencil.glb"></a-asset-item>
 
 
                 <!-- Mixin  -->
@@ -167,7 +169,7 @@
             look-controls="enabled: true" 
             raycaster="objects: .clickable" 
             cursor="fuse: false; rayOrigin: mouse" 
-            lock-camera position="8.320 2.100 11.519"
+            lock-camera position="8.320 2 11.519"
             custom-look></a-entity>
 
             <!-- World here (❁´◡`❁) -->
@@ -206,14 +208,17 @@
 
             
             <!-- To do list -->
-            <a-plane width="0.5" height="0.3" position="8.15024 1.16096 5.05375" rotation="-90 -14 0" geometry="height: 0.35; width: 0.27"></a-plane>
-
+            <a-plane material="src: #img-to-do-list; shader: standard" width="0.5" height="0.3" position="6.49423 1.16096 5.0309" rotation="-90 14 0" geometry="height: 0.49; width: 0.31"></a-plane>
+            <a-entity gltf-model="#model-pencil" position="6.31193 1.16263 5.12896" rotation="0 110 -90" scale="0.2 0.2 0.2"></a-entity>
             <!-- Note workspace -->
             <a-entity>
-                <a-plane width="0.5" height="0.3" position="5.7996 1.79411 4.40828" geometry="width: 0.4"></a-plane>            
+                <!-- Left note -->
+                <a-plane width="0.5" height="0.3" position="5.7996 1.794 4.40828" geometry="width: 0.4" material="color: #ffffff; emissive: #e2a1a1; emissiveIntensity: 0.22"></a-plane>
+                <a-plane width="0.1" height="0.1" material="src: #logo" position="5.65581 1.88524 4.412" geometry="height: 0.03; width: 0.03"></a-plane>
+                <a-troika-text value="Hehehhe" position="5.79866 1.76408 4.40961" troika-text="color: #242424; fontSize: 0.02; value: bao@dtbao.io.vn:~$ webver\n&gt;&gt; Recently updated: 25/06/2025\n&gt;&gt; v1.0.0\n&gt;&gt; ---------\nCopyright ©2025 Duong Thai Bao\nAll rights reserved"></a-troika-text><a-troika-text value="Hehehhe" position="5.82004 1.88475 4.41" troika-text="align: center; color: #000000; fontSize: 0.025; value: WEBSITE INFORMATION"></a-troika-text>
+                
                 <a-plane width="0.5" height="0.3" position="8.66464 1.8187 4.40828" geometry="width: 0.4"></a-plane>
             </a-entity>
-
              
             <a-entity gltf-model="#model-guitar" position="2.00008 1.93378 5.19422" scale="1.4 1.4 1.4" rotation="-6 90 0"></a-entity>
             
@@ -429,7 +434,7 @@
         </a-entity>
 
         <!-- Certificate -->
-        <a-entity position="-0.018 -0.140 0">
+        <a-entity position="-0.018 -0.214 0">
             <a-entity>
                 <a-plane class="clickable" redirect="url: https://developers.google.com/community" hover-highlight="title: Chapter Lead 23-24 @ Industrial University of HCMC - Google Developer Student Clubs; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;" material="color: #ffffff; src: #giaygdsc" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
                 <a-entity gltf-model="#model-frame" position="5.98106 2.59227 4.42252" scale="1.43 0.93 1"></a-entity>      
