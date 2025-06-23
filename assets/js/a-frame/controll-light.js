@@ -58,8 +58,11 @@ AFRAME.registerComponent("hover-highlight", {
 			if (isHovering || !arrow) return;
 			isHovering = true;
 
-			// Tính bounding box trong không gian thế giới
-			box.setFromObject(el.object3D);
+			if (settings.device == "mobile") {
+				btnUse.style.opacity = "0.6";
+			}
+				// Tính bounding box trong không gian thế giới
+				box.setFromObject(el.object3D);
 
 			const topPosition = new THREE.Vector3(
 				(box.min.x + box.max.x) / 2,
@@ -103,6 +106,10 @@ AFRAME.registerComponent("hover-highlight", {
 		el.addEventListener("mouseleave", () => {
 			if (!isHovering || !arrow) return;
 			isHovering = false;
+
+			if (settings.device == "mobile") {
+				btnUse.style.opacity = "0.3";
+			}
 
 			if (this.data.title) {
 				text.setAttribute("visible", false);
