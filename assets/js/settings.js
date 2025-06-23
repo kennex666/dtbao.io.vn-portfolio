@@ -7,6 +7,7 @@ const GRAPHIC_ENUM = {
 const settings = {
 	device: "pc",
 	audio: false,
+	isTouchable: navigator.maxTouchPoints > 0,
 	graphic: GRAPHIC_ENUM.medium,
 	controllers: {
 		changeGraphic: (level) => {

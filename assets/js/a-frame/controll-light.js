@@ -118,17 +118,3 @@ AFRAME.registerComponent("hover-highlight", {
 		});
 	},
 });
-
-AFRAME.registerComponent("redirect", {
-	schema: {
-		url: {
-			type: "string",
-			default: "#"
-		}
-	},
-	init: function(){
-		this.el.addEventListener("click", () =>{
-			window.open(this.data.url, "__blank");
-		})
-	}
-})

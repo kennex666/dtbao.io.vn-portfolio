@@ -19,10 +19,10 @@ AFRAME.registerComponent("adaptive-cursor", {
 			useFuse = true;
 		}
 		// Mobile (touch screen)
-		else if (isMobile) {
+		else if (isMobile || settings.isTouchable) {
 			rayOrigin = "entity";
 			useFuse = false;
-			btnUse.style.display = "block"
+			btnUse.style.display = "block";
 		}
 		// PC (default mouse)
 		else {
@@ -42,7 +42,7 @@ AFRAME.registerComponent("adaptive-cursor", {
 
 		settings.device = isHeadset ? "vr" : isMobile ? "mobile" : "pc";
 
-		if (settings.device != "pc"){
+		if (settings.device != "pc" || settings.isTouchable) {
 			camera.innerHTML = `<a-entity
 				a-entity=""
 				position="0 0 -1"
@@ -61,7 +61,7 @@ AFRAME.registerComponent("adaptive-cursor", {
 
 AFRAME.registerComponent("joystick-keyboard", {
 	init: function () {
-		if (navigator.maxTouchPoints === 0) return; // chỉ chạy trên thiết bị cảm ứng
+		if (!settings.isTouchable) return;
 
 		const keyMap = {
 			forward: "KeyW",
@@ -74,7 +74,7 @@ AFRAME.registerComponent("joystick-keyboard", {
 
 		const dispatchKey = (type, code) => {
 			const event = new KeyboardEvent(type, {
-				code: code,
+				code,
 				key: code.replace("Key", ""),
 				keyCode: code.charCodeAt(0),
 				bubbles: true,
@@ -96,7 +96,13 @@ AFRAME.registerComponent("joystick-keyboard", {
 		};
 
 		const zone = document.getElementById("joystick-container");
+		if (!zone) {
+			console.warn("Joystick container not found.");
+			return;
+		}
 		zone.style.display = "block";
+		zone.style.touchAction = "none"; // Ngăn browser gesture default
+		zone.style.pointerEvents = "auto"; // Đảm bảo joystick nhận touch riêng
 
 		const joystick = nipplejs.create({
 			zone: zone,
@@ -104,22 +110,46 @@ AFRAME.registerComponent("joystick-keyboard", {
 			position: { left: "5vw", bottom: "10vh" },
 			color: "white",
 			size: 100,
+			multitouch: true, // hỗ trợ đa điểm
 		});
 
+		let lastDir = {
+			forward: false,
+			backward: false,
+			left: false,
+			right: false,
+		};
+
+		const updateDirection = (angle) => {
+			const dir = {
+				forward: angle > 30 && angle < 150,
+				backward: angle > 210 && angle < 330,
+				left: angle > 120 && angle < 240,
+				right: angle < 30 || angle > 330,
+			};
+
+			for (const d in dir) {
+				if (dir[d] !== lastDir[d]) {
+					handleKeyState(d, dir[d]);
+					lastDir[d] = dir[d];
+				}
+			}
+		};
+
 		joystick.on("move", (evt, data) => {
-			const angle = data.angle.degree;
-			handleKeyState("left", angle > 120 && angle < 240);
-			handleKeyState("backward", angle > 210 && angle < 330);
-			handleKeyState("forward", angle > 30 && angle < 150);
-			handleKeyState("right", angle < 30 || angle > 330);
+			if (data?.angle?.degree != null) {
+				updateDirection(data.angle.degree);
+			}
 		});
 
 		joystick.on("end", () => {
-			Object.keys(keyMap).forEach((dir) => handleKeyState(dir, false));
+			for (const d in keyMap) {
+				handleKeyState(d, false);
+				lastDir[d] = false;
+			}
 		});
 	},
 });
-
 
 AFRAME.registerComponent("touch-drag-look", {
 	schema: {
@@ -130,17 +160,20 @@ AFRAME.registerComponent("touch-drag-look", {
 		this.yRotation = 0;
 		this.startX = 0;
 		this.startY = 0;
+		this.touchId = null;
 		this.dragging = false;
 		const isMobile = AFRAME.utils.device.isMobile();
 		const isHeadset = AFRAME.utils.device.checkHeadsetConnected();
-		
+
 		// VR headset
 		if (isHeadset) {
 			this.el.setAttribute(
-				"look-controls", "enabled: true; magicWindowTrackingEnabled: true;" )
+				"look-controls",
+				"enabled: true; magicWindowTrackingEnabled: true;"
+			);
 		}
 		// Mobile (touch screen)
-		else if (isMobile) {
+		else if (isMobile || settings.isTouchable) {
 			this.el.setAttribute(
 				"look-controls",
 				"enabled: false; magicWindowTrackingEnabled: false;"
@@ -154,7 +187,6 @@ AFRAME.registerComponent("touch-drag-look", {
 			);
 		}
 
-		
 		this.el.sceneEl.canvas.addEventListener(
 			"touchstart",
 			this.onTouchStart.bind(this),
@@ -172,31 +204,55 @@ AFRAME.registerComponent("touch-drag-look", {
 	},
 	onTouchStart: function (e) {
 		if (!this.data.enabled) return;
-		this.dragging = true;
-		this.startX = e.touches[0].clientX;
-		this.startY = e.touches[0].clientY;
-		e.preventDefault();
+		for (let i = 0; i < e.touches.length; i++) {
+			const t = e.touches[i];
+			if (t.clientX > window.innerWidth * 0.3) {
+				this.touchId = t.identifier;
+				this.startX = t.clientX;
+				this.startY = t.clientY;
+				this.dragging = true;
+				e.preventDefault();
+				break;
+			}
+		}
 	},
 	onTouchMove: function (e) {
 		if (!this.dragging) return;
 
-		const deltaX = e.touches[0].clientX - this.startX;
-		const deltaY = e.touches[0].clientY - this.startY;
+		for (let i = 0; i < e.changedTouches.length; i++) {
+			const t = e.changedTouches[i];
+			if (t.identifier == this.touchId) {
+				const deltaX = t.clientX - this.startX;
+				const deltaY = t.clientY - this.startY;
 
-		this.yRotation -= deltaX * 0.12;
-		this.xRotation -= deltaY * 0.12;
+				this.yRotation -= deltaX * 0.12;
+				this.xRotation -= deltaY * 0.12;
 
-		this.xRotation = Math.max(-90, Math.min(90, this.xRotation));
+				this.xRotation = Math.max(-90, Math.min(90, this.xRotation));
 
-		this.el.object3D.rotation.y = THREE.MathUtils.degToRad(this.yRotation);
-		this.el.object3D.rotation.x = THREE.MathUtils.degToRad(this.xRotation);
+				this.el.object3D.rotation.y = THREE.MathUtils.degToRad(
+					this.yRotation
+				);
+				this.el.object3D.rotation.x = THREE.MathUtils.degToRad(
+					this.xRotation
+				);
 
-		this.startX = e.touches[0].clientX;
-		this.startY = e.touches[0].clientY;
-		e.preventDefault();
+				this.startX = t.clientX;
+				this.startY = t.clientY;
+				e.preventDefault();
+				break;
+			}
+		}
 	},
-	onTouchEnd: function () {
-		this.dragging = false;
+	onTouchEnd: function (e) {
+		for (let i = 0; i < e.changedTouches.length; i++) {
+			const t = e.changedTouches[i];
+			if (t.identifier === this.touchId) {
+				this.dragging = false;
+				this.touchId = null;
+				break;
+			}
+		}
 	},
 });
 

@@ -123,6 +123,41 @@ const sceneScript = {
 	},
 };
 
+function createToast(message, duration = 3000) {
+	// Kiểm tra xem đã có chưa
+	let existing = document.getElementById("redirect-toast");
+	if (!existing) {
+		const toast = document.createElement("div");
+		toast.id = "redirect-toast";
+		Object.assign(toast.style, {
+			position: "fixed",
+			top: "40vh",
+			right: "20px",
+			background: "#ed5c71",
+			color: "white",
+			padding: "10px 16px",
+			borderRadius: "8px",
+			fontSize: "14px",
+			zIndex: "1000",
+			display: "none",
+			maxWidth: "80vw",
+			userSelect: "none",
+			pointerEvents: "none",
+		});
+		document.body.appendChild(toast);
+		existing = toast;
+	}
+
+	existing.textContent = message;
+	existing.style.display = "block";
+
+	// Clear cũ nếu có
+	if (createToast._timeout) clearTimeout(createToast._timeout);
+	createToast._timeout = setTimeout(() => {
+		existing.style.display = "none";
+	}, duration);
+}
+
 window.onload = () => {
     scene = document.querySelector("#scene");
     camera = document.querySelector("#camera");
