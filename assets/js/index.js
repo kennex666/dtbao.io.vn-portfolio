@@ -27,13 +27,16 @@ const sceneScript = {
 			const introRange = document.querySelector("#intro__range");
 			const floor = document.querySelector("#floor");
 			text.setAttribute("visible", "false");
+			text.removeAttribute("animation__blink");
 			startWatermark();
-			camera.setAttribute("wasd-controls", "enabled: true; acceleration: 24");
+			camera.setAttribute(
+				"wasd-controls",
+				"enabled: true; acceleration: 24"
+			);
 			introRange.setAttribute("visible", false);
 			floor.setAttribute("visible", true);
 		},
-		detroy: () => {
-		},
+		detroy: () => {},
 	},
 	firstTime: {
 		script: [
@@ -91,7 +94,8 @@ const sceneScript = {
 			const text = document.querySelector("#intro__text");
 			const introRange = document.querySelector("#intro__range");
 			const floor = document.querySelector("#floor");
-			text.setAttribute("value", "Stoped script!");
+			text.setAttribute("visible", "false");
+			text.removeAttribute("animation__blink");
 			startWatermark();
 			camera.setAttribute("wasd-controls", "enabled: true");
 			introRange.setAttribute("visible", false);
@@ -104,7 +108,7 @@ const sceneScript = {
 				time: 3000,
 				value: "👋Chào mừng trở lại ヾ(＾∇＾) ✨",
 				audio: "",
-			}
+			},
 		],
 		init: () => {
 			const text = document.querySelector("#intro__text");
@@ -115,6 +119,7 @@ const sceneScript = {
 			const introRange = document.querySelector("#intro__range");
 			const floor = document.querySelector("#floor");
 			text.setAttribute("visible", "false");
+			text.removeAttribute("animation__blink");
 			startWatermark();
 			camera.setAttribute("wasd-controls", "enabled: true");
 			introRange.setAttribute("visible", false);

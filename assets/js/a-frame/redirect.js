@@ -11,7 +11,7 @@ AFRAME.registerComponent("redirect", {
             clickCount++;
 
             if (clickCount == 1){
-                createToast("Tap again to confirm");
+                createToast("Double tap to redirect");
             } else
             if (clickCount == 2){
 			    window.open(this.data.url, "__blank");
@@ -20,7 +20,7 @@ AFRAME.registerComponent("redirect", {
 
             setTimeout(() => {
                 clickCount = 0
-            }, 500);
+            }, 700);
 		});
 	},
 });

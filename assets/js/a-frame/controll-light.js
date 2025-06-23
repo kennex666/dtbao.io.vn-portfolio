@@ -58,8 +58,9 @@ AFRAME.registerComponent("hover-highlight", {
 			if (isHovering || !arrow) return;
 			isHovering = true;
 
-			if (settings.device == "mobile") {
-				btnUse.style.opacity = "0.6";
+			if (settings.device == "mobile" || settings.isTouchable) {
+				if (btnUse?.style) 
+					btnUse.style.opacity = "0.6";
 			}
 				// Tính bounding box trong không gian thế giới
 				box.setFromObject(el.object3D);
@@ -107,8 +108,8 @@ AFRAME.registerComponent("hover-highlight", {
 			if (!isHovering || !arrow) return;
 			isHovering = false;
 
-			if (settings.device == "mobile") {
-				btnUse.style.opacity = "0.3";
+			if (settings.device == "mobile" || settings.isTouchable) {
+				if (btnUse?.style) btnUse.style.opacity = "0.3";
 			}
 
 			if (this.data.title) {
