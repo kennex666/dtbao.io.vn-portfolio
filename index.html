@@ -4,7 +4,7 @@
             <meta http-equiv="refresh" content="0; url=/nojs.html" />
         </noscript>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 		<title>Duong Thai Bao | Developer</title>
 		<meta name="description" content="Portfolio 3D của Dương Thái Bảo ヾ(≧▽≦*)o | Jasper Kennex (@Kennex666)">
 		<meta name="keywords" content="Duong Thai Bao, developer, portfolio, Kennex666, Jasper Kennex, Kennex">
@@ -37,6 +37,7 @@
         <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script>
         <script src="https://unpkg.com/aframe-render-order-component@1.1.0/dist/aframe-render-order-component.min.js"></script> 
         <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.9.0/dist/nipplejs.min.js"></script>
 
         <style>
             .a-enter-vr{
@@ -46,7 +47,7 @@
                 position: fixed;
                 bottom: 0;
                 left: 0;
-                z-index: 9999;
+                z-index: 10;
                 pointer-events: none;
                 user-select: none;
                 filter: invert(1) brightness(2);
@@ -76,7 +77,7 @@
                 left: 0;
                 width: 100px;
                 height: 100px;
-                z-index: 9998;
+                z-index: 8;
             }
 
             @keyframes pulse {
@@ -141,9 +142,10 @@
                 <a-asset-item id="model-bookshelf" src="assets/models/Bookshelf.glb"></a-asset-item>
                 <a-asset-item id="model-frame" src="assets/models/Frame.glb"></a-asset-item>
                 <a-asset-item id="model-calendar" src="assets/models/Calendar.glb"></a-asset-item>
-                <a-asset-item id="model-pigbank" src="assets/models/Piggybank.glb"></a-asset-item>
+                <a-asset-item id="model-piggybank" src="assets/models/Piggybank.glb"></a-asset-item>
                 <a-asset-item id="model-lampwall" src="assets/models/LampWall.glb"></a-asset-item>
                 <a-asset-item id="model-pencil" src="assets/models/Pencil.glb"></a-asset-item>
+                <a-asset-item id="model-vrheadset" src="assets/models/VRHeadset.glb"></a-asset-item>
 
 
                 <!-- Mixin  -->
@@ -166,12 +168,13 @@
             <a-entity 
             id="camera"
             camera
+            joystick-keyboard
             sky-boundary-check
-            look-controls="enabled: true" 
-            raycaster="objects: .clickable" 
-            cursor="fuse: false; rayOrigin: mouse" 
+            touch-drag-look
             lock-camera position="8.320 2 11.519"
-            custom-look></a-entity>
+            adaptive-cursor
+            custom-look>
+            </a-entity>
 
             <!-- World here (❁´◡`❁) -->
 
@@ -228,7 +231,9 @@
             <a-entity gltf-model="#model-bookshelf" position="5.31114 0.39626 4.6856" custom-color="color: #331A14" shadow="" rotation="0 90 0" scale="1.22 1.12 0.88"></a-entity>
             
             <a-entity gltf-model="#model-calendar" position="4.76535 1.15332 4.81843" shadow="" scale="0.015 0.015 0.015" rotation="0 10 0"></a-entity>
-            <a-entity gltf-model="#model-pigbank" position="5.75827 1.2744 4.75782" shadow="" scale="0.25 0.25 0.25" rotation="0 -30 0"></a-entity>
+            <a-entity gltf-model="#model-piggybank" position="5.75827 1.2744 4.75782" shadow="" scale="0.25 0.25 0.25" rotation="0 -30 0"></a-entity>
+
+            <a-entity hover-highlight="title: VR Headset; adjustTitle: 0.2" class="clickable" gltf-model="#model-vrheadset" position="4.87272 0.68098 4.81039" shadow="" scale="0.016 0.016 0.016"></a-entity>
 
             <a-entity gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"></a-entity>
 
@@ -454,7 +459,7 @@
 
 
 
-            <!-- Intro -->
+        <!-- Intro -->
              
         <a-cylinder id="intro__range" position="7.08655 1.8961 10.16491" radius="4" height="7" material="opacity: 1; side: back; color: #222; opacity: 0.850">
         </a-cylinder>
@@ -484,6 +489,13 @@
             <img src="assets/images/watermark/guide_4.png" alt="Guide 4">
         </div>
         
+        <!-- joystick -->
+        <div id="joystick-container" style="position: fixed; bottom: 10vh; left: 5vw; z-index: 10; display: none;"></div>
+        <div id="btn-use" style="position: fixed; bottom: 10vh; right: 5vw; z-index: 10; display: none; width: 15vh; height: 15vh; max-width: 100px; max-height: 100px; background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 0.3; text-align: center; pointer-events: none; user-select: none;">
+            <img src="assets/images/buttons/btn-use.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;">
+        </div>
+        
+
 
     </body>
 

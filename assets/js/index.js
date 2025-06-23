@@ -1,5 +1,6 @@
 var scene = null;
 var camera = null;
+var btnUse = null;
 
 function loadScript (element, current = 0, options = {}){
     if (element.script[current]?.value)
@@ -125,6 +126,7 @@ const sceneScript = {
 window.onload = () => {
     scene = document.querySelector("#scene");
     camera = document.querySelector("#camera");
+	btnUse =document.querySelector("#btn-use");
 
     if (camera.hasLoaded) {
         camera.emit("update-xy", { x: -0.076, y: 0.766 });
