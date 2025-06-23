@@ -5,6 +5,7 @@ const GRAPHIC_ENUM = {
     ultra: 4
 }
 const settings = {
+	device: "pc",
 	audio: false,
 	graphic: GRAPHIC_ENUM.medium,
 	controllers: {
