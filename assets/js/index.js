@@ -177,4 +177,11 @@ window.onload = () => {
             sceneScript.dev.init();
         });
     }
+
+	window.addEventListener("keydown", (e) => {
+		if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "i") {
+			settings.isDevMode = !settings.isDevMode;
+			console.log("Dev mode!")
+		}
+	});
 }

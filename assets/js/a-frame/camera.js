@@ -266,29 +266,29 @@ AFRAME.registerComponent("sky-boundary-check", {
 	tick() {
 		const cameraPos = this.el.object3D.position;
 		const distance = cameraPos.length();
-		if (settings.easterEggs.unlocked.includes("chien_binh_ranh_roi")) {
+		if (settings.missions.unlocked.includes("chien_binh_ranh_roi")) {
 			return;
 		}
 
 		if (
-			settings.easterEggs.sky.script.length > settings.easterEggs.sky.currentStep &&
-			distance > settings.easterEggs.sky.script[settings.easterEggs.sky.currentStep]?.boundary
+			settings.missions.sky.script.length > settings.missions.sky.currentStep &&
+			distance > settings.missions.sky.script[settings.missions.sky.currentStep]?.boundary
 		) {
 			// unlock thành tựu
-			if (settings.easterEggs.sky.script.length == ++settings.easterEggs.sky.currentStep)
-				settings.easterEggs.unlocked.push("chien_binh_ranh_roi");
+			if (settings.missions.sky.script.length == ++settings.missions.sky.currentStep)
+				settings.missions.unlocked.push("chien_binh_ranh_roi");
 			
 			alert(
-				settings.easterEggs.sky.script[
-					settings.easterEggs.sky.currentStep - 1
+				settings.missions.sky.script[
+					settings.missions.sky.currentStep - 1
 				]?.text
 					.replace(
 						"{easter_egg_count}",
-						settings.easterEggs.unlocked.length
+						settings.missions.unlocked.length
 					)
 					.replace(
 						"{easter_egg_total}",
-						settings.easterEggs.total.length
+						settings.missions.total.length
 					)
 			);
 		}

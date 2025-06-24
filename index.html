@@ -203,8 +203,8 @@
             
             <!-- Picture frame -->
             <a-entity>
-                <a-entity gltf-model="#model-pictureframe" position="5.36648 1.31766 4.75755" scale="0.3 0.6 0.48" rotation="0 -90 10"></a-entity>
-                <a-plane id="frame-screen" material="src: #computer-bg" position="5.38873 1.33331 4.76327" rotation="-10.24 0 0" geometry="height: 0.245; width: 0.275"></a-plane>
+                <a-entity gltf-model="#model-pictureframe" position="5.36648 1.28267 4.75755" scale="0.3 0.6 0.48" rotation="0 -90 10"></a-entity>
+                <a-plane id="frame-screen" material="src: #computer-bg" position="5.38873 1.29345 4.76327" rotation="-10.24 0 0" geometry="height: 0.245; width: 0.275"></a-plane>
             </a-entity>
 
             <!-- Bonsai -->
@@ -241,12 +241,12 @@
             <a-entity gltf-model="#model-tank" position="8.76543 1.16118 5.06438" scale="0.05 0.05 0.05" rotation="0 30 0"></a-entity>
             <a-entity gltf-model="#model-cat" position="6.455 -0.250 9.623" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity>
 
-            <a-entity gltf-model="#model-socket" position="4.368 1.077 4.414" scale="0.910 1 0.76" rotation="0 -90 0"></a-entity>
-            
+            <a-entity gltf-model="#model-socket" position="4.26565 0.81606 4.414" scale="0.91 1 0.76" rotation="0 -90 0"></a-entity>
+
             <a-entity gltf-model="#model-floatingshelf" position="3.667 2.068 4.686" scale="2.120 2.510 1.630" rotation="0 0 0"></a-entity>
             <a-entity gltf-model="#model-books" position="2.443 2.068 4.981" scale="5.730 7.120 5.240" rotation="0 180 0"></a-entity>
 
-            <a-entity hover-highlight="title: Experiences" class="clickable" gltf-model="#model-book" position="3.869 2.147 4.747" scale="0.490 0.700 0.900" rotation="0 90 90"></a-entity>
+            <a-entity hover-highlight="title: ???; color: #000;  fontSize: 0.4;" class="clickable" gltf-model="#model-book" position="3.869 2.147 4.747" scale="0.490 0.700 0.900" rotation="0 90 90"></a-entity>
 
             <a-entity>
                 <a-entity gltf-model="#model-clock" position="4.680 2.095 4.672" scale="0.005 0.005 0.005" rotation="-90 0 90"></a-entity>
@@ -478,6 +478,14 @@
             fill-opacity="1"
             animation__blink="property: fill-opacity; from: 1; to: 0.5; dur: 3000; dir: alternate; loop: true">
         </a-troika-text>
+
+
+        <!-- Không gian tranh -->
+        <a-entity  position="10.10633 1.7835 8.99662">
+            <a-plane material="opacity: 0.7225039576514982; shader: flat; side: double; transparent: true; blending: additive; color: #b5b5b5; src: #computer-bg"geometry="height: 0.565; width: 0.795" animation__pulse="dir: alternate; dur: 1200; easing: easeInOutSine; from: 0.6; loop: true; property: material.opacity; to: 1" animation__glow="dir: alternate; dur: 1500; easing: easeInOutSine; from: 1 1 1; loop: true; property: scale; to: 1.03 1.03 1" rotation="-5.86 -65.1 0">
+            </a-plane>
+        </a-entity>
+        
         </a-scene>
 
         <!-- Vùng hover "kích hoạt lại" watermark -->
