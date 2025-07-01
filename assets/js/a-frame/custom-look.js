@@ -8,6 +8,11 @@ AFRAME.registerComponent("custom-look", {
 				lookControls.yawObject.rotation.y = t.detail.y;
 			}
 		});
+
+		el.addEventListener("update-position", function(t) {
+			camera.setAttribute("position", { x: t.detail.x, y: t.detail.y, z:  t.detail.z});
+		});
+		
 		window.addEventListener("wheel", (e) => {
 			if (settings.isDevMode)
 				return;

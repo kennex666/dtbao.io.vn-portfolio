@@ -23,6 +23,53 @@ const __gallery = [
 		]
 	},
 ];
+AFRAME.registerComponent("gallery-vr", {
+    init: function (){
+        this.isOpen = false;
+        this.galleryVR = document.querySelector("#gallery-vr");
+
+        this.galleryVRCircle = document.querySelector(".vr-headset-hidden");
+
+
+        this.el.addEventListener("click", () => {
+            const overlay = document.querySelector(".fade-overlay-gallery");
+            this.isOpen = !this.isOpen;
+            this.galleryVR.setAttribute("visible", this.isOpen);
+            this.galleryVRCircle.setAttribute("visible", this.isOpen);
+            this.el.setAttribute("visible", !this.isOpen);
+            this.el.setAttribute(
+				"hover-highlight",
+				!this.isOpen
+					? "title: Jasper Quest 9; adjustTitle: 0.2"
+					: "title: Put it back after use; adjustTitle: 0.2"
+			);
+
+            if (this.isOpen){
+                camera.emit("update-xy", {
+					x: -0.11, y: -1.574});
+                camera.emit("update-position", {
+					x: 7.947,
+					y: 2.2,
+					z: 8.717,
+				});
+                overlay.setAttribute("visible", true);
+                setTimeout(() => {
+                    overlay.setAttribute("animation", {
+						property: "material.opacity",
+						from: 1,
+						to: 0,
+						dur: 1000,
+						easing: "easeOutQuad",
+					});
+                }, 1)
+                setTimeout(() => {
+                    overlay.setAttribute("visible", false);
+                    overlay.removeAttribute("animation");
+                }, 1010)
+            }
+        })
+    }
+})
 
 AFRAME.registerComponent("gallery-component", {
 	init: function () {
@@ -41,11 +88,33 @@ AFRAME.registerComponent("gallery-component", {
         this.btnPrevious.addEventListener("click", () => {
 			this.switchAlbum(-1);
 		});
+
+        this.el.addEventListener("componentchanged", (e) => {
+			if (e.detail.name === "visible") {
+				console.log(
+					"[Gallery] Visibility changed:",
+					this.el.getAttribute("visible")
+				);
+				if (this.el.getAttribute("visible")) {
+					this.renderAlbum(this.currentAlbumId);
+				} else {
+                    this.listImages.innerHTML = null;
+                }
+			}
+		});
+        
         
        this.renderAlbum(0);
 	},
     renderAlbum: function(id = 0){
         
+        if (!this.el.getAttribute("visible")){
+            console.log("[Gallery] Not visible")
+            return;
+        } else {
+            console.log("[Gallery] Rendering!")
+        }
+
         this.listImages.innerHTML = this.createImageListDom(
 			__gallery[id].images
 		);

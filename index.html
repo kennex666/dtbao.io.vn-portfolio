@@ -234,7 +234,10 @@
             <a-entity gltf-model="#model-calendar" position="4.76535 1.15332 4.81843" shadow="" scale="0.015 0.015 0.015" rotation="0 10 0"></a-entity>
             <a-entity gltf-model="#model-piggybank" position="5.75827 1.2744 4.75782" shadow="" scale="0.25 0.25 0.25" rotation="0 -30 0"></a-entity>
 
-            <a-entity hover-highlight="title: VR Headset; adjustTitle: 0.2" class="clickable" gltf-model="#model-vrheadset" position="4.87272 0.68098 4.81039" shadow="" scale="0.016 0.016 0.016"></a-entity>
+            <a-entity>
+                <a-entity gallery-vr hover-highlight="title: Jasper Quest 9; adjustTitle: 0.2" class="clickable" gltf-model="#model-vrheadset" position="4.87272 0.68098 4.81039" shadow="" scale="0.016 0.016 0.016"></a-entity>
+                <a-entity visible="false" class="vr-headset-hidden" geometry="primitive: ring; radiusInner: 0.45; radiusOuter: 0.5; segmentsTheta: 24" material="shader: flat; color: #f29c9c" position="4.89078 0.7266 4.73637" rotation="-90 0 0" scale="0.4 0.4 0.5"></a-entity>
+            </a-entity>
 
             <a-entity gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"></a-entity>
 
@@ -466,8 +469,9 @@
 
 
             <!-- Không gian tranh -->
-            <a-entity gallery-component="" position="10.10633 2.00498 8.99662">
+            <a-entity visible="false" class="fade-overlay-gallery" geometry="primitive: plane; height: 2; width: 2" material="shader: flat; color: #ffffff; opacity: 1; transparent: true; depthTest: false" position="7.98696 2.2 8.717" rotation="0 -90 0"></a-entity>
 
+            <a-entity id="gallery-vr" visible="false" gallery-component="" position="10.10633 2.00498 8.99662">
                 <a-entity class="list-images">
                 </a-entity>
                 
