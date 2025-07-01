@@ -7,13 +7,16 @@ function formatDateTime(date, blinding) {
 const Clock = {
 	clock: null,
 
-	init: (obj) => {
+	init: (element) => {
         let blinding = false;
-		this.clock = setInterval(() => {
-            obj.setAttribute("value", formatDateTime(new Date(), blinding));
+		Clock.clock = setInterval(() => {
+            element.setAttribute("value", formatDateTime(new Date(), blinding));
             blinding = !blinding;
 		}, 1000);
 	},
+	detroy: () => {
+		clearInterval(Clock.clock);
+	}
 };
 
 AFRAME.registerComponent("clock-controllers", {

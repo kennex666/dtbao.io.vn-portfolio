@@ -31,8 +31,9 @@ const sceneScript = {
 			startWatermark();
 			camera.setAttribute(
 				"wasd-controls",
-				"enabled: true; acceleration: 24"
+				`enabled: true; acceleration: ${settings.speed.walk}`
 			);
+			camera.setAttribute("position", `8.320 ${settings.cameraHeight} 11.519`);
 			introRange.setAttribute("visible", false);
 			floor.setAttribute("visible", true);
 		},
