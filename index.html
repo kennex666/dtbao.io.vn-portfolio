@@ -105,6 +105,7 @@
                 <img id="giaygdsc" src="assets/images/giay_gdsc.jpg">
                 <img id="giaywtm" src="assets/images/giay_wtm.jpg">
                 <img id="img-to-do-list" src="assets/images/to-do-list.jpg">
+                <img id="arrow-gallery" src="assets/images/buttons/arrow-gallery.png">
                 <!-- Model  -->
                 <a-asset-item id="model-forest1" src="assets/models/frs/forest1.glb"></a-asset-item>
                 <a-asset-item id="model-chair" src="assets/models/Chair.glb"></a-asset-item>
@@ -180,11 +181,11 @@
 
             <!-- Nhà -->
             <!-- Tường phải -->
-                <a-box material="src: #wall-m" position="5.475 1.519 4.379" width="7.39" height="4.550" depth="0.05" shadow></a-box>
+            <a-box material="src: #wall-m" position="5.475 1.519 4.379" width="7.39" height="4.550" depth="0.05" shadow></a-box>
             <!-- Tường trái  color="#FCDCB1"-->
-                <a-box material="src: #wall-m" position="1.812 1.519 7.971" rotation="0 -90 0" width="7.230" height="4.550" depth="0.05" shadow></a-box> 
+            <a-box material="src: #wall-m" position="1.812 1.519 7.971" rotation="0 -90 0" width="7.230" height="4.550" depth="0.05" shadow></a-box> 
             <!-- Sàn nhà color="#D4BEAA" -->
-                <a-box id="floor" visible="false" material="src: #floor-m" width="7.420" height="7.230" depth="0.100" position="5.463 0.001 7.981" rotation="-90 0 0"></a-box>
+            <a-box id="floor" visible="false" material="src: #floor-m" width="7.420" height="7.230" depth="0.100" position="5.463 0.001 7.981" rotation="-90 0 0"></a-box>
             
             
             <!-- Outsite -->
@@ -223,7 +224,7 @@
                 
                 <a-plane width="0.5" height="0.3" position="8.66464 1.8187 4.40828" geometry="width: 0.4"></a-plane>
             </a-entity>
-             
+            
             <a-entity gltf-model="#model-guitar" position="2.00008 1.93378 5.19422" scale="1.4 1.4 1.4" rotation="-6 90 0"></a-entity>
             
             <a-entity gltf-model="#model-ball" position="2.10559 0.23173 4.64923" scale="0.05 0.05 0.05"></a-entity>
@@ -305,29 +306,19 @@
                     scale="0.200 0.040 0.100">
                     </a-entity>
                 </a-entity>
-
-
+                
                 <a-entity gltf-model="#model-table" position="6.710 0.489 9.799" scale="1.6 1.1 1.6" rotation="0 0 0"></a-entity>
                 <a-entity gltf-model="#model-stool" position="5.719 0.041 9.824" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
                 <a-entity gltf-model="#model-stool" position="7.713 0.041 9.839" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
                 <a-entity gltf-model="#model-stool" position="6.723 0.041 8.757" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
                 <a-entity gltf-model="#model-stool" position="6.748 0.041 10.754" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
+                </a-entity>
+                <a-entity position="6.649 1.078 10.287">
+                    <a-entity hover-highlight="title: Visitors" class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
+                    <a-entity firefly="spread: 0.2; count: 20; size: 0.007; randomSize: 0.001; light: true;" position="0 0.12 0"></a-entity>
             </a-entity>
-
-            <a-entity position="6.649 1.078 10.287">
-                <a-entity hover-highlight="title: Visitors" class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
-                <a-entity firefly="spread: 0.2; count: 20; size: 0.007; randomSize: 0.001; light: true;" position="0 0.12 0"></a-entity>
-            </a-entity>
-        
-            <!-- Ánh sáng -->
-           <!-- <a-light type="ambient" color="#fff" intensity="2"></a-light> -->
-            <!-- <a-light type="directional" color="#fff" intensity="1.2" position="5 10 -5" target="#target"></a-light> -->
-
-            <!-- Một bóng đèn chill -->
-                
-
             
-            <!-- Sáng xanh nhẹ -->
+            <!-- Ánh sáng môi trường -->      
             <a-entity light="color: #fef6e4; decay: 2; distance: 20; intensity: 4; type: point" position="5.42627 3.33935 7.86563" scale="0.5 0.5 0.5">
             </a-entity>
 
@@ -343,11 +334,11 @@
             <!-- sáng trắng ấm -->
             <a-light type="ambient" color="#fef6e4" intensity="0.280"></a-light>
 
-            
-
+                
+                    
 
             <!-- Ánh sáng từ đèn tổ ong -->
-             <a-entity position="0.979 -0.004 0">
+            <a-entity position="0.979 -0.004 0">
                 <a-entity mixin="hexagon" position="2.807 3.524 4.409"></a-entity>
                 <a-entity mixin="hexagon" position="3.549 3.514 4.409"></a-entity>
                 <a-entity mixin="hexagon" position="2.993 3.210 4.409"></a-entity>
@@ -360,135 +351,139 @@
                 <a-entity mixin="hexagon" position="3.924 2.892 4.409"></a-entity>
                 <a-entity mixin="hexagon" position="3.361 2.575 4.409"></a-entity>
                 <a-entity mixin="hexagon" position="4.116 2.575 4.409"></a-entity>
-             </a-entity>
+            </a-entity>
 
-        <!-- Tương tác -->
-             
-         <!-- Màn hình -->
-        <a-entity>
-             <a-plane id="computer-screen"
-             width="1.100" height="0.610"
-             material="src: #computer-bg; shader: flat"
-             position="7.151 1.669 4.713" scale="1 1 1"></a-plane>
-            <!-- Đèn màn hình -->
-            <a-light type="point"
-            color="#ffffff"
-            intensity="2"
-            distance="25"
-            decay="2"
-            position="7.156 1.669 5.842">
-           </a-entity>
-        </a-light>
+            <!-- Màn hình -->
+            <a-entity>
+                <a-plane id="computer-screen"
+                width="1.100" height="0.610"
+                material="src: #computer-bg; shader: flat"
+                position="7.151 1.669 4.713" scale="1 1 1"></a-plane>
+                <a-light type="point"
+                color="#ffffff"
+                intensity="2"
+                distance="25"
+                decay="2"
+                position="7.156 1.669 5.842">
+            </a-entity>
+            </a-light>
 
-        <!-- logo -->
-        <a-plane width="0.1" height="0.1" material="src: #logo;" position="1.876 2.783 11.165" rotation="0 90 0" ></a-plane>
-        
-        <a-plane width="0.1" height="0.1" material="src: #logo;" position="6.147 1.163 5.277" rotation="-90 0 0" ></a-plane>
+            <!-- Logo -->
+            <a-plane width="0.1" height="0.1" material="src: #logo;" position="1.876 2.783 11.165" rotation="0 90 0" ></a-plane>
+            <a-plane width="0.1" height="0.1" material="src: #logo;" position="6.147 1.163 5.277" rotation="-90 0 0" ></a-plane>
 
-        <!-- Đèn bàn -->
-         <a-entity>
-             <a-entity class="light" visible="false" light="color: #ffccaa; decay: 3.16; distance: 20; intensity: 1.95; type: point" position="7.96972 1.50853 5.04942" scale="0.19 0.27 0.19"> </a-entity>
-             
-             <a-entity hover-highlight="title: Turn on/off" turn-the-light class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
-         </a-entity>
-     
-         <!-- Đèn ngủ -->
-        
-         <!-- Đèn bảng -->
-         <a-entity class="light" light="color: #f0e4b7; decay: 1.52; distance: 4.33; intensity: 1; type: point" position="3.88907 2.17062 9.77798" scale="0.5 0.5 0.5"> </a-entity>
-        <!-- Mũi tên hover -->
-        <a-entity>
-            <a-entity id="hover-arrow"
-                geometry="primitive: cone; radiusBottom: 0.05; radiusTop: 0; height: 0.15"
-                material="color: yellow; emissive: yellow; emissiveIntensity: 0.6"
-                rotation="180 0 0"
-                visible="false"
-                animation="property: material.emissiveIntensity; from: 0.3; to: 1.2; dir: alternate; dur: 1000; loop: true"
-                animation__scale="property: scale; from: 1 1 1; to: 1.3 1.3 1.3; dur: 1500; loop: true; dir: alternate">
+            <!-- Đèn bàn -->
+            <a-entity>
+                <a-entity class="light" visible="false" light="color: #ffccaa; decay: 3.16; distance: 20; intensity: 1.95; type: point" position="7.96972 1.50853 5.04942" scale="0.19 0.27 0.19"> </a-entity>
+                
+                <a-entity hover-highlight="title: Turn on/off" turn-the-light class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
             </a-entity>
         
-            <a-troika-text id="hover-text"
-                value="not-set"
-                look-at="#camera"
-                color="#fff"
-                visible="false"
+            <!-- Đèn bảng -->
+            <a-entity class="light" light="color: #f0e4b7; decay: 1.52; distance: 4.33; intensity: 1; type: point" position="3.88907 2.17062 9.77798" scale="0.5 0.5 0.5"> </a-entity>
+
+            <!-- Mũi tên hover -->
+            <a-entity>
+                <a-entity id="hover-arrow"
+                    geometry="primitive: cone; radiusBottom: 0.05; radiusTop: 0; height: 0.15"
+                    material="color: yellow; emissive: yellow; emissiveIntensity: 0.6"
+                    rotation="180 0 0"
+                    visible="false"
+                    animation="property: material.emissiveIntensity; from: 0.3; to: 1.2; dir: alternate; dur: 1000; loop: true"
+                    animation__scale="property: scale; from: 1 1 1; to: 1.3 1.3 1.3; dur: 1500; loop: true; dir: alternate">
+                </a-entity>
+            
+                <a-troika-text id="hover-text"
+                    value="not-set"
+                    look-at="#camera"
+                    color="#fff"
+                    visible="false"
+                    align="center"
+                    font-size="0.16"
+                    max-width="3"
+                    render-order="10"
+                    stroke-width="0.001">
+                </a-troika-text>
+            </a-entity>
+
+            <!-- Đèn bảng -->
+            <a-entity>
+                <a-entity gltf-model="#model-lampwall" position="1.82037 3.09881 11.1405" rotation="0 -90 0" force-flat-shader></a-entity>
+                <a-entity gltf-model="#model-lampwall" position="1.82037 3.09881 8.16895" rotation="0 -90 0" force-flat-shader></a-entity>
+
+                <a-light position="3.2078 3.34189 11.4609" type="point" light="color: #fef6e4; decay: 1.5; distance: 10; intensity: 1.4" scale="0.04 0.04 0.04"></a-light>
+                <a-light position="3.2078 3.34189 7.95726" type="point" light="color: #fef6e4; decay: 1.5; distance: 3; intensity: 1.4" scale="0.04 0.04 0.04"></a-light>
+            </a-entity>
+
+
+            <!-- Board -->
+            <a-plane id="board_screen" width="0.5" height="0.3" position="1.875 2.019 9.661" rotation="0 90 0" geometry="height: 1.69; width: 3.17" material="src: assets/images/boards/board_step_1.png"></a-plane>
+            <a-entity gltf-model="#model-board" position="1.867 2.019 9.661" scale="2.700 3.070 1" rotation="0 90 0"></a-entity>
+
+            <!-- Tường ghi chú | Giấy notes -->
+            <a-entity>
+                <a-plane width="0.5" height="0.3" position="1.85823 2.61969 7.44678" rotation="-180 -90 0" geometry="width: 0.4"></a-plane>
+                <a-text value="Hihi" color="black" align="center" position="1.85823 2.61969 7.44678" rotation="0 90 0" scale="0.3 0.3 0.3"></a-text> 
+            </a-entity>
+
+            <!-- Space Certificate -->
+            <a-entity position="-0.018 -0.214 0">
+                <a-entity>
+                    <a-plane class="clickable" redirect="url: https://developers.google.com/community" hover-highlight="title: Chapter Lead 23-24 @ Industrial University of HCMC - Google Developer Student Clubs; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;" material="color: #ffffff; src: #giaygdsc" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
+                    <a-entity gltf-model="#model-frame" position="5.98106 2.59227 4.42252" scale="1.43 0.93 1"></a-entity>      
+                </a-entity>
+                
+                <a-entity>
+                    <a-plane class="clickable" redirect="url: https://tinhdoanbinhphuoc.vn/tin-tuc-doan-hoi-doi/cuoc-thi-khoi-nghiep-doi-moi-sang-tao-tinh-binh-phuoc-lan-thu-i-nam-2021-4390.html"  hover-highlight="title: Won the top 3 in the 1st startup innovation competition in Bình Phước province, Vietnam; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #giaykhen_kn" position="7.19763 2.59612 4.43263" geometry="width: 1.414" scale="0.6 0.6 0.6"></a-plane>
+                    <a-entity gltf-model="#model-frame" position="7.19828 2.59227 4.42252" scale="1.35 0.93 1"></a-entity>
+                </a-entity>
+                
+                <a-entity>
+                    <a-plane class="clickable" redirect="url: https://wtmhcmc.com/" hover-highlight="title: Member @ Women Techmakers Ho Chi Minh city; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #giaywtm" position="8.3696 2.58829 4.433" geometry="width: 1.366" scale="0.6 0.6 0.6"></a-plane>
+                    <a-entity gltf-model="#model-frame" position="8.36251 2.59227 4.42252" scale="1.32 0.93 1"></a-entity>
+                </a-entity>
+            </a-entity>
+
+
+
+            <!-- Intro space -->
+            <a-cylinder id="intro__range" position="7.08655 1.8961 10.16491" radius="4" height="7" material="opacity: 1; side: back; color: #222; opacity: 0.850">
+            </a-cylinder>
+            <a-troika-text
+                id="intro__text"
+                value="Đang khởi động..."
                 align="center"
+                position="6.711 1.984 9.87"
+                rotation="-25.019 2.59 -2.194"
                 font-size="0.16"
                 max-width="3"
-	            render-order="10"
-                stroke-width="0.001">
+                look-at="#camera"
+                shader="flat"
+                color="#fff"
+                fill-opacity="1"
+                animation__blink="property: fill-opacity; from: 1; to: 0.5; dur: 3000; dir: alternate; loop: true">
             </a-troika-text>
-        </a-entity>
-
-        <a-entity gltf-model="#model-board" position="1.867 2.019 9.661" scale="2.700 3.070 1" rotation="0 90 0"></a-entity>
-
-        <a-entity>
-            <a-entity gltf-model="#model-lampwall" position="1.82037 3.09881 11.1405" rotation="0 -90 0" force-flat-shader></a-entity>
-            <a-entity gltf-model="#model-lampwall" position="1.82037 3.09881 8.16895" rotation="0 -90 0" force-flat-shader></a-entity>
-
-            <a-light position="3.2078 3.34189 11.4609" type="point" light="color: #fef6e4; decay: 1.5; distance: 10; intensity: 1.4" scale="0.04 0.04 0.04"></a-light>
-            <a-light position="3.2078 3.34189 7.95726" type="point" light="color: #fef6e4; decay: 1.5; distance: 3; intensity: 1.4" scale="0.04 0.04 0.04"></a-light>
-        </a-entity>
 
 
-        <a-plane id="board_screen" width="0.5" height="0.3" position="1.875 2.019 9.661" rotation="0 90 0" geometry="height: 1.69; width: 3.17" material="src: assets/images/boards/board_step_1.png"></a-plane>
+            <!-- Không gian tranh -->
+            <a-entity gallery-component="" position="10.10633 2.00498 8.99662">
 
-        <!-- Tường ghi chú | Giấy notes -->
-        <a-entity>
-            <a-plane width="0.5" height="0.3" position="1.85823 2.61969 7.44678" rotation="-180 -90 0" geometry="width: 0.4"></a-plane>
-            <a-text value="Hihi" color="black" align="center" position="1.85823 2.61969 7.44678" rotation="0 90 0" scale="0.3 0.3 0.3"></a-text> 
-        </a-entity>
-
-        <!-- Certificate -->
-        <a-entity position="-0.018 -0.214 0">
-            <a-entity>
-                <a-plane class="clickable" redirect="url: https://developers.google.com/community" hover-highlight="title: Chapter Lead 23-24 @ Industrial University of HCMC - Google Developer Student Clubs; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;" material="color: #ffffff; src: #giaygdsc" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
-                <a-entity gltf-model="#model-frame" position="5.98106 2.59227 4.42252" scale="1.43 0.93 1"></a-entity>      
+                <a-entity class="list-images">
+                </a-entity>
+                
+                <a-image class="clickable btn-previous" src="#arrow-gallery" material="opacity: 0.8536138369375914; blending: additive; color: #b5b5b5" geometry="height: 0.11; width: 0.174" animation__pulse="dir: alternate; dur: 1200; easing: easeInOutSine; from: 0.6; loop: true; property: material.opacity; to: 1" animation__glow="dir: alternate; dur: 1500; easing: easeInOutSine; from: 1 1 1; loop: true; property: scale; to: 1.03 1.03 1" rotation="10 90 0" position="-0.7166 -0.55264 -0.75587">
+                </a-image>
+                <a-image class="clickable btn-next" src="#arrow-gallery" material="opacity: 0.9446519627592906; blending: additive; color: #b5b5b5" geometry="height: 0.11; width: 0.174" rotation="-10 -90 0" position="-0.717 -0.55264 0.27614">
+                </a-image>
+                
+                <a-troika-text class="gallery-title" value="GDG Devfest 2025" align="center" rotation="11.14574652753213 -90 -2.431273137783164e-15" position="-0.66511 0.46787 -0.22405" font-size="0.12" max-width="3" shader="flat" color="#fff" fill-opacity="0.9752355887014752" animation__blink="dir: alternate; dur: 3000; from: 1; loop: true; property: fill-opacity; to: 0.6">
+                </a-troika-text>
+                <a-troika-text class="gallery-number" value="GDG Devfest 2024" align="center" rotation="-10 -90 -2.431273137783164e-15" position="-0.74777 -0.53577 -0.22405" font-size="0.12" max-width="3" shader="flat" color="#fff" fill-opacity="0.9497780287794666" animation__blink="dir: alternate; dur: 3000; from: 1; loop: true; property: fill-opacity; to: 0.6" troika-text="fontSize: 0.07; value: 1/10">
+                </a-troika-text>
             </a-entity>
-            
-            <a-entity>
-                <a-plane class="clickable" redirect="url: https://tinhdoanbinhphuoc.vn/tin-tuc-doan-hoi-doi/cuoc-thi-khoi-nghiep-doi-moi-sang-tao-tinh-binh-phuoc-lan-thu-i-nam-2021-4390.html"  hover-highlight="title: Won the top 3 in the 1st startup innovation competition in Bình Phước province, Vietnam; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #giaykhen_kn" position="7.19763 2.59612 4.43263" geometry="width: 1.414" scale="0.6 0.6 0.6"></a-plane>
-                <a-entity gltf-model="#model-frame" position="7.19828 2.59227 4.42252" scale="1.35 0.93 1"></a-entity>
-            </a-entity>
-            
-            <a-entity>
-                <a-plane class="clickable" redirect="url: https://wtmhcmc.com/" hover-highlight="title: Member @ Women Techmakers Ho Chi Minh city; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #giaywtm" position="8.3696 2.58829 4.433" geometry="width: 1.366" scale="0.6 0.6 0.6"></a-plane>
-                <a-entity gltf-model="#model-frame" position="8.36251 2.59227 4.42252" scale="1.32 0.93 1"></a-entity>
-            </a-entity>
-        </a-entity>
-
-
-
-        <!-- Intro -->
-             
-        <a-cylinder id="intro__range" position="7.08655 1.8961 10.16491" radius="4" height="7" material="opacity: 1; side: back; color: #222; opacity: 0.850">
-        </a-cylinder>
-
-        <a-troika-text
-            id="intro__text"
-            value="Đang khởi động..."
-            align="center"
-            position="6.711 1.984 9.87"
-            rotation="-25.019 2.59 -2.194"
-            font-size="0.16"
-            max-width="3"
-            look-at="#camera"
-            shader="flat"
-            color="#fff"
-            fill-opacity="1"
-            animation__blink="property: fill-opacity; from: 1; to: 0.5; dur: 3000; dir: alternate; loop: true">
-        </a-troika-text>
-
-
-        <!-- Không gian tranh -->
-        <a-entity  position="10.10633 1.7835 8.99662">
-            <a-plane material="opacity: 0.7225039576514982; shader: flat; side: double; transparent: true; blending: additive; color: #b5b5b5; src: #computer-bg"geometry="height: 0.565; width: 0.795" animation__pulse="dir: alternate; dur: 1200; easing: easeInOutSine; from: 0.6; loop: true; property: material.opacity; to: 1" animation__glow="dir: alternate; dur: 1500; easing: easeInOutSine; from: 1 1 1; loop: true; property: scale; to: 1.03 1.03 1" rotation="-5.86 -65.1 0">
-            </a-plane>
-        </a-entity>
-        
         </a-scene>
 
-        <!-- Vùng hover "kích hoạt lại" watermark -->
+        <!-- Watermark -->
         <div id="watermark-hover-area"></div>
         <div class="watermark">
             <img src="assets/images/watermark/guide_1.png" alt="Guide 1">
@@ -507,18 +502,18 @@
 
     </body>
 
-    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/controllers/settings.js"></script>
     <script src="assets/js/a-frame/interact-items.js"></script>
     <script src="assets/js/a-frame/controllers.js"></script>
     <script src="assets/js/a-frame/firefly.js"></script>
-    <script src="assets/js/controllBar.js"></script>
     <script src="assets/js/a-frame/clock.js"></script>
     <script src="assets/js/a-frame/custom-look.js"></script>
     <script src="assets/js/a-frame/redirect.js"></script>
     <script src="assets/js/scripts/missions.js"></script>
     <script src="assets/js/a-frame/boundary-check.js"></script>
-    <script src="assets/js/watermark.js"></script>
-
+    <script src="assets/js/controllers/watermark.js"></script>
+    <script src="assets/js/controllers/media-player.js"></script>
+    <script src="assets/js/controllers/gallery.js"></script>
     
     <!-- load last -->
     <script src="assets/js/index.js"></script>
