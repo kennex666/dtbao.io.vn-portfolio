@@ -16,6 +16,8 @@ AFRAME.registerComponent("custom-look", {
 		window.addEventListener("wheel", (e) => {
 			if (settings.isDevMode)
 				return;
+			if (settings.disableScroll)
+				return;
 			const dir = e.deltaY > 0 ? -0.2 : 0.2; 
 			const pos = this.el.getAttribute("position");
 			pos.y += dir;

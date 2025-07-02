@@ -38,6 +38,7 @@
         <script src="https://unpkg.com/aframe-render-order-component@1.1.0/dist/aframe-render-order-component.min.js"></script> 
         <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.9.0/dist/nipplejs.min.js"></script>
+        <script src="https://cdn.tailwindcss.com/"></script>
 
         <style>
             .a-enter-vr{
@@ -89,10 +90,40 @@
                 }
             }
 
+            * {
+                font-family: "Patrick Hand", cursive;
+                font-style: normal;
+                letter-spacing: 0.02em;
+            }
+            .noselect {
+	            user-select: none;
+            }
+
+            [new-scroll] {
+                scroll-behavior: smooth;
+            }
+
+            [new-scroll]::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            [new-scroll]::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            [new-scroll]::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.3);
+                border-radius: 9999px;
+            }
+
+            [new-scroll]::-webkit-scrollbar-thumb:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
         </style>
 	</head>
 
-	<body style="position: relative;">
+	<body style="position: relative; margin: 0;">
         <a-scene id="scene" shadow="type: pcfsoft">
             <!-- Assets -->
             <a-assets>
@@ -500,6 +531,43 @@
         <div id="joystick-container" style="position: fixed; bottom: 10vh; left: 5vw; z-index: 10; display: none;"></div>
         <div id="btn-use" style="position: fixed; bottom: 10vh; right: 5vw; z-index: 10; display: none; width: 15vh; height: 15vh; max-width: 100px; max-height: 100px; background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 0.3; text-align: center; pointer-events: none; user-select: none;">
             <img src="assets/images/buttons/btn-use.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;">
+        </div>
+
+        <!-- Mission -->
+        <div style="position: fixed; top: 5vh; right: 5vh; z-index: 10; width: 50px; max-width: 100px;">
+           <div id="btn-missions" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+                <img src="assets/images/buttons/btn-missions.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; ">
+           </div>
+           
+           <div id="btn-home" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <img src="assets/images/ico-home.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; ">
+       </div>
+       </div>
+        </div>
+
+
+        <div id="missions" class="hidden">
+            <div class="fixed inset-0 z-[99] flex justify-center items-center bg-white/10 backdrop-blur">
+                <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer">
+                    <img src="./assets/images/buttons/btn-close.png">
+                </div>
+                <div class="relative w-[90vw] max-w-[800px] h-[90vh] aspect-[1/1]">
+                    <!-- Ảnh nền -->
+                    <img src="../assets/images/OpenBook.png"
+                        class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none">
+                    <!-- Text đè theo vị trí phần trăm
+                      : debug -  border border-dashed border-red-400  -->
+                    <div class="absolute top-[20%] left-[33.5%] w-[43%] h-[68%] text-blacktext-justify overflow-y-auto" style="transform: rotateY(5deg);" new-scroll>
+
+                        <h2 class="text-5xl mb-2 text-center">Achievements</h2>
+                        <p data-missions-count class="text-xl mb-6">Đã hoàn thành: {mission_unlocked}/{missions_total}</p>
+                            
+                        <ol class="md:text-xl space-y-4" list-missions>
+                        </ol>
+                            
+                    </div>
+                </div>
+            </div>
         </div>
         
 

@@ -1,6 +1,7 @@
 var scene = null;
 var camera = null;
 var btnUse = null;
+var btnMissions = null;
 
 function loadScript (element, current = 0, options = {}){
     if (element.script[current]?.value)
@@ -168,6 +169,12 @@ window.onload = () => {
     scene = document.querySelector("#scene");
     camera = document.querySelector("#camera");
 	btnUse =document.querySelector("#btn-use");
+	btnMissions = document.querySelector("#btn-missions");
+	const btnHome = document.querySelector("#btn-home");
+	const missionsPage = document.querySelector("#missions");
+	const listMissions = document.querySelector("[list-missions]");
+
+	const btnCloses = document.querySelectorAll("[btn-close]")
 
     if (camera.hasLoaded) {
         camera.emit("update-xy", { x: -0.076, y: 0.766 });
@@ -185,4 +192,51 @@ window.onload = () => {
 			console.log("Dev mode!")
 		}
 	});
+
+	btnMissions.addEventListener("click", (e) => {
+		settings.disableScroll = true;
+		missionsPage.classList.toggle("hidden", false);
+		btnMissions.closest("[id]").classList.toggle("noselect", false);
+
+		let dataCount = document.querySelector("[data-missions-count]");
+		dataCount.innerText = `Đã hoàn thành: ${__missions.unlocked.length}/${__missions.total.length}`
+		listMissions.innerHTML = __missions.total.map((v) => {
+			let  isUnlocked = __missions.unlocked.findIndex((val) => val == v.id) > -1;
+			if (v.isHidden && !isUnlocked) {
+				``;
+			}
+			return `
+                            <li>
+                                <div class="flex gap-x-2 items-center">
+                                    <img src="./assets/images/ico-trophy.png" class="w-12 h-12"/>
+                                    <div class="flex-1 flex">
+                                        <span>${v.display}</span>
+                                        <img src="/assets/images/ico-info.png" class="ms-2 w-3 h-3">
+                                    </div>
+                                    ${
+										isUnlocked
+											? `<img src="./assets/images/ico-done.png" class="w-12 h-12"/>`
+											: `<img src="./assets/images/ico-undone.png" class="w-12 h-12"/>`
+									}
+                                </div>
+                                <div class="text-sm md:text-base">
+                                    ${v.description}
+                                </div>
+                            </li>
+							`;
+		}).join(" ")
+	})
+
+	btnCloses.forEach(btn => {
+		btn.addEventListener("click", (e) => {
+			settings.disableScroll = false;
+			btn.closest("[id]").classList.toggle("hidden", true);
+			btn.closest("[id]").classList.toggle("noselect", true);
+		})
+	})
+
+	btnHome.addEventListener("click", () => {
+		camera.emit("update-xy", { x: -0.076, y: 0.766 });
+		camera.emit("update-position", { x: 8.32, y: 2.2, z: 11.519 });
+	})
 }

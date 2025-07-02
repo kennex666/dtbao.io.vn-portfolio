@@ -9,6 +9,7 @@ const settings = {
 	speed: {
 		walk: 20,
 	},
+	disableScroll: false,
 	cameraHeight: 2.2,
 	device: "pc",
 	audio: false,
