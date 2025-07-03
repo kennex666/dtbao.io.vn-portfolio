@@ -238,7 +238,9 @@ window.onload = () => {
 
 		let dataCount = document.querySelector("[data-missions-count]");
 		dataCount.innerText = `Đã hoàn thành: ${__missions.unlocked.length}/${__missions.total.length}`
-		listMissions.innerHTML = __missions.total.sort((a, b) => {
+		listMissions.innerHTML = __missions.total.sort((a,b) => {
+			return a.rating - b.rating;
+		}).sort((a, b) => {
 			if (a.done && a.done == b.done){
 				return 0;
 			}
@@ -247,27 +249,83 @@ window.onload = () => {
 			if (b.done)
 				return 1;
 			return 0;
+		}).sort((a, b) => {
+			if (a.isHidden && a.isHidden == b.isHidden) {
+				return 0;
+			}
+			if (a.isHidden) return 1;
+			if (b.isHidden) return -1;
+			return 0;
 		}).map((v) => {
 			let  isUnlocked = __missions.unlocked.findIndex((val) => val == v.id) > -1;
-			if (v.isHidden && !isUnlocked) {
-				``;
+			if (v.isHidden) {
+				return `<li>
+                                <div class="flex gap-x-2 items-center mb-1">
+                                    <img src="${
+										isUnlocked
+											? v.unlockico || "./assets/images/ico-unlockee02.gif"
+											: "./assets/images/ico-easteregg.png"
+									}" class="w-12 h-12"/>
+                                    <div class="flex-1 flex">
+                                        <span>${
+											v.done
+												? `${v.display} (#${
+													__missions.getMission(
+														v.id
+													).index
+											  })`
+												: `Easter egg (#${
+														__missions.getMission(
+															v.id
+														).index
+												  })`
+										}</span>
+                                        <img src="/assets/images/ico-info.png" class="ms-2 w-3 h-3">
+                                    </div>
+									<img src="
+                                    ${
+										isUnlocked
+											? "./assets/images/ico-done.png"
+											: "./assets/images/ico-undone.png"
+									}" class="w-12 h-12"/>
+                                </div>
+                                <div class="text-sm md:text-base ${
+									v.done ? "" : "h-4 bg-[#1a1b30]"
+								}">
+                                    ${v.done ? v.description : ""}
+                                </div>
+                            </li>`;
 			}
 			return `
                             <li>
-                                <div class="flex gap-x-2 items-center">
-                                    <img src="./assets/images/ico-trophy.png" class="w-12 h-12"/>
+                                <div class="flex gap-x-2 items-center mb-1">
+                                    <img src="${
+										isUnlocked
+											? "./assets/images/ico-trophy.png"
+											: "./assets/images/ico-lock.png"
+									}" class="w-12 h-12"/>
                                     <div class="flex-1 flex">
                                         <span>${v.display}</span>
                                         <img src="/assets/images/ico-info.png" class="ms-2 w-3 h-3">
                                     </div>
-                                    ${
+									<img src="${
 										isUnlocked
-											? `<img src="./assets/images/ico-done.png" class="w-12 h-12"/>`
-											: `<img src="./assets/images/ico-undone.png" class="w-12 h-12"/>`
-									}
+											? "./assets/images/ico-done.png"
+											: "./assets/images/ico-undone.png"
+									}" class="w-12 h-12"/>
+                                    
                                 </div>
                                 <div class="text-sm md:text-base">
-                                    ${v.description}
+                                    ${
+										v.done
+											? v.description
+											: `[Độ khó: ${
+													v.rating || "unk"
+											  }/5] ${
+													v.hint ||
+													"Làm gì có gợi ý ~"
+											  }`
+									}
                                 </div>
                             </li>
 							`;
