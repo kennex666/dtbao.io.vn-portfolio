@@ -1,19 +1,21 @@
 const __missions = {
-    loadNotification: (mission) => {
-        setTimeout(() => {
-            createDoneToast(mission.data);
-            setTimeout( ( ) => {
-                __missions.queueNotification =
-                    __missions.queueNotification.filter(
-                        (v) => v.index != mission.index
-                    );
-                if (__missions.queueNotification.length){
-                    __missions.loadNotification(__missions.queueNotification[0]);
-                }
-            }, 5500)
-        }, 200);
-    },
-    queueNotification: [],
+	loadNotification: (mission) => {
+		setTimeout(() => {
+			createDoneToast(mission.data);
+			setTimeout(() => {
+				__missions.queueNotification =
+					__missions.queueNotification.filter(
+						(v) => v.index != mission.index
+					);
+				if (__missions.queueNotification.length) {
+					__missions.loadNotification(
+						__missions.queueNotification[0]
+					);
+				}
+			}, 5500);
+		}, 200);
+	},
+	queueNotification: [],
 	getMission: (id) => {
 		const index = __missions.total.findIndex((v) => v.id == id);
 		if (index == -1) {
@@ -27,19 +29,15 @@ const __missions = {
 	unlockMission: (id) => {
 		const mission = __missions.getMission(id);
 
-		if (!mission) 
-            return;
-		if (__missions.unlocked.findIndex((v) => v == id) != -1) 
-            return;
-        __missions.queueNotification.push(mission);
+		if (!mission) return;
+		if (__missions.unlocked.findIndex((v) => v == id) != -1) return;
+		__missions.queueNotification.push(mission);
 		__missions.unlocked.push(id);
 		__missions.total[mission.index].done = true;
 
-    
-        if (__missions.queueNotification[0].index == mission.index)
-        {
-            __missions.loadNotification(mission)
-        }
+		if (__missions.queueNotification[0].index == mission.index) {
+			__missions.loadNotification(mission);
+		}
 	},
 	unlocked: [],
 	total: [
@@ -61,9 +59,10 @@ const __missions = {
 			display: "Cửu Xúc Chi Ước",
 			rating: 5,
 			isHidden: true,
+			unlockico: "./assets/images/ico-unlockee01.gif",
 			description:
 				"Gì thế lữ khách? 9 lần? Đó là cách gọi ta xuất hiện, ta - Jasper Kennex - Số 09 đến đây ⚽",
-			hint: "Hehehe, hãy đoán mò đi",
+			hint: "Easter egg này thuộc portfolio 2D, đoán mò đi, hẹ hẹ hẹ",
 		},
 		{
 			id: "kham_pha_van_vat",
@@ -205,6 +204,7 @@ const __missions = {
 			display: "Ký Ức Đêm Lành",
 			rating: 5,
 			isHidden: true,
+			unlockico: "./assets/images/ico-unlockee-mrcm.png",
 			description:
 				"Tháng 12 rồi sao? Tôi làm trang này từ đầu tháng 06/2025 và lúc viết nhiệm vụ này là lúc 23/06/2025. Thời gian thấm thoát thoi đưa, ayyyy... Lên chủ đề Noel thôi~",
 			hint: "🎄",
@@ -215,6 +215,7 @@ const __missions = {
 			display: "Hôm Nay Là Một Câu Chuyện",
 			rating: 5,
 			isHidden: true,
+			unlockico: "./assets/images/ico-unlockee-hpbd.gif",
 			description:
 				"Cuộc hành trình bắt đầu vào một ngày như hôm nay, và sẽ viết tiếp những câu chuyện cho những người muốn khám phá.",
 			hint: "🎂",
