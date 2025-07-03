@@ -165,6 +165,44 @@ function createToast(message, duration = 3000) {
 	}, duration);
 }
 
+function createDoneToast(data, duration = 5000) {
+	// Kiểm tra xem đã có chưa
+	let existing = document.getElementById("done-toast");
+
+	if (!existing) {
+		const toast = document.createElement("div");
+		toast.id = "done-toast";
+		toast.classList =
+			"top-[10vh] left-[20px] fixed bg-white w-[30vw] p-4 rounded-lg text-[#536493]";
+		document.body.appendChild(toast);
+		existing = toast;
+	}
+	existing.classList.toggle("hidden", false);
+	existing.classList.toggle("mission-popup", true);
+
+	existing.innerHTML = `
+                <div class="flex gap-x-3 items-center mb-2">
+                    <img src="/assets/images/ico-trophy.png" class="w-10 h-10"/>
+                    <div class="flex-1 flex text-2xl font-semibold">
+                        <span>${data.display}</span>
+                    </div>
+                </div>
+                <div>
+                    ${data.description}
+                </div>
+		`;
+	// Clear cũ nếu có
+	if (createDoneToast._timeout) clearTimeout(createDoneToast._timeout);
+	createDoneToast._timeout = setTimeout(() => {
+		setTimeout(() => {
+			existing.classList.toggle("mission-popoff", false);
+			existing.classList.toggle("mission-popup", false);
+			existing.classList.toggle("hidden", true);
+		}, 100)
+		existing.classList.toggle("mission-popoff", true);
+	}, duration);
+}
+
 window.onload = () => {
     scene = document.querySelector("#scene");
     camera = document.querySelector("#camera");
@@ -200,7 +238,16 @@ window.onload = () => {
 
 		let dataCount = document.querySelector("[data-missions-count]");
 		dataCount.innerText = `Đã hoàn thành: ${__missions.unlocked.length}/${__missions.total.length}`
-		listMissions.innerHTML = __missions.total.map((v) => {
+		listMissions.innerHTML = __missions.total.sort((a, b) => {
+			if (a.done && a.done == b.done){
+				return 0;
+			}
+			if (a.done)
+				return -1;
+			if (b.done)
+				return 1;
+			return 0;
+		}).map((v) => {
 			let  isUnlocked = __missions.unlocked.findIndex((val) => val == v.id) > -1;
 			if (v.isHidden && !isUnlocked) {
 				``;
