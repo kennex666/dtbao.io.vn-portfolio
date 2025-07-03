@@ -90,6 +90,29 @@
                 }
             }
 
+            .mission-popup {
+                animation: mission-pop 100ms ease-in;
+            }
+            @keyframes mission-pop{
+                0% {
+                    transform: translateX(-30vw);
+                }
+                100% {
+                }
+            }
+
+            .mission-popoff {
+                animation: mission-popoff 100ms ease-in;
+            }
+            @keyframes mission-popoff{
+                0% {
+                }
+                100% {
+                    transform: translateX(-30vw);
+                }
+            }
+
+
             * {
                 font-family: "Patrick Hand", cursive;
                 font-style: normal;
@@ -240,7 +263,7 @@
             </a-entity>
 
             <!-- Bonsai -->
-            <a-entity gltf-model="#model-bonsai" position="8.778 1.46078 4.65582" scale="0.3 0.3 0.3" rotation="0 160 0"></a-entity>
+            <a-entity class="clickable" mission-click="missionId: su_tich_cay_bonsai;" gltf-model="#model-bonsai" position="8.778 1.46078 4.65582" scale="0.3 0.3 0.3" rotation="0 160 0"></a-entity>
 
             
             <!-- To do list -->
@@ -266,14 +289,14 @@
             <a-entity gltf-model="#model-piggybank" position="5.75827 1.2744 4.75782" shadow="" scale="0.25 0.25 0.25" rotation="0 -30 0"></a-entity>
 
             <a-entity>
-                <a-entity gallery-vr hover-highlight="title: Jasper Quest 9; adjustTitle: 0.2" class="clickable" gltf-model="#model-vrheadset" position="4.87272 0.68098 4.81039" shadow="" scale="0.016 0.016 0.016"></a-entity>
+                <a-entity class="clickable" mission-click="missionId: phong_tranh_ao;" gallery-vr hover-highlight="title: Jasper Quest 9; adjustTitle: 0.2" class="clickable" gltf-model="#model-vrheadset" position="4.87272 0.68098 4.81039" shadow="" scale="0.016 0.016 0.016"></a-entity>
                 <a-entity visible="false" class="vr-headset-hidden" geometry="primitive: ring; radiusInner: 0.45; radiusOuter: 0.5; segmentsTheta: 24" material="shader: flat; color: #f29c9c" position="4.89078 0.7266 4.73637" rotation="-90 0 0" scale="0.4 0.4 0.5"></a-entity>
             </a-entity>
 
             <a-entity gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"></a-entity>
 
-            <a-entity gltf-model="#model-soldier" position="8.7698 1.30576 5.0811" scale="0.01 0.01 0.01" rotation="0 -65 0"></a-entity>
-            <a-entity gltf-model="#model-tank" position="8.76543 1.16118 5.06438" scale="0.05 0.05 0.05" rotation="0 30 0"></a-entity>
+            <a-entity class="clickable" mission-click="missionId: sy_quan;" gltf-model="#model-soldier" position="8.7698 1.30576 5.0811" scale="0.01 0.01 0.01" rotation="0 -65 0"></a-entity>
+            <a-entity class="clickable" mission-click="missionId: sy_quan;" gltf-model="#model-tank" position="8.76543 1.16118 5.06438" scale="0.05 0.05 0.05" rotation="0 30 0"></a-entity>
             <a-entity gltf-model="#model-cat" position="6.455 -0.250 9.623" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity>
 
             <a-entity gltf-model="#model-socket" position="4.26565 0.81606 4.414" scale="0.91 1 0.76" rotation="0 -90 0"></a-entity>
@@ -309,8 +332,8 @@
             <!-- Bộ bàn ghế -->
             <a-entity>
                 <a-entity position="0 0 -0.232">
-                    <a-entity gltf-model="#model-flower" position="6.713 1.487 9.795" scale="0.2 0.2 0.2" rotation="0 0 -12.160"></a-entity>
-                    <a-entity gltf-model="#model-vase" force-shadow position="6.710 1.164 9.799" scale="1.6 1.000 1.6" rotation="0 0 0"></a-entity>
+                    <a-entity class="clickable" mission-click="missionId: hoa_hong_cua_me" gltf-model="#model-flower" position="6.713 1.487 9.795" scale="0.2 0.2 0.2" rotation="0 0 -12.160"></a-entity>
+                    <a-entity class="clickable" gltf-model="#model-vase" force-shadow position="6.710 1.164 9.799" scale="1.6 1.000 1.6" rotation="0 0 0"></a-entity>
                 </a-entity>
 
                 <a-entity gltf-model="#model-cupoftea" position="7.164 1.059 9.610" scale="0.060 0.060 0.060" rotation="0 -120 0"></a-entity>
@@ -403,14 +426,14 @@
             </a-light>
 
             <!-- Logo -->
-            <a-plane width="0.1" height="0.1" material="src: #logo;" position="1.876 2.783 11.165" rotation="0 90 0" ></a-plane>
-            <a-plane width="0.1" height="0.1" material="src: #logo;" position="6.147 1.163 5.277" rotation="-90 0 0" ></a-plane>
+            <a-plane class="clickable" mission-click="missionId: cuu_xuc_chi_uoc; totalClickActivation: 9" width="0.1" height="0.1" material="src: #logo;" position="1.876 2.783 11.165" rotation="0 90 0" ></a-plane>
+            <a-plane class="clickable" mission-click="missionId: cuu_xuc_chi_uoc; totalClickActivation: 9" width="0.1" height="0.1" material="src: #logo;" position="6.147 1.163 5.277" rotation="-90 0 0" ></a-plane>
 
             <!-- Đèn bàn -->
             <a-entity>
                 <a-entity class="light" visible="false" light="color: #ffccaa; decay: 3.16; distance: 20; intensity: 1.95; type: point" position="7.96972 1.50853 5.04942" scale="0.19 0.27 0.19"> </a-entity>
                 
-                <a-entity hover-highlight="title: Turn on/off" turn-the-light class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
+                <a-entity  mission-click="missionId: tuong_tac_den;"  hover-highlight="title: Turn on/off" turn-the-light class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
             </a-entity>
         
             <!-- Đèn bảng -->
@@ -533,7 +556,7 @@
             <img src="assets/images/buttons/btn-use.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;">
         </div>
 
-        <!-- Mission -->
+        <!-- Controllers -->
         <div style="position: fixed; top: 5vh; right: 5vh; z-index: 10; width: 50px; max-width: 100px;">
            <div id="btn-missions" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
                 <img src="assets/images/buttons/btn-missions.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; ">
@@ -541,11 +564,10 @@
            
            <div id="btn-home" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
             <img src="assets/images/ico-home.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; ">
-       </div>
-       </div>
+            </div>
         </div>
 
-
+        <!-- Mission book -->
         <div id="missions" class="hidden">
             <div class="fixed inset-0 z-[99] flex justify-center items-center bg-white/10 backdrop-blur">
                 <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer">
@@ -581,6 +603,7 @@
     <script src="assets/js/a-frame/clock.js"></script>
     <script src="assets/js/a-frame/custom-look.js"></script>
     <script src="assets/js/a-frame/redirect.js"></script>
+    <script src="assets/js/a-frame/mouse_event.js"></script>
     <script src="assets/js/scripts/missions.js"></script>
     <script src="assets/js/a-frame/boundary-check.js"></script>
     <script src="assets/js/controllers/watermark.js"></script>
