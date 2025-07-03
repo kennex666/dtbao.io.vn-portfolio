@@ -16,14 +16,15 @@ AFRAME.registerComponent("sky-boundary-check", {
 				__missions.sky.script[__missions.sky.currentStep]?.boundary
 		) {
 			// unlock thành tựu
-			if (__missions.sky.script.length == ++__missions.sky.currentStep)
-				__missions.unlocked.push("chien_binh_ranh_roi");
-
 			alert(
-				__missions.sky.script[__missions.sky.currentStep - 1]?.text
-					.replace("{easter_egg_count}", __missions.unlocked.length)
+				__missions.sky.script[__missions.sky.currentStep]?.text
+					.replace("{easter_egg_count}", __missions.unlocked.length + 1)
 					.replace("{easter_egg_total}", __missions.total.length)
 			);
+
+			if (__missions.sky.script.length == ++__missions.sky.currentStep){
+				__missions.unlockMission("chien_binh_ranh_roi");
+			}
 		}
 	},
 });
