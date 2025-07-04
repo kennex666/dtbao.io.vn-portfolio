@@ -1,7 +1,10 @@
 <html lang="en">
 	<head>
+        <noscript>
+            <meta http-equiv="refresh" content="0; url=/nojs.html" />
+        </noscript>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 		<title>Duong Thai Bao | Developer</title>
 		<meta name="description" content="Portfolio 3D của Dương Thái Bảo ヾ(≧▽≦*)o | Jasper Kennex (@Kennex666)">
 		<meta name="keywords" content="Duong Thai Bao, developer, portfolio, Kennex666, Jasper Kennex, Kennex">
@@ -33,22 +36,130 @@
 		<script src="https://unpkg.com/@c-frame/aframe-physics-system@4.2.2/dist/aframe-physics-system.min.js"></script>
         <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script>
         <script src="https://unpkg.com/aframe-render-order-component@1.1.0/dist/aframe-render-order-component.min.js"></script> 
+        <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.9.0/dist/nipplejs.min.js"></script>
+        <script src="https://cdn.tailwindcss.com/"></script>
 
         <style>
             .a-enter-vr{
                 display: none;
             }
+            .watermark {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                z-index: 10;
+                pointer-events: none;
+                user-select: none;
+                filter: invert(1) brightness(2);
+                animation: pulse 4s ease-in-out infinite;
+                opacity: 0.7;
+            }
+
+            .watermark.hidden {
+                opacity: 0;
+            }
+
+            .watermark img {
+                display: none;
+                width: auto;
+                height: auto;
+                max-width: 250px;
+                max-height: none;
+            }
+
+            .watermark img.active {
+                display: block;
+            }
+
+            #watermark-hover-area {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100px;
+                height: 100px;
+                z-index: 8;
+            }
+
+            @keyframes pulse {
+                0%, 100% {
+                    opacity: 0.7;
+                }
+                50% {
+                    opacity: 0.2;
+                }
+            }
+
+            .mission-popup {
+                animation: mission-pop 100ms ease-in;
+            }
+            @keyframes mission-pop{
+                0% {
+                    transform: translateX(-30vw);
+                }
+                100% {
+                }
+            }
+
+            .mission-popoff {
+                animation: mission-popoff 100ms ease-in;
+            }
+            @keyframes mission-popoff{
+                0% {
+                }
+                100% {
+                    transform: translateX(-30vw);
+                }
+            }
+
+
+            * {
+                font-family: "Patrick Hand", cursive;
+                font-style: normal;
+                letter-spacing: 0.02em;
+            }
+            .noselect {
+	            user-select: none;
+            }
+
+            [new-scroll] {
+                scroll-behavior: smooth;
+            }
+
+            [new-scroll]::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            [new-scroll]::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            [new-scroll]::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.3);
+                border-radius: 9999px;
+            }
+
+            [new-scroll]::-webkit-scrollbar-thumb:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
         </style>
 	</head>
 
-	<body style="position: relative;">
+	<body style="position: relative; margin: 0;">
         <a-scene id="scene" shadow="type: pcfsoft">
             <!-- Assets -->
             <a-assets>
                 <!-- Material -->
-                <img id="floor-m" src="assets/images/materials/arizona.png" crossorigin="anonymous">
-                <img id="wall-m" src="assets/images/materials/wood.jpg" crossorigin="anonymous">
-                <img id="computer-bg" src="assets/images/hdr/cpt-bg.jpg" crossorigin="anonymous">
+                <img id="floor-m" src="assets/images/materials/arizona.png">
+                <img id="wall-m" src="assets/images/materials/wood.jpg">
+                <img id="computer-bg" src="assets/images/hdr/cpt-bg.jpg">
+                <img id="logo" src="assets/images/logo.png">
+                <img id="giaykhen_kn" src="assets/images/giaykhen_kn.jpg">
+                <img id="giaygdsc" src="assets/images/giay_gdsc.jpg">
+                <img id="giaywtm" src="assets/images/giay_wtm.jpg">
+                <img id="img-to-do-list" src="assets/images/to-do-list.jpg">
+                <img id="arrow-gallery" src="assets/images/buttons/arrow-gallery.png">
                 <!-- Model  -->
                 <a-asset-item id="model-forest1" src="assets/models/frs/forest1.glb"></a-asset-item>
                 <a-asset-item id="model-chair" src="assets/models/Chair.glb"></a-asset-item>
@@ -59,22 +170,14 @@
                 <a-asset-item id="model-mousepad" src="assets/models/Mousepad.glb"></a-asset-item>
                 <a-asset-item id="model-lightdesk" src="assets/models/LightDesk.glb"></a-asset-item>
 
-                <a-asset-item id="model-tentframe" src="assets/models/TentFrame.glb"></a-asset-item>
                 <a-asset-item id="model-pictureframe" src="assets/models/PictureFrame.glb"></a-asset-item>
-                <a-asset-item id="model-bed" src="assets/models/Bed.glb"></a-asset-item>
-                <a-asset-item id="model-wardrobe" src="assets/models/SmallWardrobe.glb"></a-asset-item>
-                <a-asset-item id="model-couch" src="assets/models/CouchMedium.glb"></a-asset-item>
-                <a-asset-item id="model-nightstand" src="assets/models/NightStand.glb"></a-asset-item>
                 <a-asset-item id="model-floatingshelf" src="assets/models/FloatingShelf.glb"></a-asset-item>
                 <a-asset-item id="model-books" src="assets/models/books.glb"></a-asset-item>
                 <a-asset-item id="model-book" src="assets/models/book.glb"></a-asset-item>
                 <a-asset-item id="model-clock" src="assets/models/Clock.glb"></a-asset-item>
                 <a-asset-item id="model-aircondi" src="assets/models/Airconditioner.glb"></a-asset-item>
-                <a-asset-item id="model-window" src="assets/models/WindowLarge.glb"></a-asset-item>
-                <a-asset-item id="model-curtains" src="assets/models/CurtainsDouble.glb"></a-asset-item>
                 
                 <a-asset-item id="model-socket" src="assets/models/WallSocket.glb"></a-asset-item>
-                <a-asset-item id="model-lamp" src="assets/models/Lamp.glb"></a-asset-item>
                 <a-asset-item id="model-table" src="assets/models/Table.glb"></a-asset-item>
                 <a-asset-item id="model-stool" src="assets/models/Stool.glb"></a-asset-item>
                 <a-asset-item id="model-vase" src="assets/models/PlasticCup.glb"></a-asset-item>
@@ -84,6 +187,21 @@
                 
                 <a-asset-item id="model-openbook" src="assets/models/openbook.glb"></a-asset-item>
                 <a-asset-item id="model-bedsidelamp" src="assets/models/BedsideLamp.glb"></a-asset-item>
+                <a-asset-item id="model-board" src="assets/models/Whiteboard.glb"></a-asset-item>
+                <a-asset-item id="model-bonsai" src="assets/models/Bonsai.glb"></a-asset-item>
+                <a-asset-item id="model-guitar" src="assets/models/Guitar.glb"></a-asset-item>
+                <a-asset-item id="model-stereo" src="assets/models/Stereo.glb"></a-asset-item>
+                <a-asset-item id="model-ball" src="assets/models/Football.glb"></a-asset-item>
+                <a-asset-item id="model-tank" src="assets/models/Tank.glb"></a-asset-item>
+                <a-asset-item id="model-soldier" src="assets/models/Soldier.glb"></a-asset-item>
+                <a-asset-item id="model-bookshelf" src="assets/models/Bookshelf.glb"></a-asset-item>
+                <a-asset-item id="model-frame" src="assets/models/Frame.glb"></a-asset-item>
+                <a-asset-item id="model-calendar" src="assets/models/Calendar.glb"></a-asset-item>
+                <a-asset-item id="model-piggybank" src="assets/models/Piggybank.glb"></a-asset-item>
+                <a-asset-item id="model-lampwall" src="assets/models/LampWall.glb"></a-asset-item>
+                <a-asset-item id="model-pencil" src="assets/models/Pencil.glb"></a-asset-item>
+                <a-asset-item id="model-vrheadset" src="assets/models/VRHeadset.glb"></a-asset-item>
+
 
                 <!-- Mixin  -->
                 <a-mixin id="hexagon"
@@ -104,21 +222,24 @@
             <!-- Camera -->
             <a-entity 
             id="camera"
-            camera 
-            look-controls="enabled: true" 
-            raycaster="objects: .clickable" 
-            cursor="fuse: false; rayOrigin: mouse" 
-            wasd-controls lock-camera position="8.379 2.100 8.201"></a-entity>
+            camera
+            joystick-keyboard
+            sky-boundary-check
+            touch-drag-look
+            lock-camera
+            adaptive-cursor
+            custom-look>
+            </a-entity>
 
             <!-- World here (❁´◡`❁) -->
 
             <!-- Nhà -->
             <!-- Tường phải -->
-                <a-box material="src: #wall-m" position="5.475 1.519 4.379" width="7.39" height="4.550" depth="0.05" shadow></a-box>
+            <a-box material="src: #wall-m" position="5.475 1.519 4.379" width="7.39" height="4.550" depth="0.05" shadow></a-box>
             <!-- Tường trái  color="#FCDCB1"-->
-                <a-box material="src: #wall-m" position="1.812 1.519 7.971" rotation="0 -90 0" width="7.230" height="4.550" depth="0.05" shadow></a-box> 
+            <a-box material="src: #wall-m" position="1.812 1.519 7.971" rotation="0 -90 0" width="7.230" height="4.550" depth="0.05" shadow></a-box> 
             <!-- Sàn nhà color="#D4BEAA" -->
-                <a-box material="src: #floor-m" width="7.420" height="7.230" depth="0.100" position="5.463 0.001 7.981" rotation="-90 0 0"></a-box>
+            <a-box id="floor" visible="false" material="src: #floor-m" width="7.420" height="7.230" depth="0.100" position="5.463 0.001 7.981" rotation="-90 0 0"></a-box>
             
             
             <!-- Outsite -->
@@ -137,27 +258,53 @@
             
             <!-- Picture frame -->
             <a-entity>
-                <a-entity gltf-model="#model-tentframe" position="8.736 1.159 4.784" scale="0.320 0.400 0.5" rotation="0 -110 0"></a-entity>
-                <a-entity gltf-model="#model-pictureframe" position="8.710 1.318 4.806" scale="0.300 0.600 0.480" rotation="0 -110 20.110"></a-entity>
-                <a-plane id="frame-screen"
-                width="0.270" height="0.238"
-                material="src: #computer-bg; shader: flat"
-                position="8.729 1.332 4.829" scale="1 1 1" rotation="-21.170 -20.000 0"></a-plane>
+                <a-entity gltf-model="#model-pictureframe" position="5.36648 1.28267 4.75755" scale="0.3 0.6 0.48" rotation="0 -90 10"></a-entity>
+                <a-plane id="frame-screen" material="src: #computer-bg" position="5.38873 1.29345 4.76327" rotation="-10.24 0 0" geometry="height: 0.245; width: 0.275"></a-plane>
             </a-entity>
 
-            
+            <!-- Bonsai -->
+            <a-entity class="clickable" mission-click="missionId: su_tich_cay_bonsai;" gltf-model="#model-bonsai" position="8.778 1.46078 4.65582" scale="0.3 0.3 0.3" rotation="0 160 0"></a-entity>
 
-            <a-entity gltf-model="#model-bed" position="3.325 0.019 6.365" scale="1.300 1.100 1.630" rotation="0 0 0"></a-entity>
-            <a-entity gltf-model="#model-wardrobe" position="2.220 0.092 9.804" scale="0.710 0.790 1.060" rotation="0 90 0"></a-entity>
-            <!-- <a-entity gltf-model="#model-couch" position="6.455 -0.250 9.623" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity> -->
-            <a-entity gltf-model="#model-cat" position="6.455 -0.250 9.623" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity>
-            <a-entity gltf-model="#model-nightstand" position="4.641 0.034 4.812" scale="0.910 1 0.76" rotation="0 0 0"></a-entity>
-            <a-entity gltf-model="#model-socket" position="4.368 1.077 4.414" scale="0.910 1 0.76" rotation="0 -90 0"></a-entity>
             
+            <!-- To do list -->
+            <a-plane material="src: #img-to-do-list; shader: standard" width="0.5" height="0.3" position="6.49423 1.16096 5.0309" rotation="-90 14 0" geometry="height: 0.49; width: 0.31"></a-plane>
+            <a-entity gltf-model="#model-pencil" position="6.31193 1.16263 5.12896" rotation="0 110 -90" scale="0.2 0.2 0.2"></a-entity>
+            <!-- Note workspace -->
+            <a-entity>
+                <!-- Left note -->
+                <a-plane width="0.5" height="0.3" position="5.7996 1.794 4.40828" geometry="width: 0.4" material="color: #ffffff; emissive: #e2a1a1; emissiveIntensity: 0.22"></a-plane>
+                <a-plane width="0.1" height="0.1" material="src: #logo" position="5.65581 1.88524 4.412" geometry="height: 0.03; width: 0.03"></a-plane>
+                <a-troika-text value="Hehehhe" position="5.79866 1.76408 4.40961" troika-text="color: #242424; fontSize: 0.02; value: bao@dtbao.io.vn:~$ webver\n&gt;&gt; Recently updated: 25/06/2025\n&gt;&gt; v1.0.0\n&gt;&gt; ---------\nCopyright ©2025 Duong Thai Bao\nAll rights reserved"></a-troika-text><a-troika-text value="Hehehhe" position="5.82004 1.88475 4.41" troika-text="align: center; color: #000000; fontSize: 0.025; value: WEBSITE INFORMATION"></a-troika-text>
+                
+                <a-plane width="0.5" height="0.3" position="8.66464 1.8187 4.40828" geometry="width: 0.4"></a-plane>
+            </a-entity>
+            
+            <a-entity gltf-model="#model-guitar" position="2.00008 1.93378 5.19422" scale="1.4 1.4 1.4" rotation="-6 90 0"></a-entity>
+            
+            <a-entity gltf-model="#model-ball" position="2.10559 0.23173 4.64923" scale="0.05 0.05 0.05"></a-entity>
+
+            <a-entity gltf-model="#model-bookshelf" position="5.31114 0.39626 4.6856" custom-color="color: #331A14" shadow="" rotation="0 90 0" scale="1.22 1.12 0.88"></a-entity>
+            
+            <a-entity gltf-model="#model-calendar" position="4.76535 1.15332 4.81843" shadow="" scale="0.015 0.015 0.015" rotation="0 10 0"></a-entity>
+            <a-entity gltf-model="#model-piggybank" position="5.75827 1.2744 4.75782" shadow="" scale="0.25 0.25 0.25" rotation="0 -30 0"></a-entity>
+
+            <a-entity>
+                <a-entity class="clickable" mission-click="missionId: phong_tranh_ao;" gallery-vr hover-highlight="title: Jasper Quest 9; adjustTitle: 0.2" class="clickable" gltf-model="#model-vrheadset" position="4.87272 0.68098 4.81039" shadow="" scale="0.016 0.016 0.016"></a-entity>
+                <a-entity visible="false" class="vr-headset-hidden" geometry="primitive: ring; radiusInner: 0.45; radiusOuter: 0.5; segmentsTheta: 24" material="shader: flat; color: #f29c9c" position="4.89078 0.7266 4.73637" rotation="-90 0 0" scale="0.4 0.4 0.5"></a-entity>
+            </a-entity>
+
+            <a-entity gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"></a-entity>
+
+            <a-entity class="clickable" mission-click="missionId: sy_quan;" gltf-model="#model-soldier" position="8.7698 1.30576 5.0811" scale="0.01 0.01 0.01" rotation="0 -65 0"></a-entity>
+            <a-entity class="clickable" mission-click="missionId: sy_quan;" gltf-model="#model-tank" position="8.76543 1.16118 5.06438" scale="0.05 0.05 0.05" rotation="0 30 0"></a-entity>
+            <a-entity gltf-model="#model-cat" position="6.455 -0.250 9.623" scale="0.7 0.7 0.7" rotation="0 180 0"></a-entity>
+
+            <a-entity gltf-model="#model-socket" position="4.26565 0.81606 4.414" scale="0.91 1 0.76" rotation="0 -90 0"></a-entity>
+
             <a-entity gltf-model="#model-floatingshelf" position="3.667 2.068 4.686" scale="2.120 2.510 1.630" rotation="0 0 0"></a-entity>
             <a-entity gltf-model="#model-books" position="2.443 2.068 4.981" scale="5.730 7.120 5.240" rotation="0 180 0"></a-entity>
 
-            <a-entity hover-highlight="title: Experiences" class="clickable" gltf-model="#model-book" position="3.869 2.147 4.747" scale="0.490 0.700 0.900" rotation="0 90 90"></a-entity>
+            <a-entity hover-highlight="title: ???; color: #000;  fontSize: 0.4;" class="clickable" gltf-model="#model-book" position="3.869 2.147 4.747" scale="0.490 0.700 0.900" rotation="0 90 90"></a-entity>
 
             <a-entity>
                 <a-entity gltf-model="#model-clock" position="4.680 2.095 4.672" scale="0.005 0.005 0.005" rotation="-90 0 90"></a-entity>
@@ -178,17 +325,15 @@
                     value="Hi!" align="center" font="dejavu" width="4.310"></a-text>
             </a-entity>
 
-            <a-entity gltf-model="#model-aircondi" position="1.926 3.385 9.647" scale="0.002 0.002 0.001" rotation="0 90 0"></a-entity>
+            <a-entity gltf-model="#model-aircondi" position="1.926 3.385 6.445" scale="0.002 0.002 0.001" rotation="0 90 0"></a-entity>
             
-            <a-entity gltf-model="#model-window" position="1.871 1.126 6.619" scale="1.2 1.2 1.2" rotation="0 90 0"></a-entity>
-            <a-entity gltf-model="#model-curtains" position="1.973 0.662 6.619" scale="0.700 0.630 0.7" rotation="0 90 0"></a-entity>
             <a-entity gltf-model="#model-standingdesk" position="2.064 0.770 6.619" scale="0.850 0.590 0.600" rotation="0 90 0"></a-entity>
 
             <!-- Bộ bàn ghế -->
             <a-entity>
                 <a-entity position="0 0 -0.232">
-                    <a-entity gltf-model="#model-flower" position="6.713 1.487 9.795" scale="0.2 0.2 0.2" rotation="0 0 -12.160"></a-entity>
-                    <a-entity gltf-model="#model-vase" force-shadow position="6.710 1.164 9.799" scale="1.6 1.000 1.6" rotation="0 0 0"></a-entity>
+                    <a-entity class="clickable" mission-click="missionId: hoa_hong_cua_me" gltf-model="#model-flower" position="6.713 1.487 9.795" scale="0.2 0.2 0.2" rotation="0 0 -12.160"></a-entity>
+                    <a-entity class="clickable" gltf-model="#model-vase" force-shadow position="6.710 1.164 9.799" scale="1.6 1.000 1.6" rotation="0 0 0"></a-entity>
                 </a-entity>
 
                 <a-entity gltf-model="#model-cupoftea" position="7.164 1.059 9.610" scale="0.060 0.060 0.060" rotation="0 -120 0"></a-entity>
@@ -218,32 +363,22 @@
                     scale="0.200 0.040 0.100">
                     </a-entity>
                 </a-entity>
-
-
+                
                 <a-entity gltf-model="#model-table" position="6.710 0.489 9.799" scale="1.6 1.1 1.6" rotation="0 0 0"></a-entity>
                 <a-entity gltf-model="#model-stool" position="5.719 0.041 9.824" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
                 <a-entity gltf-model="#model-stool" position="7.713 0.041 9.839" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
                 <a-entity gltf-model="#model-stool" position="6.723 0.041 8.757" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
                 <a-entity gltf-model="#model-stool" position="6.748 0.041 10.754" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
+                </a-entity>
+                <a-entity position="6.649 1.078 10.287">
+                    <a-entity hover-highlight="title: Visitors" class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
+                    <a-entity firefly="spread: 0.2; count: 20; size: 0.007; randomSize: 0.001; light: true;" position="0 0.12 0"></a-entity>
             </a-entity>
-
-            <a-entity position="6.649 1.078 10.287">
-                <a-entity hover-highlight="title: Visitors" class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
-                <a-entity firefly="spread: 0.2; count: 10; size: 0.007; randomSize: 0.001; light: true;" position="0 0.1 0"></a-entity>
-            </a-entity>
-            <!-- Ánh sáng -->
-           <!-- <a-light type="ambient" color="#fff" intensity="2"></a-light> -->
-            <!-- <a-light type="directional" color="#fff" intensity="1.2" position="5 10 -5" target="#target"></a-light> -->
-
-            <!-- Một bóng đèn chill -->
-                
-
             
-            <!-- Sáng xanh nhẹ -->
-            <!-- <a-entity light="type: point; color: #fef6e4; intensity: 1.2; distance: 10; decay: 1.5"
-                position="7.394 3.738 9.146"
-                scale="0.5 0.5 0.5">
-            </a-entity> -->
+            <!-- Ánh sáng môi trường -->      
+            <a-entity light="color: #fef6e4; decay: 2; distance: 20; intensity: 4; type: point" position="5.42627 3.33935 7.86563" scale="0.5 0.5 0.5">
+            </a-entity>
+
             <a-light
                 type="point"
                 color="#fcd5ce"          
@@ -254,13 +389,13 @@
                 position="7.394 3.738 9.146">
             </a-light>
             <!-- sáng trắng ấm -->
-            <a-light type="ambient" color="#fef6e4" intensity="0.1"></a-light>
+            <a-light type="ambient" color="#fef6e4" intensity="0.280"></a-light>
 
-            
-
+                
+                    
 
             <!-- Ánh sáng từ đèn tổ ong -->
-             <a-entity position="0.979 -0.004 0">
+            <a-entity position="0.979 -0.004 0">
                 <a-entity mixin="hexagon" position="2.807 3.524 4.409"></a-entity>
                 <a-entity mixin="hexagon" position="3.549 3.514 4.409"></a-entity>
                 <a-entity mixin="hexagon" position="2.993 3.210 4.409"></a-entity>
@@ -273,75 +408,223 @@
                 <a-entity mixin="hexagon" position="3.924 2.892 4.409"></a-entity>
                 <a-entity mixin="hexagon" position="3.361 2.575 4.409"></a-entity>
                 <a-entity mixin="hexagon" position="4.116 2.575 4.409"></a-entity>
-             </a-entity>
+            </a-entity>
 
-        <!-- Tương tác -->
-             
-         <!-- Màn hình -->
-        <a-entity>
-             <a-plane id="computer-screen"
-             width="1.100" height="0.610"
-             material="src: #computer-bg; shader: flat"
-             position="7.151 1.669 4.713" scale="1 1 1"></a-plane>
-            <!-- Đèn màn hình -->
-            <a-light type="point"
-            color="#ffffff"
-            intensity="2"
-            distance="25"
-            decay="2"
-            position="7.156 1.669 5.842">
-           </a-entity>
-        </a-light>
+            <!-- Màn hình -->
+            <a-entity>
+                <a-plane id="computer-screen"
+                width="1.100" height="0.610"
+                material="src: #computer-bg; shader: flat"
+                position="7.151 1.669 4.713" scale="1 1 1"></a-plane>
+                <a-light type="point"
+                color="#ffffff"
+                intensity="2"
+                distance="25"
+                decay="2"
+                position="7.156 1.669 5.842">
+            </a-entity>
+            </a-light>
 
-        <!-- Đèn bàn -->
-         <a-entity>
-             <a-entity class="light" visible="false" light="type: point; intensity: 6; distance: 25; decay: 1.5; color: #ffccaa"
-             position="8.063 1.686 4.940" scale="0.5 0.5 0.5"> </a-entity>
-             <a-entity hover-highlight="title: Turn on/off" turn-the-light class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
-         </a-entity>
-     
-         <!-- Đèn ngủ -->
-        <a-entity>
-            <a-entity class="light" visible="false" light="type: point; intensity: 4; distance: 30; decay: 1.5; color: #ffccaa"
-            position="4.736 1.662 5.054" scale="0.5 0.5 0.5"> </a-entity>
-            <a-entity hover-highlight="title: Turn on/off; adjustTitle: 0.3; color: #4caf50" turn-the-light class="clickable" gltf-model="#model-lamp" position="4.645 0.863 4.713" scale="0.005 0.005 0.005" rotation="0 0 0"></a-entity>
-        </a-entity>
+            <!-- Logo -->
+            <a-plane class="clickable" mission-click="missionId: cuu_xuc_chi_uoc; totalClickActivation: 9" width="0.1" height="0.1" material="src: #logo;" position="1.876 2.783 11.165" rotation="0 90 0" ></a-plane>
+            <a-plane class="clickable" mission-click="missionId: cuu_xuc_chi_uoc; totalClickActivation: 9" width="0.1" height="0.1" material="src: #logo;" position="6.147 1.163 5.277" rotation="-90 0 0" ></a-plane>
 
-        <!-- Mũi tên hover -->
-        <a-entity>
-            <a-entity id="hover-arrow"
-                geometry="primitive: cone; radiusBottom: 0.05; radiusTop: 0; height: 0.15"
-                material="color: yellow; emissive: yellow; emissiveIntensity: 0.6"
-                rotation="180 0 0"
-                visible="false"
-                animation="property: material.emissiveIntensity; from: 0.3; to: 1.2; dir: alternate; dur: 1000; loop: true"
-                animation__scale="property: scale; from: 1 1 1; to: 1.3 1.3 1.3; dur: 1500; loop: true; dir: alternate">
+            <!-- Đèn bàn -->
+            <a-entity>
+                <a-entity class="light" visible="false" light="color: #ffccaa; decay: 3.16; distance: 20; intensity: 1.95; type: point" position="7.96972 1.50853 5.04942" scale="0.19 0.27 0.19"> </a-entity>
+                
+                <a-entity  mission-click="missionId: tuong_tac_den;"  hover-highlight="title: Turn on/off" turn-the-light class="clickable" gltf-model="#model-lightdesk" position="8.234 1.159 4.599" scale="1.2 1.2 1.2" rotation="0 -35 0"></a-entity>
             </a-entity>
         
-            <a-text id="hover-text"
-                value="Hello, Bảo!"
-                look-at="#camera"
-                color="#fff"
-                scale="1 1 1"
-                visible="false"
+            <!-- Đèn bảng -->
+            <a-entity class="light" light="color: #f0e4b7; decay: 1.52; distance: 4.33; intensity: 1; type: point" position="3.88907 2.17062 9.77798" scale="0.5 0.5 0.5"> </a-entity>
+
+            <!-- Mũi tên hover -->
+            <a-entity>
+                <a-entity id="hover-arrow"
+                    geometry="primitive: cone; radiusBottom: 0.05; radiusTop: 0; height: 0.15"
+                    material="color: yellow; emissive: yellow; emissiveIntensity: 0.6"
+                    rotation="180 0 0"
+                    visible="false"
+                    animation="property: material.emissiveIntensity; from: 0.3; to: 1.2; dir: alternate; dur: 1000; loop: true"
+                    animation__scale="property: scale; from: 1 1 1; to: 1.3 1.3 1.3; dur: 1500; loop: true; dir: alternate">
+                </a-entity>
+            
+                <a-troika-text id="hover-text"
+                    value="not-set"
+                    look-at="#camera"
+                    color="#fff"
+                    visible="false"
+                    align="center"
+                    font-size="0.16"
+                    max-width="3"
+                    render-order="10"
+                    stroke-width="0.001">
+                </a-troika-text>
+            </a-entity>
+
+            <!-- Đèn bảng -->
+            <a-entity>
+                <a-entity gltf-model="#model-lampwall" position="1.82037 3.09881 11.1405" rotation="0 -90 0" force-flat-shader></a-entity>
+                <a-entity gltf-model="#model-lampwall" position="1.82037 3.09881 8.16895" rotation="0 -90 0" force-flat-shader></a-entity>
+
+                <a-light position="3.2078 3.34189 11.4609" type="point" light="color: #fef6e4; decay: 1.5; distance: 10; intensity: 1.4" scale="0.04 0.04 0.04"></a-light>
+                <a-light position="3.2078 3.34189 7.95726" type="point" light="color: #fef6e4; decay: 1.5; distance: 3; intensity: 1.4" scale="0.04 0.04 0.04"></a-light>
+            </a-entity>
+
+
+            <!-- Board -->
+            <a-entity board-component>
+                <a-plane id="board_screen" width="0.5" height="0.3" position="1.875 2.019 9.661" rotation="0 90 0" geometry="height: 1.69; width: 3.17" material="src: assets/images/boards/1.png"></a-plane>
+                <a-entity gltf-model="assets/models/Whiteboard.glb" position="1.867 2.019 9.661" scale="2.7 3.07 1" rotation="0 90 0"></a-entity>    
+                <a-image class="clickable btn-previous" mission-click="missionId: giai_ma_nhan_danh;" src="#arrow-gallery" material="opacity: 0.9446519627592906; blending: additive; color: #b5b5b5" geometry="height: 0.08; width: 0.134"
+                animation__mouseenter="property: scale; to: 1.1 1.1 1; dur: 300; startEvents: mouseenter"
+	            animation__mouseleave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave" rotation="0 -90 0" position="1.880 2.019 11.12745">
+                </a-image>
+                <a-image class="clickable btn-next" mission-click="missionId: giai_ma_nhan_danh;"src="#arrow-gallery" material="opacity: 0.7504986509566945; blending: additive; color: #b5b5b5" geometry="height: 0.08; width: 0.134" 
+                animation__mouseenter="property: scale; to: 1.1 1.1 1; dur: 300; startEvents: mouseenter"
+	            animation__mouseleave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave" rotation="0 90 0" position="1.880 2.019 8.19111">
+                </a-image>
+            </a-entity>
+          
+            <!-- Tường ghi chú | Giấy notes -->
+            <a-entity>
+                <a-plane width="0.5" height="0.3" position="1.85823 2.61969 7.44678" rotation="-180 -90 0" geometry="width: 0.4"></a-plane>
+                <a-text value="Hihi" color="black" align="center" position="1.85823 2.61969 7.44678" rotation="0 90 0" scale="0.3 0.3 0.3"></a-text> 
+            </a-entity>
+
+            <!-- Space Certificate -->
+            <a-entity position="-0.018 -0.214 0">
+                <a-entity>
+                    <a-plane class="clickable" redirect="url: https://developers.google.com/community" hover-highlight="title: Chapter Lead 23-24 @ Industrial University of HCMC - Google Developer Student Clubs; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;" material="color: #ffffff; src: #giaygdsc" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
+                    <a-entity gltf-model="#model-frame" position="5.98106 2.59227 4.42252" scale="1.43 0.93 1"></a-entity>      
+                </a-entity>
+                
+                <a-entity>
+                    <a-plane class="clickable" redirect="url: https://tinhdoanbinhphuoc.vn/tin-tuc-doan-hoi-doi/cuoc-thi-khoi-nghiep-doi-moi-sang-tao-tinh-binh-phuoc-lan-thu-i-nam-2021-4390.html"  hover-highlight="title: Won the top 3 in the 1st startup innovation competition in Bình Phước province, Vietnam; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #giaykhen_kn" position="7.19763 2.59612 4.43263" geometry="width: 1.414" scale="0.6 0.6 0.6"></a-plane>
+                    <a-entity gltf-model="#model-frame" position="7.19828 2.59227 4.42252" scale="1.35 0.93 1"></a-entity>
+                </a-entity>
+                
+                <a-entity>
+                    <a-plane class="clickable" redirect="url: https://wtmhcmc.com/" hover-highlight="title: Member @ Women Techmakers Ho Chi Minh city; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #giaywtm" position="8.3696 2.58829 4.433" geometry="width: 1.366" scale="0.6 0.6 0.6"></a-plane>
+                    <a-entity gltf-model="#model-frame" position="8.36251 2.59227 4.42252" scale="1.32 0.93 1"></a-entity>
+                </a-entity>
+            </a-entity>
+
+
+
+            <!-- Intro space -->
+            <a-cylinder id="intro__range" position="7.08655 1.8961 10.16491" radius="4" height="7" material="opacity: 1; side: back; color: #222; opacity: 0.850">
+            </a-cylinder>
+            <a-troika-text
+                id="intro__text"
+                value="Đang khởi động..."
                 align="center"
-	            render-order="10">
-            </a-text>
-        </a-entity>
+                position="6.711 1.984 9.87"
+                rotation="-25.019 2.59 -2.194"
+                font-size="0.16"
+                max-width="3"
+                look-at="#camera"
+                shader="flat"
+                color="#fff"
+                fill-opacity="1"
+                animation__blink="property: fill-opacity; from: 1; to: 0.5; dur: 3000; dir: alternate; loop: true">
+            </a-troika-text>
 
-        <!-- <a-entity gltf-model="#model-bookshelf" position="3.325 -0.141 9.623" scale="1 1 1" rotation="0 90 0"></a-entity> -->
 
+            <!-- Không gian tranh -->
+            <a-entity visible="false" class="fade-overlay-gallery" geometry="primitive: plane; height: 2; width: 2" material="shader: flat; color: #ffffff; opacity: 1; transparent: true; depthTest: false" position="7.98696 2.2 8.717" rotation="0 -90 0"></a-entity>
+
+            <a-entity id="gallery-vr" visible="false" gallery-component="" position="10.10633 2.00498 8.99662">
+                <a-entity class="list-images">
+                </a-entity>
+                
+                <a-image class="clickable btn-previous" src="#arrow-gallery" material="opacity: 0.8536138369375914; blending: additive; color: #b5b5b5" geometry="height: 0.11; width: 0.174" animation__pulse="dir: alternate; dur: 1200; easing: easeInOutSine; from: 0.6; loop: true; property: material.opacity; to: 1" animation__glow="dir: alternate; dur: 1500; easing: easeInOutSine; from: 1 1 1; loop: true; property: scale; to: 1.03 1.03 1" rotation="10 90 0" position="-0.7166 -0.55264 -0.75587">
+                </a-image>
+                <a-image class="clickable btn-next" src="#arrow-gallery" material="opacity: 0.9446519627592906; blending: additive; color: #b5b5b5" geometry="height: 0.11; width: 0.174" animation__pulse="dir: alternate; dur: 1200; easing: easeInOutSine; from: 0.6; loop: true; property: material.opacity; to: 1" animation__glow="dir: alternate; dur: 1500; easing: easeInOutSine; from: 1 1 1; loop: true; property: scale; to: 1.03 1.03 1"  rotation="-10 -90 0" position="-0.717 -0.55264 0.27614">
+                </a-image>
+                
+                <a-troika-text class="gallery-title" value="GDG Devfest 2025" align="center" rotation="11.14574652753213 -90 -2.431273137783164e-15" position="-0.66511 0.46787 -0.22405" font-size="0.12" max-width="3" shader="flat" color="#fff" fill-opacity="0.9752355887014752" animation__blink="dir: alternate; dur: 3000; from: 1; loop: true; property: fill-opacity; to: 0.6">
+                </a-troika-text>
+                <a-troika-text class="gallery-number" value="GDG Devfest 2024" align="center" rotation="-10 -90 -2.431273137783164e-15" position="-0.74777 -0.53577 -0.22405" font-size="0.12" max-width="3" shader="flat" color="#fff" fill-opacity="0.9497780287794666" animation__blink="dir: alternate; dur: 3000; from: 1; loop: true; property: fill-opacity; to: 0.6" troika-text="fontSize: 0.07; value: 1/10">
+                </a-troika-text>
+            </a-entity>
         </a-scene>
 
-	</body>
+        <!-- Watermark -->
+        <div id="watermark-hover-area"></div>
+        <div class="watermark">
+            <img src="assets/images/watermark/guide_1.png" alt="Guide 1">
+            <img src="assets/images/watermark/guide_2.png" alt="Guide 2">
+            <img src="assets/images/watermark/guide_3.png" alt="Guide 3">
+            <img src="assets/images/watermark/guide_4.png" alt="Guide 4">
+        </div>
+        
+        <!-- For mobile controll -->
+        <div id="joystick-container" style="position: fixed; bottom: 10vh; left: 5vw; z-index: 10; display: none;"></div>
+        <div id="btn-use" style="position: fixed; bottom: 10vh; right: 5vw; z-index: 10; display: none; width: 15vh; height: 15vh; max-width: 100px; max-height: 100px; background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 0.3; text-align: center; pointer-events: none; user-select: none;">
+            <img src="assets/images/buttons/btn-use.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;">
+        </div>
 
-    <script src="assets/js/settings.js"></script>
-    <script src="assets/js/a-frame/controll-light.js"></script>
-    <script src="assets/js/a-frame/camera.js"></script>
+        <!-- Controllers -->
+        <div style="position: fixed; top: 5vh; right: 5vh; z-index: 10; width: 50px; max-width: 100px;">
+           <div id="btn-missions" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+                <img src="assets/images/buttons/btn-missions.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; ">
+           </div>
+           
+           <div id="btn-home" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <img src="assets/images/ico-home.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; ">
+            </div>
+        </div>
+
+        <!-- Mission book -->
+        <div id="missions" class="hidden">
+            <div class="fixed inset-0 z-[99] flex justify-center items-center bg-white/10 backdrop-blur">
+                <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer">
+                    <img src="./assets/images/buttons/btn-close.png">
+                </div>
+                <div class="relative w-[90vw] max-w-[800px] h-[90vh] aspect-[1/1]">
+                    <!-- Ảnh nền -->
+                    <img src="../assets/images/OpenBook.png"
+                        class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none">
+                    <!-- Text đè theo vị trí phần trăm
+                      : debug -  border border-dashed border-red-400  -->
+                    <div class="absolute top-[20%] left-[33.5%] w-[43%] h-[68%] text-blacktext-justify overflow-y-auto" style="transform: rotateY(5deg);" new-scroll>
+
+                        <h2 class="text-5xl mb-2 text-center">Achievements</h2>
+                        <p data-missions-count class="text-xl mb-6">Đã hoàn thành: {mission_unlocked}/{missions_total}</p>
+                            
+                        <ol class="md:text-xl space-y-4" list-missions>
+                        </ol>
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+    </body>
+
+    <script src="assets/js/controllers/settings.js"></script>
+    <script src="assets/js/a-frame/interact-items.js"></script>
+    <script src="assets/js/a-frame/controllers.js"></script>
     <script src="assets/js/a-frame/firefly.js"></script>
-    <script src="assets/js/controllBar.js"></script>
     <script src="assets/js/a-frame/clock.js"></script>
+    <script src="assets/js/a-frame/custom-look.js"></script>
+    <script src="assets/js/a-frame/redirect.js"></script>
+    <script src="assets/js/a-frame/mouse_event.js"></script>
+    <script src="assets/js/scripts/missions.js"></script>
+    <script src="assets/js/a-frame/boundary-check.js"></script>
+    <script src="assets/js/controllers/watermark.js"></script>
+    <script src="assets/js/controllers/media-player.js"></script>
+    <script src="assets/js/controllers/gallery.js"></script>
+    <script src="assets/js/controllers/board.js"></script>
+    <script src="assets/js/controllers/logger.js"></script>
+    
+    <!-- load last -->
     <script src="assets/js/index.js"></script>
+    
     <footer>
     </footer>
 </html>
