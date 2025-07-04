@@ -16,10 +16,13 @@ const __logger = {
 	key_version: "3d_last_version",
 	key_user_id: "3d_user_id",
 	init: () => {
-		__logger.saveVisit();
-		__logger.saveRecentlyVisit();
-		__logger.saveVersion();
-		__logger.createUUID();
+		const data = {};
+		__missions.loadMission();
+		data.visit_total = __logger.saveVisit();
+		data.visit_last_time = __logger.saveRecentlyVisit();
+		data.version = __logger.saveVersion();
+		data.uuid = __logger.createUUID();
+		return data;
 	},
 	createUUID: () => {
 		let data = window.localStorage.getItem(__logger.key_user_id);
@@ -44,22 +47,11 @@ const __logger = {
 		let data = window.localStorage.getItem(__logger.key_visit) || 0;
 		data -= 0;
 		++data;
-		if (data >= 3) {
-			setTimeout(() => {
-				__missions.unlockMission("chao_mung_tro_lai");
-			}, 3000);
-		}
 		window.localStorage.setItem(__logger.key_visit, data);
 		return data;
 	},
 	saveRecentlyVisit: () => {
 		let data = window.localStorage.getItem(__logger.key_last_time) || 0;
-
-		if (!data) {
-			setTimeout(() => {
-				__missions.unlockMission("lan_dau_tham_quan");
-			}, 3000);
-		}
 
 		data = new Date().getTime();
 

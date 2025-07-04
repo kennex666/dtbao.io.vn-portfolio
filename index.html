@@ -474,9 +474,19 @@
 
 
             <!-- Board -->
-            <a-plane id="board_screen" width="0.5" height="0.3" position="1.875 2.019 9.661" rotation="0 90 0" geometry="height: 1.69; width: 3.17" material="src: assets/images/boards/board_step_1.png"></a-plane>
-            <a-entity gltf-model="#model-board" position="1.867 2.019 9.661" scale="2.700 3.070 1" rotation="0 90 0"></a-entity>
-
+            <a-entity board-component>
+                <a-plane id="board_screen" width="0.5" height="0.3" position="1.875 2.019 9.661" rotation="0 90 0" geometry="height: 1.69; width: 3.17" material="src: assets/images/boards/1.png"></a-plane>
+                <a-entity gltf-model="assets/models/Whiteboard.glb" position="1.867 2.019 9.661" scale="2.7 3.07 1" rotation="0 90 0"></a-entity>    
+                <a-image class="clickable btn-previous" mission-click="missionId: giai_ma_nhan_danh;" src="#arrow-gallery" material="opacity: 0.9446519627592906; blending: additive; color: #b5b5b5" geometry="height: 0.08; width: 0.134"
+                animation__mouseenter="property: scale; to: 1.1 1.1 1; dur: 300; startEvents: mouseenter"
+	            animation__mouseleave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave" rotation="0 -90 0" position="1.880 2.019 11.12745">
+                </a-image>
+                <a-image class="clickable btn-next" mission-click="missionId: giai_ma_nhan_danh;"src="#arrow-gallery" material="opacity: 0.7504986509566945; blending: additive; color: #b5b5b5" geometry="height: 0.08; width: 0.134" 
+                animation__mouseenter="property: scale; to: 1.1 1.1 1; dur: 300; startEvents: mouseenter"
+	            animation__mouseleave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave" rotation="0 90 0" position="1.880 2.019 8.19111">
+                </a-image>
+            </a-entity>
+          
             <!-- Tường ghi chú | Giấy notes -->
             <a-entity>
                 <a-plane width="0.5" height="0.3" position="1.85823 2.61969 7.44678" rotation="-180 -90 0" geometry="width: 0.4"></a-plane>
@@ -531,7 +541,7 @@
                 
                 <a-image class="clickable btn-previous" src="#arrow-gallery" material="opacity: 0.8536138369375914; blending: additive; color: #b5b5b5" geometry="height: 0.11; width: 0.174" animation__pulse="dir: alternate; dur: 1200; easing: easeInOutSine; from: 0.6; loop: true; property: material.opacity; to: 1" animation__glow="dir: alternate; dur: 1500; easing: easeInOutSine; from: 1 1 1; loop: true; property: scale; to: 1.03 1.03 1" rotation="10 90 0" position="-0.7166 -0.55264 -0.75587">
                 </a-image>
-                <a-image class="clickable btn-next" src="#arrow-gallery" material="opacity: 0.9446519627592906; blending: additive; color: #b5b5b5" geometry="height: 0.11; width: 0.174" rotation="-10 -90 0" position="-0.717 -0.55264 0.27614">
+                <a-image class="clickable btn-next" src="#arrow-gallery" material="opacity: 0.9446519627592906; blending: additive; color: #b5b5b5" geometry="height: 0.11; width: 0.174" animation__pulse="dir: alternate; dur: 1200; easing: easeInOutSine; from: 0.6; loop: true; property: material.opacity; to: 1" animation__glow="dir: alternate; dur: 1500; easing: easeInOutSine; from: 1 1 1; loop: true; property: scale; to: 1.03 1.03 1"  rotation="-10 -90 0" position="-0.717 -0.55264 0.27614">
                 </a-image>
                 
                 <a-troika-text class="gallery-title" value="GDG Devfest 2025" align="center" rotation="11.14574652753213 -90 -2.431273137783164e-15" position="-0.66511 0.46787 -0.22405" font-size="0.12" max-width="3" shader="flat" color="#fff" fill-opacity="0.9752355887014752" animation__blink="dir: alternate; dur: 3000; from: 1; loop: true; property: fill-opacity; to: 0.6">
@@ -609,6 +619,7 @@
     <script src="assets/js/controllers/watermark.js"></script>
     <script src="assets/js/controllers/media-player.js"></script>
     <script src="assets/js/controllers/gallery.js"></script>
+    <script src="assets/js/controllers/board.js"></script>
     <script src="assets/js/controllers/logger.js"></script>
     
     <!-- load last -->

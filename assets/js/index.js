@@ -41,10 +41,6 @@ const sceneScript = {
 			camera.emit("update-xy", { x: -0.076, y: 0.766 });
 			introRange.setAttribute("visible", false);
 			floor.setAttribute("visible", true);
-
-			// Load data
-			__missions.loadMission();
-			__logger.init();
 		},
 		detroy: () => {},
 	},
@@ -98,18 +94,29 @@ const sceneScript = {
 		],
 		init: () => {
 			const text = document.querySelector("#intro__text");
+			camera.setAttribute(
+				"position",
+				`8.320 ${settings.cameraHeight} 11.519`
+			);
+			camera.emit("update-xy", { x: -0.076, y: 0.766 });
 			loadScript(sceneScript.firstTime, 0, { text });
 		},
 		detroy: () => {
 			const text = document.querySelector("#intro__text");
 			const introRange = document.querySelector("#intro__range");
 			const floor = document.querySelector("#floor");
+			camera.setAttribute(
+				"wasd-controls",
+				`enabled: true; acceleration: ${settings.speed.walk}`
+			);
 			text.setAttribute("visible", "false");
 			text.removeAttribute("animation__blink");
 			startWatermark();
-			camera.setAttribute("wasd-controls", "enabled: true");
 			introRange.setAttribute("visible", false);
 			floor.setAttribute("visible", true);
+			setTimeout(() => {
+				__missions.unlockMission("lan_dau_tham_quan");
+			}, 3000);
 		},
 	},
 	welcomeBack: {
@@ -122,18 +129,29 @@ const sceneScript = {
 		],
 		init: () => {
 			const text = document.querySelector("#intro__text");
+			camera.setAttribute(
+				"position",
+				`8.320 ${settings.cameraHeight} 11.519`
+			);
+			camera.emit("update-xy", { x: -0.076, y: 0.766 });
 			loadScript(sceneScript.welcomeBack, 0, { text });
 		},
 		detroy: () => {
 			const text = document.querySelector("#intro__text");
 			const introRange = document.querySelector("#intro__range");
 			const floor = document.querySelector("#floor");
+			camera.setAttribute(
+				"wasd-controls",
+				`enabled: true; acceleration: ${settings.speed.walk}`
+			);
 			text.setAttribute("visible", "false");
 			text.removeAttribute("animation__blink");
 			startWatermark();
-			camera.setAttribute("wasd-controls", "enabled: true");
 			introRange.setAttribute("visible", false);
 			floor.setAttribute("visible", true);
+			setTimeout(() => {
+				__missions.unlockMission("chao_mung_tro_lai");
+			}, 3000);
 		},
 	},
 };
@@ -212,30 +230,36 @@ function createDoneToast(data, duration = 5000) {
 }
 
 window.onload = () => {
+	// Load data
+	const guestData = __logger.init();
 
-
-    scene = document.querySelector("#scene");
-    camera = document.querySelector("#camera");
-	btnUse =document.querySelector("#btn-use");
+	scene = document.querySelector("#scene");
+	camera = document.querySelector("#camera");
+	btnUse = document.querySelector("#btn-use");
 	btnMissions = document.querySelector("#btn-missions");
 	const btnHome = document.querySelector("#btn-home");
 	const missionsPage = document.querySelector("#missions");
 	const listMissions = document.querySelector("[list-missions]");
 
-	const btnCloses = document.querySelectorAll("[btn-close]")
+	const btnCloses = document.querySelectorAll("[btn-close]");
 
-    if (camera.hasLoaded) {
-        sceneScript.dev.init();
-    } else {
-        camera.addEventListener("loaded", () => {
-            sceneScript.dev.init();
-        });
-    }
+	if (camera.hasLoaded) {
+		if (guestData.visit_total == 1) 
+			sceneScript.firstTime.init();
+		else 
+			sceneScript.welcomeBack.init();
+		
+	} else {
+		camera.addEventListener("loaded", () => {
+			if (guestData.visit_total == 1) sceneScript.firstTime.init();
+			else sceneScript.welcomeBack.init();
+		});
+	}
 
 	window.addEventListener("keydown", (e) => {
 		if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "i") {
 			settings.isDevMode = !settings.isDevMode;
-			console.log("Dev mode!")
+			console.log("Dev mode!");
 		}
 	});
 
@@ -245,34 +269,38 @@ window.onload = () => {
 		btnMissions.closest("[id]").classList.toggle("noselect", false);
 
 		let dataCount = document.querySelector("[data-missions-count]");
-		dataCount.innerText = `Đã hoàn thành: ${__missions.unlocked.length}/${__missions.total.length}`
-		listMissions.innerHTML = __missions.total.sort((a,b) => {
-			return a.rating - b.rating;
-		}).sort((a, b) => {
-			if (a.isHidden && a.isHidden == b.isHidden) {
+		dataCount.innerText = `Đã hoàn thành: ${__missions.unlocked.length}/${__missions.total.length}`;
+		listMissions.innerHTML = __missions.total
+			.sort((a, b) => {
+				return a.rating - b.rating;
+			})
+			.sort((a, b) => {
+				if (a.isHidden && a.isHidden == b.isHidden) {
+					return 0;
+				}
+				if (a.isHidden) return 1;
+				if (b.isHidden) return -1;
 				return 0;
-			}
-			if (a.isHidden) return 1;
-			if (b.isHidden) return -1;
-			return 0;
-		}).map((v) => {
-			let  isUnlocked = __missions.isUnlocked(v.id);
-			if (v.isHidden) {
-				return `<li>
+			})
+			.map((v) => {
+				let isUnlocked = __missions.isUnlocked(v.id);
+				if (v.isHidden) {
+					return `<li>
                                 <div class="flex gap-x-2 items-center mb-1">
                                     <img src="${
 										isUnlocked
-											? v.unlockico || "./assets/images/ico-unlockee02.gif"
+											? v.unlockico ||
+											  "./assets/images/ico-unlockee02.gif"
 											: "./assets/images/ico-easteregg.png"
 									}" class="w-12 h-12"/>
                                     <div class="flex-1 flex">
                                         <span>${
 											v.done
 												? `${v.display} (#${
-													__missions.getMission(
-														v.id
-													).index
-											  })`
+														__missions.getMission(
+															v.id
+														).index
+												  })`
 												: `Easter egg (#${
 														__missions.getMission(
 															v.id
@@ -294,8 +322,8 @@ window.onload = () => {
                                     ${v.done ? v.description : ""}
                                 </div>
                             </li>`;
-			}
-			return `
+				}
+				return `
                             <li>
                                 <div class="flex gap-x-2 items-center mb-1">
                                     <img src="${
@@ -328,19 +356,20 @@ window.onload = () => {
                                 </div>
                             </li>
 							`;
-		}).join(" ")
-	})
+			})
+			.join(" ");
+	});
 
-	btnCloses.forEach(btn => {
+	btnCloses.forEach((btn) => {
 		btn.addEventListener("click", (e) => {
 			settings.disableScroll = false;
 			btn.closest("[id]").classList.toggle("hidden", true);
 			btn.closest("[id]").classList.toggle("noselect", true);
-		})
-	})
+		});
+	});
 
 	btnHome.addEventListener("click", () => {
 		camera.emit("update-xy", { x: -0.076, y: 0.766 });
 		camera.emit("update-position", { x: 8.32, y: 2.2, z: 11.519 });
-	})
+	});
 }
