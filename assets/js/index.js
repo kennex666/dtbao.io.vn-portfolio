@@ -34,9 +34,17 @@ const sceneScript = {
 				"wasd-controls",
 				`enabled: true; acceleration: ${settings.speed.walk}`
 			);
-			camera.setAttribute("position", `8.320 ${settings.cameraHeight} 11.519`);
+			camera.setAttribute(
+				"position",
+				`8.320 ${settings.cameraHeight} 11.519`
+			);
+			camera.emit("update-xy", { x: -0.076, y: 0.766 });
 			introRange.setAttribute("visible", false);
 			floor.setAttribute("visible", true);
+
+			// Load data
+			__missions.loadMission();
+			__logger.init();
 		},
 		detroy: () => {},
 	},
@@ -204,6 +212,8 @@ function createDoneToast(data, duration = 5000) {
 }
 
 window.onload = () => {
+
+
     scene = document.querySelector("#scene");
     camera = document.querySelector("#camera");
 	btnUse =document.querySelector("#btn-use");
@@ -215,11 +225,9 @@ window.onload = () => {
 	const btnCloses = document.querySelectorAll("[btn-close]")
 
     if (camera.hasLoaded) {
-        camera.emit("update-xy", { x: -0.076, y: 0.766 });
         sceneScript.dev.init();
     } else {
         camera.addEventListener("loaded", () => {
-            camera.emit("update-xy", { x: -0.076, y: 0.766 });
             sceneScript.dev.init();
         });
     }
@@ -241,15 +249,6 @@ window.onload = () => {
 		listMissions.innerHTML = __missions.total.sort((a,b) => {
 			return a.rating - b.rating;
 		}).sort((a, b) => {
-			if (a.done && a.done == b.done){
-				return 0;
-			}
-			if (a.done)
-				return -1;
-			if (b.done)
-				return 1;
-			return 0;
-		}).sort((a, b) => {
 			if (a.isHidden && a.isHidden == b.isHidden) {
 				return 0;
 			}
@@ -257,7 +256,7 @@ window.onload = () => {
 			if (b.isHidden) return -1;
 			return 0;
 		}).map((v) => {
-			let  isUnlocked = __missions.unlocked.findIndex((val) => val == v.id) > -1;
+			let  isUnlocked = __missions.isUnlocked(v.id);
 			if (v.isHidden) {
 				return `<li>
                                 <div class="flex gap-x-2 items-center mb-1">

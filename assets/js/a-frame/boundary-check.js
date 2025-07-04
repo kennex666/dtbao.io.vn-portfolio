@@ -6,7 +6,7 @@ AFRAME.registerComponent("sky-boundary-check", {
 	tick() {
 		const cameraPos = this.el.object3D.position;
 		const distance = cameraPos.length();
-		if (__missions.unlocked.includes("chien_binh_ranh_roi")) {
+		if (__missions.isUnlocked("chien_binh_ranh_roi")) {
 			return;
 		}
 

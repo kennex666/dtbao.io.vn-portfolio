@@ -1,4 +1,31 @@
 const __missions = {
+	saveKey: "missions_unlock",
+	isUnlocked: (id) => {
+		const isUnlocked = __missions.unlocked.findIndex((e) => e.id == id);
+		return isUnlocked != -1	
+	},
+	loadMission: () => {
+		let data = window.localStorage.getItem(__missions.saveKey);
+		if (data){
+			try {
+				data = JSON.parse(data);
+			} catch (error) {
+				data = [];
+			}
+		} else{
+			data = [];
+		}
+		data.forEach((e) => {
+			const mission = __missions.total.findIndex((v) => v.id == e.id);
+			if (mission != -1) {
+				__missions.unlocked.push(e);
+				__missions.total[mission].done = true;
+			}
+		})
+	},
+	saveMission: (data) => {
+		window.localStorage.setItem(__missions.saveKey, JSON.stringify(data));
+	},
 	loadNotification: (mission) => {
 		setTimeout(() => {
 			createDoneToast(mission.data);
@@ -30,10 +57,14 @@ const __missions = {
 		const mission = __missions.getMission(id);
 
 		if (!mission) return;
-		if (__missions.unlocked.findIndex((v) => v == id) != -1) return;
+		if (__missions.unlocked.findIndex((v) => v.id == id) != -1) return;
 		__missions.queueNotification.push(mission);
-		__missions.unlocked.push(id);
+		__missions.unlocked.push({
+			id,
+			time: new Date().getTime()
+		});
 		__missions.total[mission.index].done = true;
+		__missions.saveMission(__missions.unlocked);
 
 		if (__missions.queueNotification[0].index == mission.index) {
 			__missions.loadNotification(mission);
