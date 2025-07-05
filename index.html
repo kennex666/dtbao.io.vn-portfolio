@@ -209,6 +209,23 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+            @keyframes gradient-x {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            .animate-gradient-x {
+                background-size: 200% 200%;
+                animation: gradient-x 6s ease infinite;
+            }
+
         </style>
 	</head>
 
@@ -221,10 +238,6 @@
                 <img id="wall-m" src="assets/images/materials/wood.jpg">
                 <img id="computer-bg" src="assets/images/hdr/cpt-bg.jpg">
                 <img id="logo" src="assets/images/logo.png">
-                <img id="giaykhen_kn" src="assets/images/giaykhen_kn.jpg">
-                <img id="giaygdsc" src="assets/images/giay_gdsc.jpg">
-                <img id="giaywtm" src="assets/images/giay_wtm.jpg">
-                <img id="img-to-do-list" src="assets/images/to-do-list.jpg">
                 <img id="arrow-gallery" src="assets/images/buttons/arrow-gallery.png">
                 <!-- Model  -->
                 <a-asset-item id="model-forest1" src="assets/models/frs/forest1.glb"></a-asset-item>
@@ -333,7 +346,7 @@
 
             
             <!-- To do list -->
-            <a-plane material="src: #img-to-do-list; shader: standard" width="0.5" height="0.3" position="6.49423 1.16096 5.0309" rotation="-90 14 0" geometry="height: 0.49; width: 0.31"></a-plane>
+            <a-plane class="clickable" image-viewer="src: assets/images/to-do-list.jpg" material="src: assets/images/to-do-list.jpg; shader: standard" width="0.5" height="0.3" position="6.49423 1.16096 5.0309" rotation="-90 14 0" geometry="height: 0.49; width: 0.31"></a-plane>
             <a-entity gltf-model="#model-pencil" position="6.31193 1.16263 5.12896" rotation="0 110 -90" scale="0.2 0.2 0.2"></a-entity>
             <!-- Note workspace -->
             <a-entity>
@@ -543,11 +556,11 @@
             <a-entity board-component>
                 <a-plane id="board_screen" width="0.5" height="0.3" position="1.875 2.019 9.661" rotation="0 90 0" geometry="height: 1.69; width: 3.17" material="src: assets/images/boards/1.png"></a-plane>
                 <a-entity gltf-model="assets/models/Whiteboard.glb" position="1.867 2.019 9.661" scale="2.7 3.07 1" rotation="0 90 0"></a-entity>    
-                <a-image class="clickable btn-previous" mission-click="missionId: giai_ma_nhan_danh;" src="#arrow-gallery" material="opacity: 0.9446519627592906; blending: additive; color: #b5b5b5" geometry="height: 0.08; width: 0.134"
+                <a-image class="clickable btn-previous" src="#arrow-gallery" material="opacity: 0.9446519627592906; blending: additive; color: #b5b5b5" geometry="height: 0.08; width: 0.134"
                 animation__mouseenter="property: scale; to: 1.1 1.1 1; dur: 300; startEvents: mouseenter"
 	            animation__mouseleave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave" rotation="0 -90 0" position="1.880 2.019 11.12745">
                 </a-image>
-                <a-image class="clickable btn-next" mission-click="missionId: giai_ma_nhan_danh;"src="#arrow-gallery" material="opacity: 0.7504986509566945; blending: additive; color: #b5b5b5" geometry="height: 0.08; width: 0.134" 
+                <a-image class="clickable btn-next" mission-click="missionId: giai_ma_nhan_danh;" src="#arrow-gallery" material="opacity: 0.7504986509566945; blending: additive; color: #b5b5b5" geometry="height: 0.08; width: 0.134" 
                 animation__mouseenter="property: scale; to: 1.1 1.1 1; dur: 300; startEvents: mouseenter"
 	            animation__mouseleave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave" rotation="0 90 0" position="1.880 2.019 8.19111">
                 </a-image>
@@ -562,17 +575,17 @@
             <!-- Space Certificate -->
             <a-entity position="-0.018 -0.214 0">
                 <a-entity>
-                    <a-plane class="clickable" redirect="url: https://developers.google.com/community" hover-highlight="title: Chapter Lead 23-24 @ Industrial University of HCMC - Google Developer Student Clubs; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;" material="color: #ffffff; src: #giaygdsc" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
+                    <a-plane class="clickable" image-viewer="src: assets/images/giay_gdsc.jpg; url: https://developers.google.com/community" hover-highlight="title: Chapter Lead 23-24 @ Industrial University of HCMC - Google Developer Student Clubs; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;" material="color: #ffffff; src: assets/images/giay_gdsc.jpg" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
                     <a-entity gltf-model="#model-frame" position="5.98106 2.59227 4.42252" scale="1.43 0.93 1"></a-entity>      
                 </a-entity>
                 
                 <a-entity>
-                    <a-plane class="clickable" redirect="url: https://tinhdoanbinhphuoc.vn/tin-tuc-doan-hoi-doi/cuoc-thi-khoi-nghiep-doi-moi-sang-tao-tinh-binh-phuoc-lan-thu-i-nam-2021-4390.html"  hover-highlight="title: Won the top 3 in the 1st startup innovation competition in Bình Phước province, Vietnam; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #giaykhen_kn" position="7.19763 2.59612 4.43263" geometry="width: 1.414" scale="0.6 0.6 0.6"></a-plane>
+                    <a-plane class="clickable" image-viewer="src: assets/images/giaykhen_kn.jpg; url: https://tinhdoanbinhphuoc.vn/tin-tuc-doan-hoi-doi/cuoc-thi-khoi-nghiep-doi-moi-sang-tao-tinh-binh-phuoc-lan-thu-i-nam-2021-4390.html"  hover-highlight="title: Won the top 3 in the 1st startup innovation competition in Bình Phước province, Vietnam; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: assets/images/giaykhen_kn.jpg" position="7.19763 2.59612 4.43263" geometry="width: 1.414" scale="0.6 0.6 0.6"></a-plane>
                     <a-entity gltf-model="#model-frame" position="7.19828 2.59227 4.42252" scale="1.35 0.93 1"></a-entity>
                 </a-entity>
                 
                 <a-entity>
-                    <a-plane class="clickable" redirect="url: https://wtmhcmc.com/" hover-highlight="title: Member @ Women Techmakers Ho Chi Minh city; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #giaywtm" position="8.3696 2.58829 4.433" geometry="width: 1.366" scale="0.6 0.6 0.6"></a-plane>
+                    <a-plane class="clickable" image-viewer="src: assets/images/giay_wtm.jpg; url: https://wtmhcmc.com/" hover-highlight="title: Member @ Women Techmakers Ho Chi Minh city; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: assets/images/giay_wtm.jpg" position="8.3696 2.58829 4.433" geometry="width: 1.366" scale="0.6 0.6 0.6"></a-plane>
                     <a-entity gltf-model="#model-frame" position="8.36251 2.59227 4.42252" scale="1.32 0.93 1"></a-entity>
                 </a-entity>
             </a-entity>
@@ -687,7 +700,7 @@
                             <p class="text-xl tracking-wide bg-gradient-to-r from-rose-700 via-amber-600 to-yellow-400 bg-clip-text text-transparent drop-shadow">
                                 Ghi danh và để lại lời nhắn:
                             </p>
-                            <p class="text-sm">P/s: Lời nhắn sẽ được duyệt sau :></p>
+                            <p class="text-sm">P/s: Lời nhắn sẽ được hiển thị trong vòng 24h</p>
 
                             <div class="flex flex-col gap-2 mt-2" form-visitors>
                                 <input id="frm-input-name"
@@ -700,7 +713,7 @@
                                 <textarea
                                     id="frm-input-message"
                                     class="w-full h-24 px-4 py-2 rounded border border-[#7b4b25] bg-[#fff8e7] text-[#4a2f1c] placeholder:text-[#a78f6c] focus:outline-none focus:ring-2 focus:ring-[#d6a76d] transition resize-none"
-                                    placeholder="Lời nhắn bạn muốn để lại (Không quá 255 ký tự). Nếu hem ghi cũng không sao cả :3"
+                                    placeholder="[Tuỳ chọn] Lời nhắn bạn muốn để lại (Không quá 255 ký tự). Nếu hem ghi cũng không sao cả :3"
                                     maxlength="255"
                                 ></textarea>
 
@@ -729,6 +742,27 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Image Viewer -->
+        <div id="image-viewer" class="hidden fixed inset-0 z-[99] flex justify-center items-center bg-black/70 backdrop-blur-sm">
+            <!-- Nút đóng -->
+            <div class="absolute top-[5vh] right-[5vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer" onclick="closeImageViewer()">
+                <img src="./assets/images/buttons/btn-close.png" alt="Close">
+            </div>
+
+            <!-- Nội dung ảnh và nút -->
+            <div class="flex flex-col items-center space-y-4">
+                <img id="image-viewer-img" src="" alt="Preview" class="max-w-[90vw] max-h-[80vh] rounded-xl shadow-xl border-4 border-white" />
+
+                <!-- Nút Tìm hiểu thêm -->
+                <a id="image-viewer-link" href="#" target="_blank"
+                    class="hidden px-6 py-2 rounded-lg font-semibold text-white transition-all duration-300 ease-in-out
+                    bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 shadow-lg hover:shadow-xl
+                    hover:scale-105 hover:from-yellow-500 hover:to-pink-500 animate-gradient-x">
+                    Tìm hiểu thêm →
+                </a>
             </div>
         </div>
 

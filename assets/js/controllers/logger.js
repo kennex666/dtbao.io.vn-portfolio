@@ -15,6 +15,7 @@ const __logger = {
 	key_last_time: "3d_visit_last_time",
 	key_version: "3d_last_version",
 	key_user_id: "3d_user_id",
+	key_message: "3d_send_message",
 	init: () => {
 		const data = {};
 		__missions.loadMission();

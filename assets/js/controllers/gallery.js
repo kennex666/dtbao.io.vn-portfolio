@@ -23,6 +23,51 @@ const __gallery = [
 		]
 	},
 ];
+
+function openImageViewer(src, link = null) {
+	const viewer = document.getElementById("image-viewer");
+	const img = document.getElementById("image-viewer-img");
+	const linkBtn = document.getElementById("image-viewer-link");
+
+	img.src = src;
+
+	if (link) {
+		linkBtn.href = link;
+		linkBtn.classList.remove("hidden");
+	} else {
+		linkBtn.classList.add("hidden");
+	}
+
+	viewer.classList.remove("hidden");
+	settings.disableScroll = true;
+}
+
+function closeImageViewer() {
+	document.getElementById("image-viewer").classList.add("hidden");
+	document.getElementById("image-viewer-img").src = "";
+	settings.disableScroll = false;
+}
+
+
+AFRAME.registerComponent("image-viewer", {
+	schema: {
+		src: {
+			type: "string"
+		},
+		url: {
+			type: "string",
+			default: ""
+		}
+	},
+	init: function() {
+		this.el.addEventListener("click", () => {
+			const src = this.data.src || "#"
+			const url = this.data.url || "";
+			openImageViewer(src, url);
+		})
+	}
+})
+
 AFRAME.registerComponent("gallery-vr", {
     init: function (){
         this.isOpen = false;

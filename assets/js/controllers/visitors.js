@@ -112,7 +112,17 @@ async function loadMessagesPage() {
 function renderVisitorEntry(name, date, message) {
 	const displayMessage = message?.trim() || "Đã ghé thăm portfolio này.";
 	const safeName = name?.trim() || "Khách ẩn danh";
-	const safeDate = date || new Date().toLocaleDateString("vi-VN");
+    const safeDate =
+		new Date(date).toLocaleDateString("vi-VN", {
+			day: "2-digit",
+			month: "2-digit",
+			year: "numeric",
+		}) ||
+		new Date().toLocaleDateString("vi-VN", {
+			day: "2-digit",
+			month: "2-digit",
+			year: "numeric",
+		});
 
 	const html = `
 		<div class="visitor-entry p-4 rounded border border-[#b28b67] bg-[#fff8e7] shadow-sm">
@@ -175,7 +185,7 @@ function visitorSubmition() {
 			const data = await res.json();
 
 			if (data.success) {
-				text.textContent = "Đã ghi danh - ";
+				text.textContent = "Đã ghi danh - Sẽ hiển thị sau 24 giờ!";
 				icon.textContent = "📜";
 
 				// Reset sau 2.5s
