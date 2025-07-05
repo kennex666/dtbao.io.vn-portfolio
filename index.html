@@ -142,6 +142,31 @@
             [new-scroll]::-webkit-scrollbar-thumb:hover {
                 background-color: rgba(0, 0, 0, 0.5);
             }
+           
+            .book-open {
+                background-image: url("assets/images/OpenBook.png");
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+
+                height: min(90vw, 90vh);
+                aspect-ratio: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-sizing: border-box;
+            }
+
+            .book-content {
+                display: flex;
+                flex-direction: column;
+                transform: rotateY(3deg);
+                width: 52%;
+                height: 70%;
+                margin-top: 3%;
+                margin-left: 12%;
+                background: rgba(255, 255, 255, 0.05); /* Optional để dễ nhìn layout */
+            }
 
         </style>
 	</head>
@@ -371,7 +396,7 @@
                 <a-entity gltf-model="#model-stool" position="6.748 0.041 10.754" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
                 </a-entity>
                 <a-entity position="6.649 1.078 10.287">
-                    <a-entity hover-highlight="title: Visitors" class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
+                    <a-entity use-items="id: visitors" hover-highlight="title: Visitors" class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
                     <a-entity firefly="spread: 0.2; count: 20; size: 0.007; randomSize: 0.001; light: true;" position="0 0.12 0"></a-entity>
             </a-entity>
             
@@ -578,30 +603,90 @@
         </div>
 
         <!-- Mission book -->
-        <div id="missions" class="hidden">
+        <div id="missions" class="hidden noselect">
             <div class="fixed inset-0 z-[99] flex justify-center items-center bg-white/10 backdrop-blur">
                 <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer">
                     <img src="./assets/images/buttons/btn-close.png">
                 </div>
-                <div class="relative w-[90vw] max-w-[800px] h-[90vh] aspect-[1/1]">
-                    <!-- Ảnh nền -->
-                    <img src="../assets/images/OpenBook.png"
-                        class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none">
-                    <!-- Text đè theo vị trí phần trăm
-                      : debug -  border border-dashed border-red-400  -->
-                    <div class="absolute top-[20%] left-[33.5%] w-[43%] h-[68%] text-blacktext-justify overflow-y-auto" style="transform: rotateY(5deg);" new-scroll>
-
+                <div class="book-open absolute text-black text-justify">
+                    <div class="book-content" new-scroll>
                         <h2 class="text-5xl mb-2 text-center">Achievements</h2>
-                        <p data-missions-count class="text-xl mb-6">Đã hoàn thành: {mission_unlocked}/{missions_total}</p>
+                        <p data-missions-count class="text-xl mb-4">Đã hoàn thành: {mission_unlocked}/{missions_total}</p>
                             
-                        <ol class="md:text-xl space-y-4" list-missions>
-                        </ol>
-                            
+                        <!-- Danh sách nhiệm vụ có scroll -->
+                        <div class="overflow-y-auto" new-scroll>
+                            <ol class="md:text-xl space-y-4" list-missions>
+                            </ol>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         
+        <!-- Visitor book -->
+        <div id="visitors" class="hidden noselect">
+            <div class="fixed inset-0 z-[99] flex justify-center items-center bg-white/10 backdrop-blur">
+                <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer">
+                    <img src="assets/images/buttons/btn-close.png">
+                </div>
+                <div class="book-open absolute text-black text-justify">
+                    <div class="book-content" new-scroll>
+                        <h2 class="text-5xl mb-2 text-center">Visitors</h2>
+                        <p class="text-xl mb-4">Cảm ơn mọi người đã ghé thăm Portfolio của Bảo 🥰💖</p>
+
+                        <!-- Section: Danh sách lời nhắn -->
+                        <div id="tab-messages" class="flex-1 overflow-y-auto space-y-2">
+                            <ol class="list-decimal list-inside text-xl space-y-2" list-visitors>
+                                <li><strong>Anh Phú</strong> (25/10/2025): Trang đẹp vãi nồi!</li>
+                                <li><strong>Anh Luân</strong> (25/10/2025): Code sạch như nước suối mùa xuân 😌</li>
+                                <li><strong>Anh Hùng</strong> (23/09/2025): Nhìn là biết dev có tâm.</li>
+                            </ol>
+                        </div>
+
+                        <!-- Section: Form ghi danh -->
+                        <div id="tab-form" class="hidden flex-1">
+                            <p class="text-xl tracking-wide bg-gradient-to-r from-rose-700 via-amber-600 to-yellow-400 bg-clip-text text-transparent drop-shadow">
+                                Ghi danh và để lại lời nhắn:
+                            </p>
+
+                            <div class="flex flex-col gap-2 mt-2">
+                                <input
+                                    class="h-10 w-full px-4 rounded border border-[#7b4b25] bg-[#fff8e7] text-[#4a2f1c] placeholder:text-[#a78f6c] focus:outline-none focus:ring-2 focus:ring-[#d6a76d] transition"
+                                    type="text"
+                                    placeholder="Tên/Nickname của bạn"
+                                />
+
+                                <textarea
+                                    class="w-full h-24 px-4 py-2 rounded border border-[#7b4b25] bg-[#fff8e7] text-[#4a2f1c] placeholder:text-[#a78f6c] focus:outline-none focus:ring-2 focus:ring-[#d6a76d] transition resize-none"
+                                    placeholder="Lời nhắn bạn muốn để lại..."
+                                ></textarea>
+
+                                <div class="text-right">
+                                    <button
+                                        class="px-4 py-2 rounded border border-[#7b4b25] bg-[#f5e0b7] hover:bg-[#ecd3a0] text-[#4a2f1c] font-semibold transition"
+                                    >
+                                        Ghi danh
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                       <!-- Tabs -->
+                       <div class="flex justify-center gap-4 mb-4 w-full">
+                            <button data-tab="messages" class="tab-btn px-4 py-2 rounded border border-[#7b4b25] bg-[#f5e0b7] hover:bg-[#ecd3a0] text-[#4a2f1c] font-semibold transition w-full">
+                                Xem lời nhắn
+                            </button>
+                            <button data-tab="form" class="tab-btn px-4 py-2 rounded border border-[#7b4b25] bg-[#fff8e7] hover:bg-[#fceccc] text-[#4a2f1c] font-semibold transition w-full">
+                                Ghi danh mới
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </body>
@@ -616,6 +701,7 @@
     <script src="assets/js/a-frame/mouse_event.js"></script>
     <script src="assets/js/scripts/missions.js"></script>
     <script src="assets/js/a-frame/boundary-check.js"></script>
+    <script src="assets/js/a-frame/visitors.js"></script>
     <script src="assets/js/controllers/watermark.js"></script>
     <script src="assets/js/controllers/media-player.js"></script>
     <script src="assets/js/controllers/gallery.js"></script>

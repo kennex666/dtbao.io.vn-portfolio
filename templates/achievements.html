@@ -45,6 +45,29 @@
                 letter-spacing: 0.02em;
             }
 
+            .book-open {
+                background-image: url("../assets/images/OpenBook.png");
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+
+                height: min(90vw, 90vh);
+                aspect-ratio: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-sizing: border-box;
+            }
+
+            .book-content {
+                transform: rotateY(3deg);
+                width: 54%;
+                height: 70%;
+                margin-top: 6%;
+                margin-left: 12%;
+                background: rgba(255, 255, 255, 0.05); /* Optional để dễ nhìn layout */
+                overflow: auto;
+            }
         </style>
 	</head>
 
@@ -54,17 +77,11 @@
         
         
         <div class="fixed inset-0 z-[99] flex justify-center items-center bg-white/10 backdrop-blur">
-            <!-- Wrapper có tỉ lệ cố định -->
-            <div class="relative w-[90vw] max-w-[800px] h-[90vh] aspect-[1/1]">
-                <!-- Ảnh nền -->
-                <img src="../assets/images/OpenBook.png"
-                    class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none">
-        
-                <!-- Text đè theo vị trí phần trăm -->
-                <div class="absolute top-[20%] left-[33.5%] w-[43%] h-[68%] text-black border border-dashed border-red-400  text-justify" style="transform: rotateY(5deg);">
+            <!-- border border-dashed border-red-400 -->
+            <div class="book-open absolute text-black text-justify">
+                <div class="book-content">
                     <h2 class="text-5xl mb-8 text-center">Achievements</h2>
                     <!-- <p class="text-xl mb-2">Cảm ơn mọi người đã ghé thăm Portfolio của Bảo <3 </p> -->
-                        
                     <ol class="md:text-xl space-y-4">
                         <li>
                             <div class="flex gap-x-2 items-center">
@@ -80,7 +97,6 @@
                             </div>
                         </li>
                     </ol>
-                        
                 </div>
             </div>
         </div>

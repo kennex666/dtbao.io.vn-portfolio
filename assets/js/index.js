@@ -240,6 +240,7 @@ window.onload = () => {
 	const btnHome = document.querySelector("#btn-home");
 	const missionsPage = document.querySelector("#missions");
 	const listMissions = document.querySelector("[list-missions]");
+	const btnTabs = document.querySelectorAll(".tab-btn")
 
 	const btnCloses = document.querySelectorAll("[btn-close]");
 
@@ -266,7 +267,7 @@ window.onload = () => {
 	btnMissions.addEventListener("click", (e) => {
 		settings.disableScroll = true;
 		missionsPage.classList.toggle("hidden", false);
-		btnMissions.closest("[id]").classList.toggle("noselect", false);
+		// btnMissions.closest("[id]").classList.toggle("noselect", false);
 
 		let dataCount = document.querySelector("[data-missions-count]");
 		dataCount.innerText = `Đã hoàn thành: ${__missions.unlocked.length}/${__missions.total.length}`;
@@ -371,5 +372,27 @@ window.onload = () => {
 	btnHome.addEventListener("click", () => {
 		camera.emit("update-xy", { x: -0.076, y: 0.766 });
 		camera.emit("update-position", { x: 8.32, y: 2.2, z: 11.519 });
+	});
+
+	btnTabs.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			const tab = btn.getAttribute("data-tab");
+			document
+				.getElementById("tab-messages")
+				.classList.toggle("hidden", tab !== "messages");
+			document
+				.getElementById("tab-form")
+				.classList.toggle("hidden", tab !== "form");
+
+				btnTabs.forEach((btn) => {
+					if (btn.getAttribute("data-tab") == tab){
+						btn.classList =
+							"tab-btn px-4 py-2 rounded border border-[#7b4b25] bg-[#f5e0b7] hover:bg-[#ecd3a0] text-[#4a2f1c] font-semibold transition w-full";
+					} else {
+						btn.classList =
+							"tab-btn px-4 py-2 rounded border border-[#7b4b25] bg-[#fff8e7] hover:bg-[#fceccc] text-[#4a2f1c] font-semibold transition w-full";
+					}
+				})
+		});
 	});
 }
