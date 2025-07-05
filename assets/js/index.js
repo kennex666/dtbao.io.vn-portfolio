@@ -286,6 +286,23 @@ function createDoneToast(data, duration = 5000) {
 	}, duration);
 }
 
+function guideHandler (){
+	const btnGuide = document.querySelector("#btn-guide");
+
+	btnGuide.addEventListener("click", () => {
+		const guideBook = document.querySelector("#guide-book");
+		const btnStart = document.querySelector("#btn-start-intro");
+		const btnSkip = document.querySelector("#btn-skip-intro");
+		const btnClose = guideBook.querySelector("[btn-close]");
+		if (btnClose) {
+			btnClose.classList.toggle("hidden", false);
+		}
+		guideBook.classList.toggle("hidden", false);
+		settings.disableScroll = true;
+		btnStart.parentElement.classList.toggle("hidden", true);
+	})
+}
+
 function escapeHTML(str) {
 	return str.replace(/[&<>'"]/g, function (c) {
 		return {
@@ -341,6 +358,7 @@ window.onload = () => {
 	missionHandler();
 	visitorHandler();
 	visitorSubmition();
+	guideHandler();
 	// Gọi load lần đầu
 	loadMessagesPage();
 }

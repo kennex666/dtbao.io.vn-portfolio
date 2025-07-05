@@ -647,13 +647,17 @@
 
         <!-- Controllers -->
         <div style="position: fixed; top: 5vh; right: 5vh; z-index: 10; width: 50px; max-width: 100px;">
-           <div id="btn-missions" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
-                <img src="assets/images/buttons/btn-missions.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; ">
+           <div id="btn-missions" title="Thành tựu" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+                <img src="assets/images/buttons/btn-missions.png" alt="Missions" style="width: 80%; height: 80%; object-fit: contain; ">
            </div>
            
-           <div id="btn-home" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
-            <img src="assets/images/ico-home.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; ">
+           <div id="btn-home" title="Recall" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+                <img src="assets/images/ico-home.png" alt="Home" style="width: 80%; height: 80%; object-fit: contain; ">
             </div>
+           
+            <div id="btn-guide" title="Hướng dẫn" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+                 <img src="assets/images/ico-home.png" alt="Guide" style="width: 80%; height: 80%; object-fit: contain; ">
+             </div>
         </div>
 
         <!-- Mission book -->
@@ -769,7 +773,7 @@
         <!-- Guide book -->
         <div id="guide-book" class="hidden noselect">
             <div class="fixed inset-0 z-[99] flex justify-center items-center bg-white/10 backdrop-blur">
-                <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer">
+                <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer hidden">
                     <img src="./assets/images/buttons/btn-close.png">
                 </div>
                 <div class="book-open absolute text-black">
