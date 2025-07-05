@@ -165,9 +165,50 @@
                 height: 70%;
                 margin-top: 3%;
                 margin-left: 12%;
-                background: rgba(255, 255, 255, 0.05); /* Optional để dễ nhìn layout */
+                background: rgba(255, 255, 255, 0.05);
+            }
+            
+            @keyframes glowPulse {
+                0%, 100% {
+                    box-shadow: 0 0 0px rgba(250, 202, 131, 0.0);
+                }
+                50% {
+                    box-shadow: 0 0 12px 4px rgba(250, 202, 131, 0.4);
+                }
             }
 
+            .glow-button {
+                animation: glowPulse 2.5s ease-in-out infinite;
+            }
+
+
+            @keyframes blink-glow {
+                0%, 100% {
+                    opacity: 1;
+                    text-shadow: 0 0 1px #facc15, 0 0 5px #facc15;
+                }
+                50% {
+                    opacity: 0.4;
+                    text-shadow: 0 0 3px #facc15;
+                }
+            }
+
+            .loading-note {
+                animation: blink-glow 1.2s infinite;
+                color: #facc15; /* Tailwind yellow-400 */
+                font-style: italic;
+                font-size: 0.75rem; /* text-xs */
+                font-weight: 600;   /* font-semibold */
+                text-align: center;
+                margin-top: 0.5rem; /* mt-2 */
+                opacity: 0;
+                transform: translateY(0.5rem);
+                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            }
+            .loading-note.show {
+                opacity: 1;
+                transform: translateY(0);
+            }
         </style>
 	</head>
 
@@ -631,43 +672,46 @@
                     <img src="assets/images/buttons/btn-close.png">
                 </div>
                 <div class="book-open absolute text-black text-justify">
-                    <div class="book-content" new-scroll>
+                    <div class="book-content">
                         <h2 class="text-5xl mb-2 text-center">Visitors</h2>
                         <p class="text-xl mb-4">Cảm ơn mọi người đã ghé thăm Portfolio của Bảo 🥰💖</p>
 
                         <!-- Section: Danh sách lời nhắn -->
-                        <div id="tab-messages" class="flex-1 overflow-y-auto space-y-2">
-                            <ol class="list-decimal list-inside text-xl space-y-2" list-visitors>
-                                <li><strong>Anh Phú</strong> (25/10/2025): Trang đẹp vãi nồi!</li>
-                                <li><strong>Anh Luân</strong> (25/10/2025): Code sạch như nước suối mùa xuân 😌</li>
-                                <li><strong>Anh Hùng</strong> (23/09/2025): Nhìn là biết dev có tâm.</li>
-                            </ol>
+                        <div id="tab-messages" currentpage="0" class="flex-1 overflow-y-auto space-y-4" new-scroll list-visitors>
+                            
                         </div>
+                        
 
                         <!-- Section: Form ghi danh -->
                         <div id="tab-form" class="hidden flex-1">
                             <p class="text-xl tracking-wide bg-gradient-to-r from-rose-700 via-amber-600 to-yellow-400 bg-clip-text text-transparent drop-shadow">
                                 Ghi danh và để lại lời nhắn:
                             </p>
+                            <p class="text-sm">P/s: Lời nhắn sẽ được duyệt sau :></p>
 
-                            <div class="flex flex-col gap-2 mt-2">
-                                <input
+                            <div class="flex flex-col gap-2 mt-2" form-visitors>
+                                <input id="frm-input-name"
                                     class="h-10 w-full px-4 rounded border border-[#7b4b25] bg-[#fff8e7] text-[#4a2f1c] placeholder:text-[#a78f6c] focus:outline-none focus:ring-2 focus:ring-[#d6a76d] transition"
                                     type="text"
-                                    placeholder="Tên/Nickname của bạn"
+                                    placeholder="Tên/Nickname của bạn (Không quá 25 kí tự)"
+                                    maxlength="25"
                                 />
 
                                 <textarea
+                                    id="frm-input-message"
                                     class="w-full h-24 px-4 py-2 rounded border border-[#7b4b25] bg-[#fff8e7] text-[#4a2f1c] placeholder:text-[#a78f6c] focus:outline-none focus:ring-2 focus:ring-[#d6a76d] transition resize-none"
-                                    placeholder="Lời nhắn bạn muốn để lại..."
+                                    placeholder="Lời nhắn bạn muốn để lại (Không quá 255 ký tự). Nếu hem ghi cũng không sao cả :3"
+                                    maxlength="255"
                                 ></textarea>
 
-                                <div class="text-right">
+                                <div class="w-full relative">
                                     <button
-                                        class="px-4 py-2 rounded border border-[#7b4b25] bg-[#f5e0b7] hover:bg-[#ecd3a0] text-[#4a2f1c] font-semibold transition"
-                                    >
-                                        Ghi danh
-                                    </button>
+                                    id="btn-submitmsg"
+                                    class="glow-button w-full px-4 py-2 rounded border border-[#7b4b25] bg-[#f5e0b7] hover:bg-[#ecd3a0] text-[#4a2f1c] font-semibold tracking-wide transition-all duration-200 ease-in-out active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                >
+                                    <span id="submitmsg-icon">✍️</span>
+                                    <span id="submitmsg-text">Ghi danh</span>
+                                </button>
                                 </div>
                             </div>
                         </div>
@@ -675,7 +719,7 @@
                         
                         
                        <!-- Tabs -->
-                       <div class="flex justify-center gap-4 mb-4 w-full">
+                       <div class="flex justify-center gap-4 mt-4 w-full">
                             <button data-tab="messages" class="tab-btn px-4 py-2 rounded border border-[#7b4b25] bg-[#f5e0b7] hover:bg-[#ecd3a0] text-[#4a2f1c] font-semibold transition w-full">
                                 Xem lời nhắn
                             </button>
@@ -707,6 +751,7 @@
     <script src="assets/js/controllers/gallery.js"></script>
     <script src="assets/js/controllers/board.js"></script>
     <script src="assets/js/controllers/logger.js"></script>
+    <script src="assets/js/controllers/visitors.js"></script>
     
     <!-- load last -->
     <script src="assets/js/index.js"></script>

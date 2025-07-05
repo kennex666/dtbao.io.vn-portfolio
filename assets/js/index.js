@@ -229,6 +229,18 @@ function createDoneToast(data, duration = 5000) {
 	}, duration);
 }
 
+function escapeHTML(str) {
+	return str.replace(/[&<>'"]/g, function (c) {
+		return {
+			"&": "&amp;",
+			"<": "&lt;",
+			">": "&gt;",
+			"'": "&#39;",
+			'"': "&quot;",
+		}[c];
+	});
+}
+
 window.onload = () => {
 	// Load data
 	const guestData = __logger.init();
@@ -238,18 +250,11 @@ window.onload = () => {
 	btnUse = document.querySelector("#btn-use");
 	btnMissions = document.querySelector("#btn-missions");
 	const btnHome = document.querySelector("#btn-home");
-	const missionsPage = document.querySelector("#missions");
-	const listMissions = document.querySelector("[list-missions]");
-	const btnTabs = document.querySelectorAll(".tab-btn")
-
 	const btnCloses = document.querySelectorAll("[btn-close]");
 
 	if (camera.hasLoaded) {
-		if (guestData.visit_total == 1) 
-			sceneScript.firstTime.init();
-		else 
-			sceneScript.welcomeBack.init();
-		
+		if (guestData.visit_total == 1) sceneScript.firstTime.init();
+		else sceneScript.welcomeBack.init();
 	} else {
 		camera.addEventListener("loaded", () => {
 			if (guestData.visit_total == 1) sceneScript.firstTime.init();
@@ -264,103 +269,6 @@ window.onload = () => {
 		}
 	});
 
-	btnMissions.addEventListener("click", (e) => {
-		settings.disableScroll = true;
-		missionsPage.classList.toggle("hidden", false);
-		// btnMissions.closest("[id]").classList.toggle("noselect", false);
-
-		let dataCount = document.querySelector("[data-missions-count]");
-		dataCount.innerText = `Đã hoàn thành: ${__missions.unlocked.length}/${__missions.total.length}`;
-		listMissions.innerHTML = __missions.total
-			.sort((a, b) => {
-				return a.rating - b.rating;
-			})
-			.sort((a, b) => {
-				if (a.isHidden && a.isHidden == b.isHidden) {
-					return 0;
-				}
-				if (a.isHidden) return 1;
-				if (b.isHidden) return -1;
-				return 0;
-			})
-			.map((v) => {
-				let isUnlocked = __missions.isUnlocked(v.id);
-				if (v.isHidden) {
-					return `<li>
-                                <div class="flex gap-x-2 items-center mb-1">
-                                    <img src="${
-										isUnlocked
-											? v.unlockico ||
-											  "./assets/images/ico-unlockee02.gif"
-											: "./assets/images/ico-easteregg.png"
-									}" class="w-12 h-12"/>
-                                    <div class="flex-1 flex">
-                                        <span>${
-											v.done
-												? `${v.display} (#${
-														__missions.getMission(
-															v.id
-														).index
-												  })`
-												: `Easter egg (#${
-														__missions.getMission(
-															v.id
-														).index
-												  })`
-										}</span>
-                                        <img src="/assets/images/ico-info.png" class="ms-2 w-3 h-3">
-                                    </div>
-									<img src="
-                                    ${
-										isUnlocked
-											? "./assets/images/ico-done.png"
-											: "./assets/images/ico-undone.png"
-									}" class="w-12 h-12"/>
-                                </div>
-                                <div class="text-sm md:text-base ${
-									v.done ? "" : "h-4 bg-[#1a1b30]"
-								}">
-                                    ${v.done ? v.description : ""}
-                                </div>
-                            </li>`;
-				}
-				return `
-                            <li>
-                                <div class="flex gap-x-2 items-center mb-1">
-                                    <img src="${
-										isUnlocked
-											? "./assets/images/ico-trophy.png"
-											: "./assets/images/ico-lock.png"
-									}" class="w-12 h-12"/>
-                                    <div class="flex-1 flex">
-                                        <span>${v.display}</span>
-                                        <img src="/assets/images/ico-info.png" class="ms-2 w-3 h-3">
-                                    </div>
-									<img src="${
-										isUnlocked
-											? "./assets/images/ico-done.png"
-											: "./assets/images/ico-undone.png"
-									}" class="w-12 h-12"/>
-                                    
-                                </div>
-                                <div class="text-sm md:text-base">
-                                    ${
-										v.done
-											? v.description
-											: `[Độ khó: ${
-													v.rating || "unk"
-											  }/5] ${
-													v.hint ||
-													"Làm gì có gợi ý ~"
-											  }`
-									}
-                                </div>
-                            </li>
-							`;
-			})
-			.join(" ");
-	});
-
 	btnCloses.forEach((btn) => {
 		btn.addEventListener("click", (e) => {
 			settings.disableScroll = false;
@@ -373,26 +281,9 @@ window.onload = () => {
 		camera.emit("update-xy", { x: -0.076, y: 0.766 });
 		camera.emit("update-position", { x: 8.32, y: 2.2, z: 11.519 });
 	});
-
-	btnTabs.forEach((btn) => {
-		btn.addEventListener("click", () => {
-			const tab = btn.getAttribute("data-tab");
-			document
-				.getElementById("tab-messages")
-				.classList.toggle("hidden", tab !== "messages");
-			document
-				.getElementById("tab-form")
-				.classList.toggle("hidden", tab !== "form");
-
-				btnTabs.forEach((btn) => {
-					if (btn.getAttribute("data-tab") == tab){
-						btn.classList =
-							"tab-btn px-4 py-2 rounded border border-[#7b4b25] bg-[#f5e0b7] hover:bg-[#ecd3a0] text-[#4a2f1c] font-semibold transition w-full";
-					} else {
-						btn.classList =
-							"tab-btn px-4 py-2 rounded border border-[#7b4b25] bg-[#fff8e7] hover:bg-[#fceccc] text-[#4a2f1c] font-semibold transition w-full";
-					}
-				})
-		});
-	});
+	missionHandler();
+	visitorHandler();
+	visitorSubmition();
+	// Gọi load lần đầu
+	loadMessagesPage();
 }
