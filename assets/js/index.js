@@ -44,6 +44,63 @@ const sceneScript = {
 		},
 		detroy: () => {},
 	},
+	guideIntro: {
+		init: () => {
+			const guideBook = document.querySelector("#guide-book");
+			const btnStart = document.querySelector("#btn-start-intro");
+			const btnSkip = document.querySelector("#btn-skip-intro");
+			guideBook.classList.toggle("hidden", false);
+			settings.disableScroll = true;
+			btnStart.addEventListener("click", () => {
+				sceneScript.guideIntro.detroy();
+				sceneScript.firstTime.init();
+			});
+			btnSkip.addEventListener("click", () => {
+				sceneScript.guideIntro.detroy();
+				sceneScript.skipIntro.init();
+			});
+		},
+		detroy: () => {
+			const guideBook = document.querySelector("#guide-book");
+			guideBook.classList.toggle("hidden", true);
+			settings.disableScroll = false;
+		},
+	},
+	skipIntro: {
+		script: [
+			{
+				time: 3000,
+				value: "👋Hãy tự do khám phá nhé, quý lữ kháchヾ(＾∇＾) ✨",
+				audio: "",
+			},
+		],
+		init: () => {
+			const text = document.querySelector("#intro__text");
+			camera.setAttribute(
+				"position",
+				`8.320 ${settings.cameraHeight} 11.519`
+			);
+			camera.emit("update-xy", { x: -0.076, y: 0.766 });
+			loadScript(sceneScript.skipIntro, 0, { text });
+		},
+		detroy: () => {
+			const text = document.querySelector("#intro__text");
+			const introRange = document.querySelector("#intro__range");
+			const floor = document.querySelector("#floor");
+			camera.setAttribute(
+				"wasd-controls",
+				`enabled: true; acceleration: ${settings.speed.walk}`
+			);
+			text.setAttribute("visible", "false");
+			text.removeAttribute("animation__blink");
+			startWatermark();
+			introRange.setAttribute("visible", false);
+			floor.setAttribute("visible", true);
+			setTimeout(() => {
+				__missions.unlockMission("lan_dau_tham_quan");
+			}, 3000);
+		},
+	},
 	firstTime: {
 		script: [
 			{
@@ -253,11 +310,11 @@ window.onload = () => {
 	const btnCloses = document.querySelectorAll("[btn-close]");
 
 	if (camera.hasLoaded) {
-		if (guestData.visit_total == 1) sceneScript.firstTime.init();
+		if (guestData.visit_total == 1) sceneScript.guideIntro.init();
 		else sceneScript.welcomeBack.init();
 	} else {
 		camera.addEventListener("loaded", () => {
-			if (guestData.visit_total == 1) sceneScript.firstTime.init();
+			if (guestData.visit_total == 1) sceneScript.guideIntro.init();
 			else sceneScript.welcomeBack.init();
 		});
 	}
