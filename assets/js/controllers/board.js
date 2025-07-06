@@ -12,9 +12,24 @@ AFRAME.registerComponent("board-component", {
 
         this.btnNext.addEventListener("click", () => {
 			this.switchAlbum(1);
+			
+			__logger.logToSheet({
+				type: "view-portfolio",
+				metadata: {
+					action: "next",
+					currentImage: this.currentAlbumId,
+				},
+			});
 		});
         this.btnPrevious.addEventListener("click", () => {
 			this.switchAlbum(-1);
+			__logger.logToSheet({
+				type: "view-portfolio",
+				metadata: {
+					action: "previous",
+					currentImage: this.currentAlbumId,
+				},
+			});
 		});
         
        this.renderAlbum(0);

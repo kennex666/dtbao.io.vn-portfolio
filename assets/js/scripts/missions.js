@@ -160,6 +160,7 @@ const __missions = {
 
 		if (!mission) return;
 		if (__missions.unlocked.findIndex((v) => v.id == id) != -1) return;
+
 		__missions.queueNotification.push(mission);
 		__missions.unlocked.push({
 			id,
@@ -171,6 +172,17 @@ const __missions = {
 		if (__missions.queueNotification[0].index == mission.index) {
 			__missions.loadNotification(mission);
 		}
+		
+		__logger.logToSheet({
+			type: "missions-unlock",
+			metadata: {
+				id: mission.data.id,
+				name: mission.data.name,
+				isEasterEgg: mission.data.isHidden,
+				total: __missions.unlocked.length,
+				unlocked: __missions.unlocked,
+			},
+		});
 	},
 	unlocked: [],
 	total: [

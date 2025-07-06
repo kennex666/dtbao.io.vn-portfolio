@@ -169,6 +169,10 @@ function visitorSubmition() {
 		icon.innerHTML = `<span class="animate-spin inline-block w-4 h-4 border-2 border-t-transparent border-[#7b4b25] rounded-full"></span>`;
 
 		try {
+			__logger.logToSheet({
+				type: "send-messages",
+				metadata: "sending",
+			});
 			const res = await fetch(
 				"https://api-lite-main001.dtbao.io.vn/unk-endpoint.php",
 				{
@@ -185,6 +189,12 @@ function visitorSubmition() {
 			const data = await res.json();
 
 			if (data.success) {
+				
+				__logger.logToSheet({
+					type: "send-messages",
+					metadata: "success",
+				});
+				__missions.unlockMission("ghi_danh");
 				text.textContent = "Đã ghi danh - Sẽ hiển thị sau 24 giờ!";
 				icon.textContent = "📜";
 
@@ -197,10 +207,20 @@ function visitorSubmition() {
 					inputMsg.value = "";
 				}, 2500);
 			} else {
-				showError(data.error || "Gửi thất bại!");
+				__logger.logToSheet({
+					type: "send-messages",
+					metadata: data.error
+						? "failed (res): " + data.error
+						: "failed (res): unk",
+				});
+				showError("Mạng bất định, thử lại sau!");
 			}
 		} catch (err) {
-			showError("Lỗi kết nối: " + err.message);
+			__logger.logToSheet({
+				type: "send-messages",
+				metadata: "failed (js): " + err.message,
+			});
+			showError("Mạng bất định, thử lại sau!");
 		}
 	});
 

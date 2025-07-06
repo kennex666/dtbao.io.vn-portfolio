@@ -59,11 +59,21 @@ const sceneScript = {
 				sceneScript.guideIntro.detroy();
 				sceneScript.skipIntro.init();
 			});
+			
+			__logger.logToSheet({
+				type: "load-script",
+				metadata: "guide-intro",
+			});
 		},
 		detroy: () => {
 			const guideBook = document.querySelector("#guide-book");
 			guideBook.classList.toggle("hidden", true);
 			settings.disableScroll = false;
+			
+			__logger.logToSheet({
+				type: "load-script",
+				metadata: "end-guide-intro",
+			});
 		},
 	},
 	skipIntro: {
@@ -82,6 +92,11 @@ const sceneScript = {
 			);
 			camera.emit("update-xy", { x: -0.076, y: 0.766 });
 			loadScript(sceneScript.skipIntro, 0, { text });
+			
+			__logger.logToSheet({
+				type: "load-script",
+				metadata: "skip-intro"
+			})
 		},
 		detroy: () => {
 			const text = document.querySelector("#intro__text");
@@ -99,6 +114,11 @@ const sceneScript = {
 			setTimeout(() => {
 				__missions.unlockMission("lan_dau_tham_quan");
 			}, 3000);
+			
+			__logger.logToSheet({
+				type: "load-script",
+				metadata: "end-skip-intro",
+			});
 		},
 	},
 	firstTime: {
@@ -157,6 +177,11 @@ const sceneScript = {
 			);
 			camera.emit("update-xy", { x: -0.076, y: 0.766 });
 			loadScript(sceneScript.firstTime, 0, { text });
+			
+			__logger.logToSheet({
+				type: "load-script",
+				metadata: "intro-first",
+			});
 		},
 		detroy: () => {
 			const text = document.querySelector("#intro__text");
@@ -174,6 +199,12 @@ const sceneScript = {
 			setTimeout(() => {
 				__missions.unlockMission("lan_dau_tham_quan");
 			}, 3000);
+
+			
+			__logger.logToSheet({
+				type: "load-script",
+				metadata: "end-intro-first",
+			});
 		},
 	},
 	welcomeBack: {
@@ -192,6 +223,11 @@ const sceneScript = {
 			);
 			camera.emit("update-xy", { x: -0.076, y: 0.766 });
 			loadScript(sceneScript.welcomeBack, 0, { text });
+
+			__logger.logToSheet({
+				type: "load-script",
+				metadata: "welcome-back",
+			});
 		},
 		detroy: () => {
 			const text = document.querySelector("#intro__text");
@@ -209,6 +245,11 @@ const sceneScript = {
 			setTimeout(() => {
 				__missions.unlockMission("chao_mung_tro_lai");
 			}, 3000);
+			
+			__logger.logToSheet({
+				type: "load-script",
+				metadata: "end-welcome-back",
+			});
 		},
 	},
 };
@@ -319,6 +360,15 @@ window.onload = () => {
 	// Load data
 	const guestData = __logger.init();
 
+	__logger.logToSheet({ 
+		type: "login",
+		metadata: {
+			touchable: settings.isTouchable,
+			device: settings.device,
+			raw_log: __logger.data,
+		},
+	})
+	
 	scene = document.querySelector("#scene");
 	camera = document.querySelector("#camera");
 	btnUse = document.querySelector("#btn-use");
@@ -345,9 +395,14 @@ window.onload = () => {
 
 	btnCloses.forEach((btn) => {
 		btn.addEventListener("click", (e) => {
+			const elClosest = btn.closest("[id]");
+			elClosest?.id &&
+				__logger.logToSheet({
+					type: "close-item",
+					metadata: elClosest.id,
+				});
 			settings.disableScroll = false;
-			btn.closest("[id]").classList.toggle("hidden", true);
-			btn.closest("[id]").classList.toggle("noselect", true);
+			elClosest.classList.toggle("hidden", true);
 		});
 	});
 
@@ -362,3 +417,9 @@ window.onload = () => {
 	// Gọi load lần đầu
 	loadMessagesPage();
 }
+
+window.onbeforeunload = function () {
+	__logger.logToSheet({
+		type: "logout"
+	})
+};

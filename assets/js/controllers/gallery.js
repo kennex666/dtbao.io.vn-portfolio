@@ -43,8 +43,13 @@ function openImageViewer(src, link = null) {
 }
 
 function closeImageViewer() {
+	const imgEl = document.getElementById("image-viewer-img");
+	__logger.logToSheet({
+		type: "close-view-image",
+		metadata: imgEl.src,
+	});
 	document.getElementById("image-viewer").classList.add("hidden");
-	document.getElementById("image-viewer-img").src = "";
+	imgEl.src = "";
 	settings.disableScroll = false;
 }
 
@@ -64,6 +69,11 @@ AFRAME.registerComponent("image-viewer", {
 			const src = this.data.src || "#"
 			const url = this.data.url || "";
 			openImageViewer(src, url);
+			
+			__logger.logToSheet({
+				type: "view-image",
+				metadata: src,
+			});
 		})
 	}
 })
@@ -129,9 +139,23 @@ AFRAME.registerComponent("gallery-component", {
 
         this.btnNext.addEventListener("click", () => {
 			this.switchAlbum(1);
+			__logger.logToSheet({
+				type: "view-gallery",
+				metadata: {
+					action: "next",
+					currentAlbum: this.currentAlbumId,
+				},
+			});
 		});
         this.btnPrevious.addEventListener("click", () => {
 			this.switchAlbum(-1);
+			__logger.logToSheet({
+				type: "view-gallery",
+				metadata: {
+					action: "previous",
+					currentAlbum: this.currentAlbumId,
+				},
+			});
 		});
 
         this.el.addEventListener("componentchanged", (e) => {
@@ -183,21 +207,29 @@ AFRAME.registerComponent("gallery-component", {
 
 	createImageListDom: function (list) {
 		const config = [
-			{ rotation: "-8 -70 0", position: "-0.85507 -0.08635 -1.43721" },
+			{
+				rotation: "-8 -70 0",
+				position: "-0.85507 -0.08635 -1.43721",
+			},
 			{
 				rotation: "-6 -90 0",
 				position: "-0.645 -0.086 -0.22392",
 				geometry: "height: 0.7; width: 1.244",
 			},
-			{ rotation: "-8 -110 0", position: "-0.855 -0.08635 0.97059" },
+			{
+				rotation: "-8 -110 0",
+				position: "-0.855 -0.08635 0.97059",
+			},
 		];
 
 		const createImageTag = (
 			src,
-			{ rotation, position, geometry = "height: 0.7" }
+			{ rotation, position, hover = "", geometry = "height: 0.7" }
 		) => {
 			return `
                 <a-image src="${src}" 
+					class="clickable"
+				 	image-viewer="src: ${src}"
                     material="opacity: 0.3; blending: none; color: #b5b5b5" 
                     geometry="${geometry}" 
                     animation__pulse="dir: alternate; dur: 1200; easing: easeInOutSine; from: 0.8; loop: true; property: material.opacity; to: 1" 
