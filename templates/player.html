@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Simple Music Player</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#1a1a2e] text-white flex flex-col h-screen">
+
+	<!-- Danh sách bài hát -->
+	<div class="flex-1 overflow-y-auto p-4">
+		<h2 class="text-2xl font-semibold mb-4">Danh sách bài hát</h2>
+		<ul class="space-y-3">
+			<li class="flex items-center justify-between bg-[#292b42] p-3 rounded hover:bg-[#3b3e5a] transition">
+				<div>
+					<p class="font-medium">Ngày Mai Người Ta Lấy Chồng</p>
+					<p class="text-sm text-gray-400">Thành Đạt</p>
+				</div>
+				<button class="text-white hover:text-purple-400">▶</button>
+			</li>
+			<li class="flex items-center justify-between bg-[#292b42] p-3 rounded hover:bg-[#3b3e5a] transition">
+				<div>
+					<p class="font-medium">Bật Tình Yêu Lên</p>
+					<p class="text-sm text-gray-400">Tăng Duy Tân, Hòa Minzy</p>
+				</div>
+				<button class="text-white hover:text-purple-400">▶</button>
+			</li>
+			<li class="flex items-center justify-between bg-[#292b42] p-3 rounded hover:bg-[#3b3e5a] transition">
+				<div>
+					<p class="font-medium">Thế Thái</p>
+					<p class="text-sm text-gray-400">Hương Ly</p>
+				</div>
+				<button class="text-white hover:text-purple-400">▶</button>
+			</li>
+			<!-- Thêm nhiều bài nữa nếu cần -->
+		</ul>
+	</div>
+
+	<!-- Player -->
+	<div class="bg-[#0f0f1a] p-4 border-t border-gray-700 flex items-center justify-between">
+		<div>
+			<p class="font-semibold">Ai Là Người Thương Em</p>
+			<p class="text-sm text-gray-400">Quân A.P</p>
+		</div>
+		<div class="flex items-center space-x-4">
+			<button class="hover:text-purple-400">⏮</button>
+			<button class="text-2xl hover:text-purple-400">▶</button>
+			<button class="hover:text-purple-400">⏭</button>
+		</div>
+	</div>
+
+</body>
+</html>

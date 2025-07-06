@@ -10,7 +10,7 @@ const settings = {
 		walk: 20,
 	},
 	disableScroll: false,
-	cameraHeight: 2.2,
+	cameraHeight: 2.0,
 	device: "pc",
 	audio: false,
 	isTouchable: navigator.maxTouchPoints > 0,

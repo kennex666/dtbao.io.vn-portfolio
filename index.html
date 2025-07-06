@@ -39,193 +39,11 @@
         <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.9.0/dist/nipplejs.min.js"></script>
         <script src="https://cdn.tailwindcss.com/"></script>
-
+        <link rel="stylesheet" href="assets/css/styles.css">
         <style>
             .a-enter-vr{
                 display: none;
             }
-            .watermark {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                z-index: 10;
-                pointer-events: none;
-                user-select: none;
-                filter: invert(1) brightness(2);
-                animation: pulse 4s ease-in-out infinite;
-                opacity: 0.7;
-            }
-
-            .watermark.hidden {
-                opacity: 0;
-            }
-
-            .watermark img {
-                display: none;
-                width: auto;
-                height: auto;
-                max-width: 250px;
-                max-height: none;
-            }
-
-            .watermark img.active {
-                display: block;
-            }
-
-            #watermark-hover-area {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100px;
-                height: 100px;
-                z-index: 8;
-            }
-
-            @keyframes pulse {
-                0%, 100% {
-                    opacity: 0.7;
-                }
-                50% {
-                    opacity: 0.2;
-                }
-            }
-
-            .mission-popup {
-                animation: mission-pop 100ms ease-in;
-            }
-            @keyframes mission-pop{
-                0% {
-                    transform: translateX(-30vw);
-                }
-                100% {
-                }
-            }
-
-            .mission-popoff {
-                animation: mission-popoff 100ms ease-in;
-            }
-            @keyframes mission-popoff{
-                0% {
-                }
-                100% {
-                    transform: translateX(-30vw);
-                }
-            }
-
-
-            * {
-                font-family: "Patrick Hand", cursive;
-                font-style: normal;
-                letter-spacing: 0.02em;
-            }
-            .noselect {
-	            user-select: none;
-            }
-
-            [new-scroll] {
-                scroll-behavior: smooth;
-            }
-
-            [new-scroll]::-webkit-scrollbar {
-                width: 4px;
-            }
-
-            [new-scroll]::-webkit-scrollbar-track {
-                background: transparent;
-            }
-
-            [new-scroll]::-webkit-scrollbar-thumb {
-                background-color: rgba(0, 0, 0, 0.3);
-                border-radius: 9999px;
-            }
-
-            [new-scroll]::-webkit-scrollbar-thumb:hover {
-                background-color: rgba(0, 0, 0, 0.5);
-            }
-           
-            .book-open {
-                background-image: url("assets/images/OpenBook.png");
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center;
-
-                height: min(90vw, 90vh);
-                aspect-ratio: 1;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                box-sizing: border-box;
-            }
-
-            .book-content {
-                display: flex;
-                flex-direction: column;
-                transform: rotateY(3deg);
-                width: 52%;
-                height: 70%;
-                margin-top: 3%;
-                margin-left: 12%;
-                background: rgba(255, 255, 255, 0.05);
-            }
-            
-            @keyframes glowPulse {
-                0%, 100% {
-                    box-shadow: 0 0 0px rgba(250, 202, 131, 0.0);
-                }
-                50% {
-                    box-shadow: 0 0 12px 4px rgba(250, 202, 131, 0.4);
-                }
-            }
-
-            .glow-button {
-                animation: glowPulse 2.5s ease-in-out infinite;
-            }
-
-
-            @keyframes blink-glow {
-                0%, 100% {
-                    opacity: 1;
-                    text-shadow: 0 0 1px #facc15, 0 0 5px #facc15;
-                }
-                50% {
-                    opacity: 0.4;
-                    text-shadow: 0 0 3px #facc15;
-                }
-            }
-
-            .loading-note {
-                animation: blink-glow 1.2s infinite;
-                color: #facc15; /* Tailwind yellow-400 */
-                font-style: italic;
-                font-size: 0.75rem; /* text-xs */
-                font-weight: 600;   /* font-semibold */
-                text-align: center;
-                margin-top: 0.5rem; /* mt-2 */
-                opacity: 0;
-                transform: translateY(0.5rem);
-                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            }
-            .loading-note.show {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            @keyframes gradient-x {
-                0% {
-                    background-position: 0% 50%;
-                }
-                50% {
-                    background-position: 100% 50%;
-                }
-                100% {
-                    background-position: 0% 50%;
-                }
-            }
-
-            .animate-gradient-x {
-                background-size: 200% 200%;
-                animation: gradient-x 6s ease infinite;
-            }
-
         </style>
 	</head>
 
@@ -323,7 +141,6 @@
                 <a-entity visible="false" log-click="name: Gallery Close" class="vr-headset-hidden" geometry="primitive: ring; radiusInner: 0.45; radiusOuter: 0.5; segmentsTheta: 24" material="shader: flat; color: #f29c9c" position="4.89078 0.7266 4.73637" rotation="-90 0 0" scale="0.4 0.4 0.5"></a-entity>
             </a-entity>
 
-            <a-entity class="clickable" sound="src: #tung-ngay-yeu-em; autoplay: true; maxDistance: 30; refDistance: 3" gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"></a-entity>
 
             <a-entity class="clickable" mission-click="missionId: sy_quan;" gltf-model="#model-soldier" position="8.7698 1.30576 5.0811" scale="0.01 0.01 0.01" rotation="0 -65 0"></a-entity>
             <a-entity class="clickable" mission-click="missionId: sy_quan;" gltf-model="#model-tank" position="8.76543 1.16118 5.06438" scale="0.05 0.05 0.05" rotation="0 30 0"></a-entity>
@@ -441,19 +258,28 @@
             </a-entity>
 
             <!-- Màn hình -->
-            <a-entity>
-                <a-plane id="computer-screen"
-                width="1.100" height="0.610"
-                material="src: #computer-bg; shader: flat"
-                position="7.151 1.669 4.713" scale="1 1 1"></a-plane>
-                <a-light type="point"
-                color="#ffffff"
-                intensity="2"
-                distance="25"
-                decay="2"
-                position="7.156 1.669 5.842">
+            <a-entity media-controller>
+                <a-plane id="computer-screen" width="1.100" height="0.610" material="shader: flat; src: #bg-musicplayer" position="7.151 1.669 4.713"></a-plane>
+                <a-light type="point" color="#ffffff" intensity="2" distance="25" decay="2" position="7.156 1.669 5.842">
+                </a-light>
+
+                <a-troika-text class="media-title" value="Từng ngày yêu em" color="#fff" align="center" font-size="0.16" max-width="3" position="7.15103 1.74154 4.714" font="#font-patrickhand" troika-text="fontSize: 0.082">
+                </a-troika-text>
+                <a-troika-text class="media-artists" value="buitruonglinh x tungtic" color="#fff" align="center" font-size="0.16" max-width="3" position="7.15103 1.66071 4.714" font="#font-patrickhand" troika-text="fontSize: 0.042;">
+                </a-troika-text>
+                <a-troika-text class="media-playnext" value="&gt;&gt; Play next | Yêu lại từ đâu" color="#fff" font-size="0.16" max-width="3" anchor="left" position="6.707 1.89563 4.714" font="#font-patrickhand" troika-text="align: left; fillOpacity: 0.33; fontSize: 0.027;">
+                </a-troika-text>
+
+                <a-plane class="clickable" redirect="url: https://dtbao.io.vn/" width="0.1" height="0.1" material="opacity: 0.3; src: #logo" position="6.67915 1.89497 4.714" geometry="height: 0.033; width: 0.033"></a-plane>
+
+                <a-image class="clickable btn-previous" src="#btn-media-previous" position="7.04391 1.519 4.714" geometry="height: 0.08; width: 0.08"></a-image>
+                <a-image class="clickable btn-control-media" src="#btn-media-play" position="7.15178 1.519 4.714" geometry="height: 0.08; width: 0.08"></a-image>
+                <a-image class="clickable btn-next" src="#btn-media-next" position="7.25774 1.519 4.714" geometry="height: 0.08; width: 0.08"></a-image>
+                
+                
+                <a-entity class="clickable speaker" sound="src: #tung-ngay-yeu-em; autoplay: false; maxDistance: 30; refDistance: 3" gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"
+                animation__playing="property: scale; from: 0.05 0.05 0.05; to: 0.051 0.051 0.051; dir: alternate; dur: 500; loop: true"></a-entity>
             </a-entity>
-            </a-light>
 
             <!-- Logo -->
             <a-plane class="clickable" mission-click="missionId: cuu_xuc_chi_uoc; totalClickActivation: 9" width="0.1" height="0.1" material="src: #logo;" position="1.876 2.783 11.165" rotation="0 90 0" ></a-plane>
@@ -778,7 +604,7 @@
             assets.appendChild(img);
         });
     
-        Object.entries(window.assetMap.models).forEach(([id, src]) => {
+        Object.entries(window.assetMap.items).forEach(([id, src]) => {
             const item = document.createElement("a-asset-item");
             item.setAttribute("id", id);
             item.setAttribute("src", src);

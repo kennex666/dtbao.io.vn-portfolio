@@ -27,6 +27,7 @@ window.assetMap = {
 		"floor-m": "assets/images/materials/arizona.png",
 		"wall-m": "assets/images/materials/wood.jpg",
 		"computer-bg": "assets/images/hdr/cpt-bg.jpg",
+		"bg-musicplayer": "assets/images/player/bg-player.png",
 		logo: "assets/images/logo.png",
 		"arrow-gallery": "assets/images/buttons/arrow-gallery.png",
 		"sky-bg": "assets/images/hdr/sky.jpg",
@@ -34,8 +35,13 @@ window.assetMap = {
 		certinno: "assets/images/giaykhen_kn.jpg",
 		certwtm: "assets/images/giay_wtm.jpg",
 		"img-todolist": "assets/images/to-do-list.jpg",
+		"btn-media-play": "assets/images/player/btn-play.png",
+		"btn-media-pause": "assets/images/player/btn-pause.png",
+		"btn-media-next": "assets/images/player/btn-next.png",
+		"btn-media-previous": "assets/images/player/btn-previous.png",
 	},
-	models: {
+	items: {
+		"font-patrickhand": "assets/fonts/patrickhand.ttf",
 		"model-forest1": "assets/models/frs/forest1.glb",
 		"model-chair": "assets/models/Chair.glb",
 		"model-desk": "assets/models/desk.glb",
