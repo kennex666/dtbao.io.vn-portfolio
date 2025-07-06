@@ -193,12 +193,12 @@
 
                 <!-- Phone -->
                 <a-entity>
-                    <a-entity gltf-model="#model-smartphone" position="7.173 1.059 9.988" scale="1.3 1.3 1.3" rotation="0 -85 0"></a-entity>
+                    <a-entity class="clickable" hover-highlight="title: Contact me" use-items="id: useful-links" gltf-model="#model-smartphone" position="7.173 1.059 9.988" scale="1.3 1.3 1.3" rotation="0 -85 0"></a-entity>
                     
-                    <a-plane id="phone-screen"
+                    <!-- <a-plane id="phone-screen" class="clickable" hover-highlight="title: Contact me" use-items="id: useful-links" 
                     width="0.120" height="0.278"
                     material="src: #computer-bg; shader: flat"
-                    position="7.176 1.079 9.989" scale="1 1 1" rotation="-90 95 0"></a-plane>
+                    position="7.176 1.079 9.989" scale="1 1 1" rotation="-90 95 0"></a-plane> -->
                     
                     <a-light type="point"
                     color="#f4e5ff"
@@ -263,11 +263,11 @@
                 <a-light type="point" color="#ffffff" intensity="2" distance="25" decay="2" position="7.156 1.669 5.842">
                 </a-light>
 
-                <a-troika-text class="media-title" value="Từng ngày yêu em" color="#fff" align="center" font-size="0.16" max-width="3" position="7.15103 1.74154 4.714" font="#font-patrickhand" troika-text="fontSize: 0.082">
+                <a-troika-text class="media-title" value="Init..." color="#fff" align="center" font-size="0.16" max-width="3" position="7.15103 1.74154 4.714" font="#font-patrickhand" troika-text="fontSize: 0.082">
                 </a-troika-text>
-                <a-troika-text class="media-artists" value="buitruonglinh x tungtic" color="#fff" align="center" font-size="0.16" max-width="3" position="7.15103 1.66071 4.714" font="#font-patrickhand" troika-text="fontSize: 0.042;">
+                <a-troika-text class="media-artists" value="unk" color="#fff" align="center" font-size="0.16" max-width="3" position="7.15103 1.66071 4.714" font="#font-patrickhand" troika-text="fontSize: 0.042;">
                 </a-troika-text>
-                <a-troika-text class="media-playnext" value="&gt;&gt; Play next | Yêu lại từ đâu" color="#fff" font-size="0.16" max-width="3" anchor="left" position="6.707 1.89563 4.714" font="#font-patrickhand" troika-text="align: left; fillOpacity: 0.33; fontSize: 0.027;">
+                <a-troika-text class="media-playnext" value="&gt;&gt; Play next | unk" color="#fff" font-size="0.16" max-width="3" anchor="left" position="6.707 1.89563 4.714" font="#font-patrickhand" troika-text="align: left; fillOpacity: 0.33; fontSize: 0.027;">
                 </a-troika-text>
 
                 <a-plane class="clickable" redirect="url: https://dtbao.io.vn/" width="0.1" height="0.1" material="opacity: 0.3; src: #logo" position="6.67915 1.89497 4.714" geometry="height: 0.033; width: 0.033"></a-plane>
@@ -277,7 +277,7 @@
                 <a-image class="clickable btn-next" src="#btn-media-next" position="7.25774 1.519 4.714" geometry="height: 0.08; width: 0.08"></a-image>
                 
                 
-                <a-entity class="clickable speaker" sound="src: #tung-ngay-yeu-em; autoplay: false; maxDistance: 30; refDistance: 3" gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"
+                <a-entity class="clickable speaker" sound="src: #; autoplay: false; maxDistance: 30; refDistance: 3" gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"
                 animation__playing="property: scale; from: 0.05 0.05 0.05; to: 0.051 0.051 0.051; dir: alternate; dur: 500; loop: true"></a-entity>
             </a-entity>
 
@@ -571,6 +571,8 @@
                             <p>⚠️ <b>Cảnh báo:</b> Nên sử dụng máy tính, thiết bị di động có thể bị lag hoặc không được tối ưu một số thao tác.</p>
                             
                             <p>💻 <b>Khuyến nghị:</b> Để có trải nghiệm tốt nhất, hãy sử dụng Windows/MacsOS có cấu hình Intel i5 Gen 8, RAM 8GB, GPU onboard hỗ trợ WebGL2, Chrome 114 trở lên</p>
+
+                            <p>🌏 Nếu thiết bị không đáp ứng gây ra hiện tượng lag, giật, bạn có thể xem portfolio bản 2d <a href="https://dtbao.io.vn/?s=portfolio3d" target="_blank" class="text-red-500 hover:underline">tại đây</a>.</p>
                     
                             <p class="italic text-sm text-[#6e5844]">— Hãy giữ tinh thần cởi mở, tò mò, và đừng ngại thử mọi thứ nhé!</p>
                         </div>
@@ -589,6 +591,51 @@
                 </div>
             </div>
         </div>
+        <!-- Useful Links Overlay -->
+        <div id="useful-links" class="fixed inset-0 z-[100] hidden bg-gradient-to-br from-[#fdfaf6] via-[#f7f4ef] to-[#f1ede8] text-[#3a2d1f] backdrop-blur-sm no-select">
+            <!-- Nút đóng -->
+            <div class="absolute top-[6vh] right-[6vh] z-[101] w-12 h-12 cursor-pointer hover:opacity-60 transition" btn-close>
+                <img src-load="btnClose" alt="Đóng">
+            </div>
+
+            <!-- Nội dung -->
+            <div class="h-full w-full flex flex-col justify-center items-center px-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-10 text-[#4f3e2d] drop-shadow-sm">
+                    🔗 Kết nối với Bảo
+                </h2>
+
+                <div class="w-full max-w-4xl grid gap-6 md:grid-cols-2">
+                    <a href="https://github.com/kennex666" target="_blank"
+                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#faf8f5] via-[#f0ebe7] to-[#eae5df] shadow-sm hover:shadow-md hover:scale-[1.02] transition">
+                        <h3 class="font-bold text-xl mb-1 text-[#3f3326]">💻 GitHub</h3>
+                        <p class="text-sm opacity-80">Khám phá các dự án cá nhân & open-source.</p>
+                        <p class="mt-1 font-mono text-sm">@kennex666</p>
+                    </a>
+
+                    <a href="https://youtube.com/c/kennex666" target="_blank"
+                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#f5f8f7] via-[#eaf1f0] to-[#e2eae9] shadow-sm hover:shadow-md hover:scale-[1.02] transition">
+                        <h3 class="font-bold text-xl mb-1 text-[#2f3b3a]">📺 YouTube</h3>
+                        <p class="text-sm opacity-80">Video chia sẻ công nghệ & trải nghiệm sáng tạo.</p>
+                        <p class="mt-1 font-mono text-sm">@kennex666</p>
+                    </a>
+
+                    <a href="https://tiktok.com/@kennex666" target="_blank"
+                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#fdf5f7] via-[#f7ebee] to-[#f2e4e7] shadow-sm hover:shadow-md hover:scale-[1.02] transition">
+                        <h3 class="font-bold text-xl mb-1 text-[#4c2c31]">📽️ TikTok</h3>
+                        <p class="text-sm opacity-80">Nơi Bảo sáng tạo tự nhiên, mang đậm màu cá nhân.</p>
+                        <p class="mt-1 font-mono text-sm">@kennex666</p>
+                    </a>
+
+                    <a href="https://dtbao.io.vn/?s=portfolio3d" target="_blank"
+                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#f3f6fd] via-[#e9eef7] to-[#e3e9f2] shadow-sm hover:shadow-md hover:scale-[1.02] transition">
+                        <h3 class="font-bold text-xl mb-1 text-[#2d3b4f]">🌏 Portfolio 2D</h3>
+                        <p class="text-sm opacity-80">Bạn có thể chuyển sang Portfolio 2D thiết bị không đáp ứng</p>
+                        <p class="mt-1 font-mono text-sm">dtbao.io.vn</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
 
     </body>
 

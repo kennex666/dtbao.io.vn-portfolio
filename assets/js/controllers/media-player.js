@@ -1,13 +1,33 @@
 const __playlist = [
 	{
-		title: "Từng ngày yêu em",
+		title: "Phonecert (Vietnamese)",
+		artist: "Hoàng Dũng",
+		uri: "/assets/sounds/albums/phonecert.mp3",
+	},
+	{
+		title: "Từng Ngày Yêu Em",
 		artist: "buitruonglinh x tungtic",
 		uri: "/assets/sounds/albums/tungngayyeuem.mp3",
 	},
 	{
-		title: "Yêu lại từ đầu",
+		title: "Một Ngày Chẳng Nắng",
+		artist: "Pháo Northside",
+		uri: "/assets/sounds/albums/motngaychangnang.mp3",
+	},
+	{
+		title: "Yêu Lại Từ Đầu",
 		artist: "Khắc Việt x tungtic",
 		uri: "/assets/sounds/albums/yeulaitudau.mp3",
+	},
+	{
+		title: "Ex's Hate Me x Do For Love",
+		artist: "B Ray x AMEE",
+		uri: "/assets/sounds/albums/exhateme_doforlove.mp3",
+	},
+	{
+		title: "Cháu Xin Lỗi Chú",
+		artist: "LINH THỘN ft. GIA NGHI",
+		uri: "/assets/sounds/albums/chauxinloichu.mp3",
 	},
 ];
 
@@ -38,6 +58,11 @@ AFRAME.registerComponent("media-controller", {
 		const btnNext = el.querySelector(".btn-next");
 		this.btnControl = el.querySelector(".btn-control-media");
 		MediaPlayer.player = el.querySelector(".speaker");
+
+		
+		setTimeout(() => {
+			this.playNext(0);
+		}, 300)
 
 		btnPrevious.addEventListener("click", () => {
             this.playNext(-1);
