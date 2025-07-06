@@ -1,6 +1,16 @@
 const __board_screens = [
-	"1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png", "11.png"
-]
+	"assets/images/boards/1.png",
+	"assets/images/boards/2.png",
+	"assets/images/boards/3.png",
+	"assets/images/boards/4.png",
+	"assets/images/boards/5.png",
+	"assets/images/boards/6.png",
+	"assets/images/boards/7.png",
+	"assets/images/boards/8.png",
+	"assets/images/boards/9.png",
+	"assets/images/boards/10.png",
+	"assets/images/boards/11.png",
+];
 AFRAME.registerComponent("board-component", {
 	init: function () {
         this.currentAlbumId = 0;
@@ -36,7 +46,7 @@ AFRAME.registerComponent("board-component", {
 	},
     renderAlbum: function(id = 0){
         
-		this.screen.setAttribute("material", `src: assets/images/boards/${__board_screens[id]}`)
+		this.screen.setAttribute("material", `src: ${__board_screens[id]}`)
 
     },
 

@@ -29,8 +29,10 @@ function missionHandler( ) {
                                     <img src="${
 										isUnlocked
 											? v.unlockico ||
-											  "./assets/images/ico-unlockee02.gif"
-											: "./assets/images/ico-easteregg.png"
+											  window.assetMap.lazyLoad.src
+													.icoEastereggUnl002
+											: window.assetMap.lazyLoad.src
+													.icoEasteregg
 									}" class="w-12 h-12"/>
                                     <div class="flex-1 flex">
                                         <span>${
@@ -46,13 +48,17 @@ function missionHandler( ) {
 														).index
 												  })`
 										}</span>
-                                        <img src="/assets/images/ico-info.png" class="ms-2 w-3 h-3">
+                                        <img src="${
+											window.assetMap.lazyLoad.src.icoInfo
+										}" class="ms-2 w-3 h-3">
                                     </div>
 									<img src="
                                     ${
 										isUnlocked
-											? "./assets/images/ico-done.png"
-											: "./assets/images/ico-undone.png"
+											? window.assetMap.lazyLoad.src
+													.icoDone
+											: window.assetMap.lazyLoad.src
+													.icoUndone
 									}" class="w-12 h-12"/>
                                 </div>
                                 <div class="text-sm md:text-base ${
@@ -67,17 +73,23 @@ function missionHandler( ) {
                                 <div class="flex gap-x-2 items-center mb-1">
                                     <img src="${
 										isUnlocked
-											? "./assets/images/ico-trophy.png"
-											: "./assets/images/ico-lock.png"
+											? window.assetMap.lazyLoad.src
+													.icoTrophy
+											: window.assetMap.lazyLoad.src
+													.icoTrophyLock
 									}" class="w-12 h-12"/>
                                     <div class="flex-1 flex">
                                         <span>${v.display}</span>
-                                        <img src="/assets/images/ico-info.png" class="ms-2 w-3 h-3">
+                                        <img src="${
+											window.assetMap.lazyLoad.src.icoInfo
+										}" class="ms-2 w-3 h-3">
                                     </div>
 									<img src="${
 										isUnlocked
-											? "./assets/images/ico-done.png"
-											: "./assets/images/ico-undone.png"
+											? window.assetMap.lazyLoad.src
+													.icoDone
+											: window.assetMap.lazyLoad.src
+													.icoUndone
 									}" class="w-12 h-12"/>
                                     
                                 </div>
@@ -229,6 +241,7 @@ const __missions = {
 			description: "Một căn phòng phủ đầy ảo ảnh. Tất cả. đều là. ký ức?",
 			hint: "VR Headset",
 		},
+		// added
 		{
 			id: "lan_dau_tham_quan",
 			name: "Nhập Cảnh Sơ Môn",
@@ -239,6 +252,7 @@ const __missions = {
 				"Mỗi hành trình đều bắt đầu bằng một bước chân. Cảm ơn quý lữ khách đã để bước chân ấy chạm vào nơi này.",
 			hint: "",
 		},
+		// added
 		{
 			id: "chao_mung_tro_lai",
 			name: "Tái Kiến Chi Môn",
@@ -249,6 +263,7 @@ const __missions = {
 				"Cảm ơn quý lữ khách đã quay trở lại. Dù đã từng đặt chân đến nơi này, sự hiện diện của bạn hôm nay vẫn mang theo một điều rất đặc biệt. Chúc hành trình tiếp theo sẽ thật trọn vẹn!",
 			hint: "3 lần tham quan",
 		},
+		// added
 		{
 			id: "ghi_danh",
 			name: "Ghi Danh Sổ Tịch",
@@ -259,6 +274,7 @@ const __missions = {
 				"Mỗi cái tên là một câu chuyện. Việc lưu danh vào sổ chỉ là bước đầu - nhưng là dấu mốc đầu tiên để nơi này nhớ đến quý lữ khách.",
 			hint: "Ghi danh tại quyển tập đang mở",
 		},
+		// added
 		{
 			id: "giai_ma_nhan_danh",
 			name: "Giải Mã Nhân Danh",

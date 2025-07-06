@@ -66,7 +66,13 @@ AFRAME.registerComponent("image-viewer", {
 	},
 	init: function() {
 		this.el.addEventListener("click", () => {
-			const src = this.data.src || "#"
+			let src = this.data.src || "";
+
+			if (!src) {
+				src = "#"
+			} else if (src[0] == "#") {
+				src = document.querySelector(src)?.src || "#"
+			}
 			const url = this.data.url || "";
 			openImageViewer(src, url);
 			

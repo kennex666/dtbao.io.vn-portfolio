@@ -306,7 +306,7 @@ function createDoneToast(data, duration = 5000) {
 
 	existing.innerHTML = `
                 <div class="flex gap-x-3 items-center mb-2">
-                    <img src="/assets/images/ico-trophy.png" class="w-10 h-10"/>
+                    <img src="${window.assetMap.lazyLoad.src.icoTrophy}" class="w-10 h-10"/>
                     <div class="flex-1 flex text-2xl font-semibold">
                         <span>${data.display}</span>
                     </div>

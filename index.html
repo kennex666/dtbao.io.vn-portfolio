@@ -232,56 +232,7 @@
 	<body style="position: relative; margin: 0;">
         <a-scene id="scene" shadow="type: pcfsoft">
             <!-- Assets -->
-            <a-assets>
-                <!-- Material -->
-                <img id="floor-m" src="assets/images/materials/arizona.png">
-                <img id="wall-m" src="assets/images/materials/wood.jpg">
-                <img id="computer-bg" src="assets/images/hdr/cpt-bg.jpg">
-                <img id="logo" src="assets/images/logo.png">
-                <img id="arrow-gallery" src="assets/images/buttons/arrow-gallery.png">
-                <!-- Model  -->
-                <a-asset-item id="model-forest1" src="assets/models/frs/forest1.glb"></a-asset-item>
-                <a-asset-item id="model-chair" src="assets/models/Chair.glb"></a-asset-item>
-                <a-asset-item id="model-desk" src="assets/models/desk.glb"></a-asset-item>
-                <a-asset-item id="model-monitor" src="assets/models/Monitor.glb"></a-asset-item>
-                <a-asset-item id="model-keyboard" src="assets/models/Keyboard.glb"></a-asset-item>
-                <a-asset-item id="model-mouse" src="assets/models/Mouse.glb"></a-asset-item>
-                <a-asset-item id="model-mousepad" src="assets/models/Mousepad.glb"></a-asset-item>
-                <a-asset-item id="model-lightdesk" src="assets/models/LightDesk.glb"></a-asset-item>
-
-                <a-asset-item id="model-pictureframe" src="assets/models/PictureFrame.glb"></a-asset-item>
-                <a-asset-item id="model-floatingshelf" src="assets/models/FloatingShelf.glb"></a-asset-item>
-                <a-asset-item id="model-books" src="assets/models/books.glb"></a-asset-item>
-                <a-asset-item id="model-book" src="assets/models/book.glb"></a-asset-item>
-                <a-asset-item id="model-clock" src="assets/models/Clock.glb"></a-asset-item>
-                <a-asset-item id="model-aircondi" src="assets/models/Airconditioner.glb"></a-asset-item>
-                
-                <a-asset-item id="model-socket" src="assets/models/WallSocket.glb"></a-asset-item>
-                <a-asset-item id="model-table" src="assets/models/Table.glb"></a-asset-item>
-                <a-asset-item id="model-stool" src="assets/models/Stool.glb"></a-asset-item>
-                <a-asset-item id="model-vase" src="assets/models/PlasticCup.glb"></a-asset-item>
-                <a-asset-item id="model-flower" src="assets/models/Flowers.glb"></a-asset-item>
-                <a-asset-item id="model-cupoftea" src="assets/models/CupOfTea.glb"></a-asset-item>
-                <a-asset-item id="model-smartphone" src="assets/models/Smartphone.glb"></a-asset-item>
-                
-                <a-asset-item id="model-openbook" src="assets/models/openbook.glb"></a-asset-item>
-                <a-asset-item id="model-bedsidelamp" src="assets/models/BedsideLamp.glb"></a-asset-item>
-                <a-asset-item id="model-board" src="assets/models/Whiteboard.glb"></a-asset-item>
-                <a-asset-item id="model-bonsai" src="assets/models/Bonsai.glb"></a-asset-item>
-                <a-asset-item id="model-guitar" src="assets/models/Guitar.glb"></a-asset-item>
-                <a-asset-item id="model-stereo" src="assets/models/Stereo.glb"></a-asset-item>
-                <a-asset-item id="model-ball" src="assets/models/Football.glb"></a-asset-item>
-                <a-asset-item id="model-tank" src="assets/models/Tank.glb"></a-asset-item>
-                <a-asset-item id="model-soldier" src="assets/models/Soldier.glb"></a-asset-item>
-                <a-asset-item id="model-bookshelf" src="assets/models/Bookshelf.glb"></a-asset-item>
-                <a-asset-item id="model-frame" src="assets/models/Frame.glb"></a-asset-item>
-                <a-asset-item id="model-calendar" src="assets/models/Calendar.glb"></a-asset-item>
-                <a-asset-item id="model-piggybank" src="assets/models/Piggybank.glb"></a-asset-item>
-                <a-asset-item id="model-lampwall" src="assets/models/LampWall.glb"></a-asset-item>
-                <a-asset-item id="model-pencil" src="assets/models/Pencil.glb"></a-asset-item>
-                <a-asset-item id="model-vrheadset" src="assets/models/VRHeadset.glb"></a-asset-item>
-
-
+            <a-assets id="scene-assets">
                 <!-- Mixin  -->
                 <a-mixin id="hexagon"
                     geometry="primitive: cylinder; radius: 1; height: 0.1; segmentsRadial: 6"
@@ -295,7 +246,7 @@
             </a-assets>
 
             <!-- Controllers color="#0a0a1f" -->
-            <a-sky src="assets/images/hdr/sky.jpg"></a-sky>
+            <a-sky src="#sky-bg"></a-sky>
             <a-plane color="#222" width="60" height="60" depth="3" rotation="-90 0 0" shadow="receive: true"></a-plane>
 
             <!-- Camera -->
@@ -346,7 +297,7 @@
 
             
             <!-- To do list -->
-            <a-plane class="clickable" image-viewer="src: assets/images/to-do-list.jpg" material="src: assets/images/to-do-list.jpg; shader: standard" width="0.5" height="0.3" position="6.49423 1.16096 5.0309" rotation="-90 14 0" geometry="height: 0.49; width: 0.31"></a-plane>
+            <a-plane class="clickable" image-viewer="src: #img-todolist" material="src: #img-todolist; shader: standard" width="0.5" height="0.3" position="6.49423 1.16096 5.0309" rotation="-90 14 0" geometry="height: 0.49; width: 0.31"></a-plane>
             <a-entity gltf-model="#model-pencil" position="6.31193 1.16263 5.12896" rotation="0 110 -90" scale="0.2 0.2 0.2"></a-entity>
             <!-- Note workspace -->
             <a-entity>
@@ -372,7 +323,7 @@
                 <a-entity visible="false" log-click="name: Gallery Close" class="vr-headset-hidden" geometry="primitive: ring; radiusInner: 0.45; radiusOuter: 0.5; segmentsTheta: 24" material="shader: flat; color: #f29c9c" position="4.89078 0.7266 4.73637" rotation="-90 0 0" scale="0.4 0.4 0.5"></a-entity>
             </a-entity>
 
-            <a-entity gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"></a-entity>
+            <a-entity class="clickable" sound="src: #tung-ngay-yeu-em; autoplay: true; maxDistance: 30; refDistance: 3" gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"></a-entity>
 
             <a-entity class="clickable" mission-click="missionId: sy_quan;" gltf-model="#model-soldier" position="8.7698 1.30576 5.0811" scale="0.01 0.01 0.01" rotation="0 -65 0"></a-entity>
             <a-entity class="clickable" mission-click="missionId: sy_quan;" gltf-model="#model-tank" position="8.76543 1.16118 5.06438" scale="0.05 0.05 0.05" rotation="0 30 0"></a-entity>
@@ -555,7 +506,7 @@
             <!-- Board -->
             <a-entity board-component>
                 <a-plane id="board_screen" width="0.5" height="0.3" position="1.875 2.019 9.661" rotation="0 90 0" geometry="height: 1.69; width: 3.17" material="src: assets/images/boards/1.png"></a-plane>
-                <a-entity gltf-model="assets/models/Whiteboard.glb" position="1.867 2.019 9.661" scale="2.7 3.07 1" rotation="0 90 0"></a-entity>    
+                <a-entity gltf-model="#model-board" position="1.867 2.019 9.661" scale="2.7 3.07 1" rotation="0 90 0"></a-entity>    
                 <a-image class="clickable btn-previous" src="#arrow-gallery" material="opacity: 0.9446519627592906; blending: additive; color: #b5b5b5" geometry="height: 0.08; width: 0.134"
                 animation__mouseenter="property: scale; to: 1.1 1.1 1; dur: 300; startEvents: mouseenter"
 	            animation__mouseleave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave" rotation="0 -90 0" position="1.880 2.019 11.12745">
@@ -575,17 +526,17 @@
             <!-- Space Certificate -->
             <a-entity position="-0.018 -0.214 0">
                 <a-entity>
-                    <a-plane class="clickable" image-viewer="src: assets/images/giay_gdsc.jpg; url: https://developers.google.com/community" hover-highlight="title: Chapter Lead 23-24 @ Industrial University of HCMC - Google Developer Student Clubs; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;" material="color: #ffffff; src: assets/images/giay_gdsc.jpg" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
+                    <a-plane class="clickable" image-viewer="src: #certgdsc; url: https://developers.google.com/community" hover-highlight="title: Chapter Lead 23-24 @ Industrial University of HCMC - Google Developer Student Clubs; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;" material="color: #ffffff; src: #certgdsc" position="5.97689 2.58829 4.43263" geometry="width: 1.555" scale="0.6 0.6 0.6"></a-plane>
                     <a-entity gltf-model="#model-frame" position="5.98106 2.59227 4.42252" scale="1.43 0.93 1"></a-entity>      
                 </a-entity>
                 
                 <a-entity>
-                    <a-plane class="clickable" image-viewer="src: assets/images/giaykhen_kn.jpg; url: https://tinhdoanbinhphuoc.vn/tin-tuc-doan-hoi-doi/cuoc-thi-khoi-nghiep-doi-moi-sang-tao-tinh-binh-phuoc-lan-thu-i-nam-2021-4390.html"  hover-highlight="title: Won the top 3 in the 1st startup innovation competition in Bình Phước province, Vietnam; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: assets/images/giaykhen_kn.jpg" position="7.19763 2.59612 4.43263" geometry="width: 1.414" scale="0.6 0.6 0.6"></a-plane>
+                    <a-plane class="clickable" image-viewer="src: #certinno; url: https://tinhdoanbinhphuoc.vn/tin-tuc-doan-hoi-doi/cuoc-thi-khoi-nghiep-doi-moi-sang-tao-tinh-binh-phuoc-lan-thu-i-nam-2021-4390.html"  hover-highlight="title: Won the top 3 in the 1st startup innovation competition in Bình Phước province, Vietnam; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #certinno" position="7.19763 2.59612 4.43263" geometry="width: 1.414" scale="0.6 0.6 0.6"></a-plane>
                     <a-entity gltf-model="#model-frame" position="7.19828 2.59227 4.42252" scale="1.35 0.93 1"></a-entity>
                 </a-entity>
                 
                 <a-entity>
-                    <a-plane class="clickable" image-viewer="src: assets/images/giay_wtm.jpg; url: https://wtmhcmc.com/" hover-highlight="title: Member @ Women Techmakers Ho Chi Minh city; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: assets/images/giay_wtm.jpg" position="8.3696 2.58829 4.433" geometry="width: 1.366" scale="0.6 0.6 0.6"></a-plane>
+                    <a-plane class="clickable" image-viewer="src: #certwtm; url: https://wtmhcmc.com/" hover-highlight="title: Member @ Women Techmakers Ho Chi Minh city; enabledLookAt: false; rotation: 0 0 0; fontSize: 0.1; maxWidth: 1.6;"  material="color: #ffffff; src: #certwtm" position="8.3696 2.58829 4.433" geometry="width: 1.366" scale="0.6 0.6 0.6"></a-plane>
                     <a-entity gltf-model="#model-frame" position="8.36251 2.59227 4.42252" scale="1.32 0.93 1"></a-entity>
                 </a-entity>
             </a-entity>
@@ -633,30 +584,30 @@
         <!-- Watermark -->
         <div id="watermark-hover-area"></div>
         <div class="watermark">
-            <img src="assets/images/watermark/guide_1.png" alt="Guide 1">
-            <img src="assets/images/watermark/guide_2.png" alt="Guide 2">
-            <img src="assets/images/watermark/guide_3.png" alt="Guide 3">
-            <img src="assets/images/watermark/guide_4.png" alt="Guide 4">
+            <img src-load="watermark1" alt="Guide 1">
+            <img src-load="watermark2" alt="Guide 2">
+            <img src-load="watermark3" alt="Guide 3">
+            <img src-load="watermark4" alt="Guide 4">
         </div>
         
         <!-- For mobile controll -->
         <div id="joystick-container" style="position: fixed; bottom: 10vh; left: 5vw; z-index: 10; display: none;"></div>
         <div id="btn-use" style="position: fixed; bottom: 10vh; right: 5vw; z-index: 10; display: none; width: 15vh; height: 15vh; max-width: 100px; max-height: 100px; background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 0.3; text-align: center; pointer-events: none; user-select: none;">
-            <img src="assets/images/buttons/btn-use.png" alt="Use" style="width: 80%; height: 80%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;">
+            <img src-load="btnUse" alt="Use" style="width: 80%; height: 80%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;">
         </div>
 
         <!-- Controllers -->
         <div style="position: fixed; top: 5vh; right: 5vh; z-index: 10; width: 50px; max-width: 100px;">
            <div id="btn-missions" title="Thành tựu" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
-                <img src="assets/images/buttons/btn-missions.png" alt="Missions" style="width: 80%; height: 80%; object-fit: contain; ">
+                <img src-load="btnMissions" alt="Missions" style="width: 80%; height: 80%; object-fit: contain; ">
            </div>
            
            <div id="btn-home" title="Recall" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
-                <img src="assets/images/ico-home.png" alt="Home" style="width: 80%; height: 80%; object-fit: contain; ">
+                <img src-load="btnHome" alt="Home" style="width: 80%; height: 80%; object-fit: contain; ">
             </div>
            
             <div id="btn-guide" title="Hướng dẫn" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
-                 <img src="assets/images/ico-home.png" alt="Guide" style="width: 80%; height: 80%; object-fit: contain; ">
+                 <img src-load="btnHome" alt="Guide" style="width: 80%; height: 80%; object-fit: contain; ">
              </div>
         </div>
 
@@ -664,7 +615,7 @@
         <div id="missions" class="hidden noselect">
             <div class="fixed inset-0 z-[99] flex justify-center items-center bg-white/10 backdrop-blur">
                 <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer">
-                    <img src="./assets/images/buttons/btn-close.png">
+                    <img src-load="btnClose">
                 </div>
                 <div class="book-open absolute text-black text-justify">
                     <div class="book-content" new-scroll>
@@ -686,7 +637,7 @@
         <div id="visitors" class="hidden noselect">
             <div class="fixed inset-0 z-[99] flex justify-center items-center bg-white/10 backdrop-blur">
                 <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer">
-                    <img src="assets/images/buttons/btn-close.png">
+                    <img src-load="btnClose">
                 </div>
                 <div class="book-open absolute text-black text-justify">
                     <div class="book-content">
@@ -753,7 +704,7 @@
         <div id="image-viewer" class="hidden fixed inset-0 z-[99] flex justify-center items-center bg-black/70 backdrop-blur-sm">
             <!-- Nút đóng -->
             <div class="absolute top-[5vh] right-[5vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer" onclick="closeImageViewer()">
-                <img src="./assets/images/buttons/btn-close.png" alt="Close">
+                <img src-load="btnClose" alt="Close">
             </div>
 
             <!-- Nội dung ảnh và nút -->
@@ -774,7 +725,7 @@
         <div id="guide-book" class="hidden noselect">
             <div class="fixed inset-0 z-[99] flex justify-center items-center bg-white/10 backdrop-blur">
                 <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer hidden">
-                    <img src="./assets/images/buttons/btn-close.png">
+                    <img src-load="btnClose">
                 </div>
                 <div class="book-open absolute text-black">
                     <div class="book-content">
@@ -815,6 +766,45 @@
 
     </body>
 
+    <!-- Load assets -->
+    <script src="assets/js/assetMap.js"></script>
+    <script>
+        const assets = document.getElementById("scene-assets");
+    
+        Object.entries(window.assetMap.images).forEach(([id, src]) => {
+            const img = document.createElement("img");
+            img.setAttribute("id", id);
+            img.setAttribute("src", src);
+            assets.appendChild(img);
+        });
+    
+        Object.entries(window.assetMap.models).forEach(([id, src]) => {
+            const item = document.createElement("a-asset-item");
+            item.setAttribute("id", id);
+            item.setAttribute("src", src);
+            assets.appendChild(item);
+        });
+
+        Object.entries(window.assetMap.sounds).forEach(([id, src]) => {
+            const sound = document.createElement("audio");
+            sound.setAttribute("id", id);
+            sound.setAttribute("src", src);
+            sound.setAttribute("preload", "auto");
+            // Nếu muốn preload thêm: sound.setAttribute("crossorigin", "anonymous");
+            assets.appendChild(sound);
+        });
+
+        document.querySelectorAll("[src-load]").forEach(el => {
+            const key = el.getAttribute("src-load") || "";
+            if (!key){
+                return;
+            }
+            const src = window.assetMap.lazyLoad.src[key] || "#";
+            el.src = src;
+        })
+
+    </script>
+
     <script src="assets/js/controllers/settings.js"></script>
     <script src="assets/js/a-frame/interact-items.js"></script>
     <script src="assets/js/a-frame/controllers.js"></script>
@@ -835,6 +825,7 @@
     
     <!-- load last -->
     <script src="assets/js/index.js"></script>
+    
     
     <footer>
     </footer>
