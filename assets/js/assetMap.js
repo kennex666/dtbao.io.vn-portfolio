@@ -25,7 +25,10 @@ window.assetMap = {
 	},
 	sounds: {
 		"my-guitar-sound": "assets/sounds/my-guitar.mp3",
-		"my-ball-kicked": "assets/sounds/kick-ball.mp3",
+		"my-ball-hit-sound": "assets/sounds/kick-ball.mp3",
+		"merry-chirstmas-toy-sound": "assets/sounds/merry-christmas-toy.mp3",
+		"chirstmas-tree-hit-sound": "assets/sounds/chirstmas-tree-hit.mp3",
+		"birthday-cake-hit-sound": "assets/sounds/birthday-cake-hit.mp3",
 	},
 	images: {
 		"floor-m": "assets/images/materials/arizona.png",

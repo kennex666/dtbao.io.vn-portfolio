@@ -462,6 +462,181 @@ function ballRecall() {
 		}
 	});
 }
+
+function enableMerryChristmas() {
+	// Sound theme & unlock mission
+	setTimeout(() => {
+		__playlist.push({
+			title: "Chirstmas Theme",
+			artist: "Easter Egg: Đêm lành",
+			uri: "/assets/sounds/albums/christmas_theme.mp3",
+		});
+
+		MediaPlayer.controllers.switchMusic(__playlist.length - 1);
+		if (MediaPlayer.status == MediaPlayer_Status.pause) {
+			MediaPlayer.controllers.playMusic();
+		}
+
+		__missions.unlockMission("merry_chirstmas");
+	}, 5000);
+
+	// Tree
+	const christmasTree = document.createElement("a-entity");
+	christmasTree.classList.toggle("clickable", true);
+	christmasTree.setAttribute("event-theme", "chirstmas");
+	christmasTree.setAttribute("addon-physic", "");
+	christmasTree.setAttribute(
+		"gltf-model",
+		"assets/models/event-item/ChristmasTree.glb"
+	);
+	christmasTree.setAttribute("position", "4.11336 0.75537 4.84004");
+	christmasTree.setAttribute("scale", "2 2 2");
+	christmasTree.setAttribute("animation__pop", {
+		property: "scale",
+		from: "1.9 1.9 1.9",
+		to: "2 2 2",
+		dir: "alternate",
+		dur: 300,
+		loop: false,
+		easing: "easeInOutQuad",
+		startEvents: "click",
+	});
+
+	christmasTree.setAttribute("sound", {
+		src: "#chirstmas-tree-hit-sound",
+		on: "click",
+	});
+
+	scene.appendChild(christmasTree);
+
+	// Presents
+	const presents = document.createElement("a-entity");
+	presents.setAttribute("event-theme", "chirstmas");
+	presents.classList.toggle("clickable", true);
+	presents.setAttribute("addon-physic", "");
+	presents.setAttribute(
+		"gltf-model",
+		"assets/models/event-item/ChristmasPresents.glb"
+	);
+	presents.setAttribute("position", "4.034 0.251 4.735");
+	presents.setAttribute("rotation", "0 180 0");
+	presents.setAttribute("scale", "0.4 0.4 0.4");
+	presents.setAttribute("animation__pop", {
+		property: "scale",
+		from: "0.38 0.38 0.38",
+		to: "0.4 0.4 0.4",
+		dir: "alternate",
+		dur: 300,
+		loop: false,
+		easing: "easeInOutQuad",
+		startEvents: "click",
+	});
+
+	presents.setAttribute("sound", {
+		src: "#chirstmas-tree-hit-sound",
+		on: "click",
+	});
+
+	scene.appendChild(presents);
+
+	// Santa
+	const santa = document.createElement("a-entity");
+	santa.setAttribute("event-theme", "chirstmas");
+	santa.classList.toggle("clickable", true);
+	santa.setAttribute("addon-physic", "");
+	santa.setAttribute("gltf-model", "assets/models/event-item/santa.glb");
+	santa.setAttribute("position", "7.03995 1.27381 9.2941");
+	santa.setAttribute("rotation", "0 185 0");
+	santa.setAttribute("scale", "0.7 0.7 0.7");
+
+	santa.setAttribute("animation__pop", {
+		property: "scale",
+		from: "0.6 0.6 0.6",
+		to: "0.7 0.7 0.7",
+		dir: "alternate",
+		dur: 300,
+		loop: false,
+		easing: "easeInOutQuad",
+		startEvents: "click",
+	});
+
+	santa.setAttribute("sound", {
+		src: "#merry-chirstmas-toy-sound",
+		on: "click",
+		volume: 1.2,
+	});
+	scene.appendChild(santa);
+
+	// Firefly
+	const fireflyColors = [
+		{ color: "#ff3b3b", emissive: "#ff7a7a" }, // đỏ tươi
+		{ color: "#00ff9c", emissive: "#66ffc2" }, // Xanh lá neon
+		{ color: "#ffd700", emissive: "#fff066" }, // Vàng kim
+		{ color: "#8ecfff", emissive: "#b6e6ff" }, // Xanh băng
+		{ color: "#fffac8", emissive: "#ffffe0" }, // Vàng kem nhẹ
+		{ color: "#ff69b4", emissive: "#ff9fd0" }, // Hồng đậm
+		{ color: "#9370db", emissive: "#b499ff" }, // Tím lavender
+		{ color: "#00bfff", emissive: "#66dfff" }, // Xanh nước biển
+		{ color: "#00ffaa", emissive: "#66ffd2" }, // Xanh lá chuối
+		{ color: "#ff8c00", emissive: "#ffc266" }, // Cam rực
+	];
+
+	fireflyColors.forEach((combo) => {
+		const fireflyRaw = document.createElement("a-entity");
+		fireflyRaw.setAttribute("firefly", {
+			spread: 1.4,
+			count: 5,
+			size: 0.02,
+			randomSize: 0.02,
+			color: combo.color,
+			emissive: combo.emissive,
+		});
+		const positionCamera = document.createElement("a-entity");
+		positionCamera.setAttribute("event-theme", "chirstmas");
+		positionCamera.setAttribute("position", "4.11336 1.32 4.84004");
+		positionCamera.appendChild(fireflyRaw);
+		scene.appendChild(positionCamera);
+	});
+}
+
+function enableBirthday() {
+	// Birthday cake
+	const birthdayCake = document.createElement("a-entity");
+	birthdayCake.setAttribute("event-theme", "chirstmas");
+	birthdayCake.classList.toggle("clickable", true);
+	birthdayCake.setAttribute("addon-physic", "");
+	birthdayCake.setAttribute("gltf-model", "assets/models/event-item/CakeBirthday.glb");
+	birthdayCake.setAttribute("position", "8.184 1.155 5.083");
+	birthdayCake.setAttribute("scale", "0.3 0.3 0.3");
+
+	birthdayCake.setAttribute("animation__pop", {
+		property: "scale",
+		from: "0.28 0.28 0.28",
+		to: "0.3 0.3 0.3",
+		dir: "alternate",
+		dur: 300,
+		loop: false,
+		easing: "easeInOutQuad",
+		startEvents: "click",
+	});
+
+	birthdayCake.setAttribute("sound", {
+		src: "#birthday-cake-hit-sound",
+		on: "click",
+		volume: 1.2,
+	});
+	
+	birthdayCake.innerHTML = `
+	<a-entity id="candleLight" light="color: #ffdca8; distance: 3.22; intensity: 2.93; type: point" position="0.02907 0.98408 0.63214">
+	</a-entity>`;
+	scene.appendChild(birthdayCake);
+}
+
+function eventScene () {
+	const date = new Date();
+	enableMerryChristmas();
+	enableBirthday();
+}
 window.onload = () => {
 	// Load data
 	const guestData = __logger.init();
@@ -529,10 +704,16 @@ window.onload = () => {
 
 	ballRecall();
 
+	eventScene();
+
 	window.addEventListener("dev-tools-detected", () => {
 		setTimeout(() => {
 			__missions.unlockMission("dev_tools");
 		}, 1500);
+
+		__logger.logToSheet({
+			type: "dev-tools-detected"
+		})
 	});
 }
 
