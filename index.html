@@ -566,17 +566,17 @@
                 </div>
                 <div class="book-open absolute text-black">
                     <div class="book-content">
-                        <h2 class="text-5xl mb-6 text-center font-bold">Hướng dẫn & Lưu ý khi trải nghiệm</h2>
+                        <h2 class="text-4xl mb-6 text-center font-bold">Hướng dẫn & Lưu ý khi trải nghiệm</h2>
                     
-                        <div class="space-y-4 text-lg leading-relaxed px-6 pb-4 overflow-y-auto"  new-scroll>
+                        <div class="space-y-4 text-lg leading-relaxed pb-4 overflow-y-auto"  new-scroll>
+                            
                             <p>🌟 Bạn sắp bước vào một hành trình độc đáo - nơi mỗi chi tiết đều ẩn chứa thông điệp.</p>
+                    
+                            <p>🎧 Portfolio có <b class="underline">âm thanh</b>, để có trải nghiệm tốt nhất, xin hãy đeo tai nghe!</p>
                     
                             <p>🕹️ <b>Cách điều hướng:</b> Dùng chuột để kéo, WASD để di chuyển, cuộn để tăng chiều cao <b>hoặc</b> chạm màn hình nếu đang dùng thiết bị di động.</p>
                     
                             <p>🔍 <b>Tương tác:</b> Nhấn vào các vật thể để khám phá thêm. Một số chi tiết nhỏ có thể chứa bất ngờ thú vị đó!</p>
-                    
-                            <p>🎧 <b>Âm thanh:</b> Bật loa để không bỏ lỡ trải nghiệm toàn diện.</p>
-                    
                             <p>💡 <b>Lưu ý:</b> Trình duyệt Chrome là tối ưu nhất. Một số hiệu ứng 3D có thể không hiển thị đúng trên Safari hoặc các trình duyệt cũ.</p>
                             
                             <p>⚠️ <b>Cảnh báo:</b> Nên sử dụng máy tính, thiết bị di động có thể bị lag hoặc không được tối ưu một số thao tác.</p>
@@ -643,8 +643,17 @@
                 </div>
             </div>
         </div>
-        
 
+        <!-- Beta notifications -->
+        <div id="beta-banner"
+            style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: linear-gradient(to right, #fff9e6, #fff3cd);
+            color: #856404; padding: 12px 20px; border: 1px solid #ffeeba;
+            border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); z-index: 9999; display: none; transition: opacity 0.5s ease;">
+            🚧 Đây là bản <strong>beta</strong>, nếu có thể xin hãy feedback với mình qua tin nhắn :> <br>
+            Mình sẽ rất vui và trân trọng những đóng góp vàng của quý lữ khách 💛<br>
+            <i>Bảo - Jasper Kennex</i>
+        </div>
 
     </body>
 
@@ -711,14 +720,36 @@
     
     
     <script>
-        console.clear();
         const styleTitle = "color: red; font-size: 18px; font-weight: bold;";
         const styleDesc = "color: orange; font-size: 14px;";
-        const styleNote = "color: white; background-color: #222; padding: 4px 8px; border-radius: 4px;";
-    
+        const styleNote =
+            "color: white; background-color: #222; padding: 4px 8px; border-radius: 4px;";
+
         console.log("%c⚠️ Security Warning", styleTitle);
-        console.log("%cThis browser tab is being monitored for security purposes.", styleDesc);
-        console.log("%cIf you're not sure what you're doing, it's best to close the console now.", styleNote);
+        console.log(
+            "%cThis browser tab is being monitored for security purposes.",
+            styleDesc
+        );
+        console.log(
+            "%cIf you're not sure what you're doing, it's best to close the console now.",
+            styleNote
+        );
+    </script>
+
+    <!-- Beta notifications -->
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("friends") === "true") {
+            const banner = document.getElementById("beta-banner");
+            banner.style.display = "block";
+            banner.style.opacity = "1";
+
+            // Sau 6 giây, làm mờ và ẩn
+            setTimeout(() => {
+                banner.style.opacity = "0";
+                setTimeout(() => banner.style.display = "none", 500); // chờ hiệu ứng mờ xong
+            }, 8000);
+        }
     </script>
 
     <footer>

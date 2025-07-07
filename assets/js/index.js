@@ -600,12 +600,20 @@ function enableMerryChristmas() {
 }
 
 function enableBirthday() {
+	// Sound theme & unlock mission
+	setTimeout(() => {
+		__missions.unlockMission("happy_birthday");
+	}, 5000);
+
 	// Birthday cake
 	const birthdayCake = document.createElement("a-entity");
 	birthdayCake.setAttribute("event-theme", "chirstmas");
 	birthdayCake.classList.toggle("clickable", true);
 	birthdayCake.setAttribute("addon-physic", "");
-	birthdayCake.setAttribute("gltf-model", "assets/models/event-item/CakeBirthday.glb");
+	birthdayCake.setAttribute(
+		"gltf-model",
+		"assets/models/event-item/CakeBirthday.glb"
+	);
 	birthdayCake.setAttribute("position", "8.184 1.155 5.083");
 	birthdayCake.setAttribute("scale", "0.3 0.3 0.3");
 
@@ -625,17 +633,29 @@ function enableBirthday() {
 		on: "click",
 		volume: 1.2,
 	});
-	
+
 	birthdayCake.innerHTML = `
 	<a-entity id="candleLight" light="color: #ffdca8; distance: 3.22; intensity: 2.93; type: point" position="0.02907 0.98408 0.63214">
 	</a-entity>`;
 	scene.appendChild(birthdayCake);
 }
 
-function eventScene () {
-	const date = new Date();
-	enableMerryChristmas();
-	enableBirthday();
+function eventScene (date = new Date()) {
+
+	console.log(date)
+	if (date.getMonth() == 11) {
+		enableMerryChristmas();
+		if (date.getDate() == 19) {
+			enableBirthday();
+		}
+	} else {
+		setTimeout( ( ) => {
+			if (MediaPlayer.status == MediaPlayer_Status.pause) {
+				MediaPlayer.controllers.playMusic();
+			}
+		}, 5000)
+
+	}
 }
 window.onload = () => {
 	// Load data
@@ -704,6 +724,9 @@ window.onload = () => {
 
 	ballRecall();
 
+	// Unlock theme - for testing purpose
+	// eventScene(new Date("2025-12-19"));
+
 	eventScene();
 
 	window.addEventListener("dev-tools-detected", () => {
@@ -714,6 +737,8 @@ window.onload = () => {
 		__logger.logToSheet({
 			type: "dev-tools-detected"
 		})
+
+		window.dispatchEvent(new Event("clear-console"));
 	});
 }
 

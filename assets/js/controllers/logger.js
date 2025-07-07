@@ -150,7 +150,7 @@ class Err0r extends Error {
 	toString() {}
 
 	get message() {
-		window.dispatchEvent(new Event("dev-tools-detected"))
+		window.dispatchEvent(new Event("dev-tools-detected"));
 	}
 }
 
