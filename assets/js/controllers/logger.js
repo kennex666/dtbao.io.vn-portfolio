@@ -39,6 +39,7 @@ const __logger = {
 	key_version: "3d_last_version",
 	key_user_id: "3d_user_id",
 	key_message: "3d_send_message",
+	key_isDoneGuide: "3d_isdoneguide",
 	disabled: true,
 	data: {},
 	init: () => {
@@ -70,6 +71,19 @@ const __logger = {
 		}
 		window.localStorage.setItem(__logger.key_version, __logger.versionWeb);
 		return data;
+	},
+	isDoneGuide: (set = false) => {
+		if (set) {
+			window.localStorage.setItem(__logger.isDoneGuide, 1);
+			return true;
+		} 
+		let data = window.localStorage.getItem(__logger.isDoneGuide) || false;
+		if (data == "1") {
+			return true;
+		}
+		window.localStorage.setItem(__logger.isDoneGuide, 0);
+		return false;
+		
 	},
 	saveVisit: () => {
 		let data = window.localStorage.getItem(__logger.key_visit) || 0;

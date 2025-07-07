@@ -12,7 +12,7 @@ const settings = {
 	disableScroll: false,
 	cameraHeight: 2.0,
 	device: "pc",
-	audio: false,
+	audio: true,
 	isTouchable: navigator.maxTouchPoints > 0,
 	graphic: GRAPHIC_ENUM.medium,
 	controllers: {

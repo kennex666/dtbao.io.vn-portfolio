@@ -111,8 +111,10 @@ const sceneScript = {
 			text.removeAttribute("animation__blink");
 			startWatermark();
 			introRange.setAttribute("visible", false);
+
 			floor.setAttribute("visible", true);
 			setTimeout(() => {
+				__logger.isDoneGuide(true);
 				__missions.unlockMission("lan_dau_tham_quan");
 			}, 3000);
 			
@@ -199,6 +201,7 @@ const sceneScript = {
 			floor.setAttribute("visible", true);
 			setTimeout(() => {
 				__missions.unlockMission("lan_dau_tham_quan");
+				__logger.isDoneGuide(true);
 			}, 3000);
 
 			
@@ -463,6 +466,28 @@ function ballRecall() {
 	});
 }
 
+function muteButtonHandle() {
+	const btnMute = document.querySelector("#btn-volume-mute");
+	btnMute.addEventListener("click", () => {
+		settings.audio = !settings.audio;
+		if (!settings.audio) {
+			if (MediaPlayer.status == MediaPlayer_Status.playing) {
+				MediaPlayer.controllers.playMusic();
+			}
+			document.querySelectorAll("[sound]").forEach((el) => {
+				const soundComp = el.components.sound;
+				soundComp.pool.children[0].setVolume(0);
+				soundComp.stopSound();
+			})
+		} else {
+			document.querySelectorAll("[sound]").forEach((el) => {
+				const soundComp = el.components.sound;
+				soundComp.pool.children[0].setVolume(1);
+			});
+		}
+	})
+}
+
 function enableMerryChristmas() {
 	// Sound theme & unlock mission
 	setTimeout(() => {
@@ -654,7 +679,6 @@ function eventScene (date = new Date()) {
 				MediaPlayer.controllers.playMusic();
 			}
 		}, 5000)
-
 	}
 }
 window.onload = () => {
@@ -679,11 +703,11 @@ window.onload = () => {
 	const btnCloses = document.querySelectorAll("[btn-close]");
 
 	if (camera.hasLoaded) {
-		if (guestData.visit_total == 1) sceneScript.guideIntro.init();
+		if (!__logger.isDoneGuide()) sceneScript.guideIntro.init();
 		else sceneScript.welcomeBack.init();
 	} else {
 		camera.addEventListener("loaded", () => {
-			if (guestData.visit_total == 1) sceneScript.guideIntro.init();
+			if (!__logger.isDoneGuide()) sceneScript.guideIntro.init();
 			else sceneScript.welcomeBack.init();
 		});
 	}
@@ -728,6 +752,7 @@ window.onload = () => {
 	// eventScene(new Date("2025-12-19"));
 
 	eventScene();
+	muteButtonHandle();
 
 	window.addEventListener("dev-tools-detected", () => {
 		setTimeout(() => {
