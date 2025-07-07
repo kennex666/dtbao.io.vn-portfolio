@@ -45,7 +45,7 @@
 	</head>
 
 	<body style="position: relative; margin: 0;">
-        <a-scene id="scene" shadow="type: pcfsoft" physics="debug: true">
+        <a-scene id="scene" shadow="type: pcfsoft">
             <!-- Assets -->
             <a-assets id="scene-assets">
                 <!-- Mixin  -->
@@ -122,7 +122,7 @@
             
             <a-entity class="clickable" mission-click="missionId: choi_dan;" gltf-model="#model-guitar" position="2.00008 1.93378 5.19422" scale="1.4 1.4 1.4" rotation="-6 90 0" sound="src: #my-guitar-sound; on: click; volume: 2"></a-entity>
             
-            <a-entity class="clickable" mission-click="missionId: choi_bong;" addon-physic="type: dynamic-body; shape: auto;" kick-ball gltf-model="#model-ball" position="2.10559 0.23173 4.64923" scale="0.05 0.05 0.05" sound="src: #my-ball-kicked; on: click; volume: 1.5; refDistance: 3"></a-entity>
+            <a-entity class="clickable" mission-click="missionId: choi_bong;" addon-physic="type: dynamic-body; shape: auto;" kick-ball gltf-model="#model-ball" position="2.10559 0.23173 4.64923" scale="0.05 0.05 0.05" sound="src: #my-ball-hit-sound; on: click; volume: 1.5; refDistance: 3"></a-entity>
 
             <a-entity addon-physic gltf-model="#model-bookshelf" position="5.31114 0.39626 4.6856" custom-color="color: #331A14" shadow="" rotation="0 90 0" scale="1.22 1.12 0.88"></a-entity>
             
