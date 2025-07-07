@@ -114,6 +114,17 @@ function missionHandler( ) {
 
 const __missions = {
 	saveKey: "missions_unlock",
+	requireKPVV: [
+		"the_great_wave_off_kanagawa",
+		"phong_tranh_ao",
+		"giai_ma_nhan_danh",
+		"choi_bong",
+		"choi_dan",
+		"tuong_tac_den",
+		"sy_quan",
+		"su_tich_cay_bonsai",
+		"hoa_hong_cua_me",
+	],
 	isUnlocked: (id) => {
 		const isUnlocked = __missions.unlocked.findIndex((e) => e.id == id);
 		return isUnlocked != -1;
@@ -144,7 +155,7 @@ const __missions = {
 					uri: "/assets/sounds/albums/old-easteregg.mp3",
 				});
 			}
-		}, 1000)
+		}, 1000);
 	},
 	saveMission: (data) => {
 		window.localStorage.setItem(__missions.saveKey, JSON.stringify(data));
@@ -180,7 +191,9 @@ const __missions = {
 		const mission = __missions.getMission(id);
 
 		if (!mission) return;
+
 		if (__missions.unlocked.findIndex((v) => v.id == id) != -1) return;
+
 
 		__missions.queueNotification.push(mission);
 		__missions.unlocked.push({
@@ -205,6 +218,16 @@ const __missions = {
 			if (MediaPlayer.status == MediaPlayer_Status.pause) {
 				MediaPlayer.controllers.playMusic();
 			}
+		} else if (id != "kham_pha_van_vat") {
+			if (
+				__missions.requireKPVV.every((id) =>
+					__missions.unlocked.some((el) => id == el.id)
+				)
+			) {
+				setTimeout(() => {
+					__missions.unlockMission("kham_pha_van_vat");
+				}, 100);
+			}
 		}
 
 		__logger.logToSheet({
@@ -225,7 +248,7 @@ const __missions = {
 			id: "chien_binh_ranh_roi",
 			name: "Chiến Binh Rảnh Rỗi",
 			display: "Chiến Binh Rảnh Rỗi",
-			rating: 4,
+			rating: 6,
 			isHidden: false,
 			description:
 				"Không phải vì tò mò, mà là vì quá rảnh.\nHắn ta đã đi đến nơi tận cùng - để làm gì chứ?",
@@ -321,7 +344,7 @@ const __missions = {
 			id: "choi_bong",
 			name: "Giấc Mơ Sân Cỏ",
 			display: "Giấc Mơ Sân Cỏ",
-			rating: 4,
+			rating: 3,
 			isHidden: false,
 			description:
 				"Mỗi cú chạm bóng là một nhịp tim. Mỗi bước chạy là một mảnh ước mơ được chắp cánh. Cảm ơn vì đã ghé qua giấc mơ này - nơi sân cỏ không chỉ là trò chơi, mà là cả tuổi trẻ.",
@@ -343,7 +366,7 @@ const __missions = {
 			id: "sy_quan",
 			name: "Vì Dải Đất Này",
 			display: "Vì Dải Đất Này",
-			rating: 5,
+			rating: 4,
 			isHidden: false,
 			description:
 				"Lần đầu tiên mình mơ trở thành một người lính là năm lớp 9, để trở thành một người có thể bảo vệ những thứ mình thương 🪖🇻🇳 Giấc mộng vẫn đang mang, nhưng hành trình này đã khác...",
@@ -365,11 +388,11 @@ const __missions = {
 			id: "bi_an_long_dat",
 			name: "Bí Ẩn Vực Sâu",
 			display: "Bí Ẩn Vực Sâu",
-			rating: 3,
+			rating: 5,
 			isHidden: false,
 			description:
 				"Thế giới này xây dựng với bề nổi, liệu có tảng băng nào đang chìm không nhỉ?",
-			hint: "??? -> Rapper chuyên nghiệp",
+			hint: "??? -> Rapper chuyên nghiệp (Scroll?)",
 		},
 		// added
 		{
