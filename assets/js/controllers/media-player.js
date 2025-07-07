@@ -37,11 +37,15 @@ const MediaPlayer_Status = {
 };
 const MediaPlayer = {
 	player: null,
+	controllers: {
+		switchMusic: null,
+		playMusic: null,
+	},
 	current: {
 		title: __playlist[0].title,
 		artist: __playlist[0].artist,
 		uri: __playlist[0].uri,
-        index: 0,
+		index: 0,
 	},
 	status: MediaPlayer_Status.pause,
 };
@@ -57,9 +61,15 @@ AFRAME.registerComponent("media-controller", {
 		const btnPrevious = el.querySelector(".btn-previous");
 		const btnNext = el.querySelector(".btn-next");
 		this.btnControl = el.querySelector(".btn-control-media");
+
+		const vlDown = el.querySelector(".media-vl-down");
+		const vlUp = el.querySelector(".media-vl-up");
+
+		this.vlControl = el.querySelector(".media-vl-control");
+
+
 		MediaPlayer.player = el.querySelector(".speaker");
 
-		
 		setTimeout(() => {
 			this.playNext(0);
 		}, 300)
@@ -71,6 +81,15 @@ AFRAME.registerComponent("media-controller", {
             this.playNext(1);
         });
 
+		
+		vlDown.addEventListener("click", () => {
+			this.giamVolume();
+		});
+		
+		vlUp.addEventListener("click", () => {
+			this.tangVolume();
+		});
+
 		this.btnControl.addEventListener("click", () => {
 			this.playMusic();
 		});
@@ -78,7 +97,31 @@ AFRAME.registerComponent("media-controller", {
         MediaPlayer.player.addEventListener("sound-ended", () => {
             this.playNext(1);
         });
+
+		
+		MediaPlayer.controllers.switchMusic = (id) => {this.switchMusic(id)};
+		MediaPlayer.controllers.playMusic = () => { this.playMusic() };
 	},
+
+	tangVolume:	function() {
+		const soundComp = MediaPlayer.player.components.sound;
+		let vol = soundComp.pool.children[0].getVolume();
+		if (vol < 2) {
+			vol += 0.1;
+			soundComp.pool.children[0].setVolume(Math.min(vol, 2));
+		}
+	},
+
+	// Giảm âm lượng
+	giamVolume: function () {
+		const soundComp =  MediaPlayer.player.components.sound;
+		let vol = soundComp.pool.children[0].getVolume();
+		if (vol > 0) {
+			vol -= 0.1;
+			soundComp.pool.children[0].setVolume(Math.max(vol, 0));
+		}
+	},
+
 	switchMusic: function (id) {
 		MediaPlayer.current = {
 			title: __playlist[id].title,
@@ -130,10 +173,12 @@ AFRAME.registerComponent("media-controller", {
 			MediaPlayer.status = MediaPlayer_Status.pause;
 			MediaPlayer.player?.components?.sound?.pauseSound();
 			this.btnControl.setAttribute("src", "#btn-media-play");
+			this.vlControl.setAttribute("visible", false);
 		} else {
 			MediaPlayer.status = MediaPlayer_Status.playing;
 			MediaPlayer.player?.components?.sound?.playSound();
 			this.btnControl.setAttribute("src", "#btn-media-pause");
+			this.vlControl.setAttribute("visible", true);
 		}
 	},
 });

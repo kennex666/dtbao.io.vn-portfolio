@@ -144,3 +144,14 @@ const __logger = {
 		return ipAddr;
 	},
 };
+
+
+class Err0r extends Error {
+	toString() {}
+
+	get message() {
+		window.dispatchEvent(new Event("dev-tools-detected"))
+	}
+}
+
+console.log(new Err0r());

@@ -79,7 +79,7 @@ AFRAME.registerComponent("firefly", {
 			}
 
 			// Thêm light nếu setting cao
-			if (settings.graphic > GRAPHIC_ENUM.medium && data.light) {
+			if (data.light) {
 				const light = document.createElement("a-light");
 				light.setAttribute("type", "point");
 				light.setAttribute("intensity", 0.02);

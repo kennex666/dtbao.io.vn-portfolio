@@ -45,6 +45,10 @@ AFRAME.registerComponent("hover-highlight", {
 			type: "number",
 			default: 3
 		},
+		showArrow: {
+			type: "boolean",
+			default: true
+		}
 	},
 	init: function () {
 		const el = this.el;
@@ -71,9 +75,11 @@ AFRAME.registerComponent("hover-highlight", {
 				(box.min.z + box.max.z) / 2
 			);
 
-			arrow.object3D.position.copy(topPosition);
 
-			arrow.setAttribute("visible", true);
+			if (this.data.showArrow) {
+				arrow.object3D.position.copy(topPosition);
+				arrow.setAttribute("visible", true);
+			}
 
 			if (this.data.title) {
 				const topPosition2 = new THREE.Vector3(

@@ -2,6 +2,7 @@ var scene = null;
 var camera = null;
 var btnUse = null;
 var btnMissions = null;
+var btnFirefly = null;
 
 function loadScript (element, current = 0, options = {}){
     if (element.script[current]?.value)
@@ -255,7 +256,6 @@ const sceneScript = {
 };
 
 function createToast(message, duration = 3000) {
-	// Kiểm tra xem đã có chưa
 	let existing = document.getElementById("redirect-toast");
 	if (!existing) {
 		const toast = document.createElement("div");
@@ -282,7 +282,6 @@ function createToast(message, duration = 3000) {
 	existing.textContent = message;
 	existing.style.display = "block";
 
-	// Clear cũ nếu có
 	if (createToast._timeout) clearTimeout(createToast._timeout);
 	createToast._timeout = setTimeout(() => {
 		existing.style.display = "none";
@@ -290,7 +289,6 @@ function createToast(message, duration = 3000) {
 }
 
 function createDoneToast(data, duration = 5000) {
-	// Kiểm tra xem đã có chưa
 	let existing = document.getElementById("done-toast");
 
 	if (!existing) {
@@ -315,7 +313,6 @@ function createDoneToast(data, duration = 5000) {
                     ${data.description}
                 </div>
 		`;
-	// Clear cũ nếu có
 	if (createDoneToast._timeout) clearTimeout(createDoneToast._timeout);
 	createDoneToast._timeout = setTimeout(() => {
 		setTimeout(() => {
@@ -344,6 +341,29 @@ function guideHandler (){
 	})
 }
 
+function throwFirefly(spread = 5, count = 30) {
+	const cameraPos = camera.getAttribute("position");
+	const fireflyRaw = document.createElement("a-entity");
+	fireflyRaw.setAttribute(
+		"firefly",
+		{
+			spread,
+			count,
+			size: 0.02,
+			randomSize: 0.03
+		}
+	);
+	const positionCamera = document.createElement("a-entity");
+	positionCamera.setAttribute("position", {
+		x: cameraPos.x,
+		y: cameraPos.y,
+		z: cameraPos.z,
+	});
+	positionCamera.appendChild(fireflyRaw);
+	positionCamera.classList.toggle("addon-firefly", true);
+	scene.appendChild(positionCamera);
+}
+
 function escapeHTML(str) {
 	return str.replace(/[&<>'"]/g, function (c) {
 		return {
@@ -356,6 +376,92 @@ function escapeHTML(str) {
 	});
 }
 
+function throwButtonHandle () {
+	let dismissNotificationFireFly = false;
+	let holdTimer = null;
+	let noHandleClick = false;
+	btnFirefly.addEventListener("click", (e) => {
+		if (noHandleClick)
+			return;
+		if (dismissNotificationFireFly) {
+			throwFirefly();
+			return;
+			}
+		let existingPopup = document.getElementById("firefly-warning-popup");
+		if (existingPopup) existingPopup.remove();
+		const popup = document.createElement("div");
+		popup.id = "firefly-warning-popup";
+		popup.innerHTML = `
+		<div style="padding: 12px; width: 240px; background: #fff8dc; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-size: 1rem;">
+			<strong>Cảnh báo:</strong><br>
+			Thả đom đóm có thể khiến máy lag 🐞<br>
+			<i>Nhấn giữ để thu hồi đom đóm</i>
+			<br>
+			<br>
+			<button id="continue-firefly" style="margin-top: 6px; padding: 6px 12px; background-color: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">Tiếp tục</button>
+			<button id="dismiss-firefly" style="margin-top: 6px; padding: 6px 12px; background-color: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer;">Bỏ qua</button>
+		</div>
+	`;
+		const offsetX = -220;
+		const offsetY = 10; 
+		popup.style.position = "fixed";
+		popup.style.left = `${e.clientX + offsetX}px`;
+		popup.style.top = `${e.clientY + offsetY}px`;
+		popup.style.zIndex = 9999;
+
+		document.body.appendChild(popup);
+
+		document
+			.getElementById("continue-firefly")
+			.addEventListener("click", () => {
+				popup.remove();
+				throwFirefly(); 
+				dismissNotificationFireFly = true;
+			});
+
+		document
+			.getElementById("dismiss-firefly")
+			.addEventListener("click", () => {
+				popup.remove();
+			});
+		setTimeout(() => {
+			popup.remove();
+		}, 5000);
+	});
+
+	btnFirefly.addEventListener("mousedown", (e) => {
+		holdTimer = setTimeout(() => {
+			document.querySelectorAll(".addon-firefly").forEach(el => el.remove())
+			noHandleClick = true;
+		}, 500); 
+	});
+
+	btnFirefly.addEventListener("mouseup", () => {
+		setTimeout(() => {
+			noHandleClick = false;
+		}, 100)
+		clearTimeout(holdTimer); 
+	});
+
+	btnFirefly.addEventListener("mouseleave", () => {
+		setTimeout(() => {
+			noHandleClick = false;
+		}, 100);
+		clearTimeout(holdTimer); 
+	});
+}
+function ballRecall() {
+	document.querySelector("#btn-ballrecall").addEventListener("click", () => {
+		const ball = document.querySelector("[kick-ball]");
+
+		ball.object3D.position.set(2.10559, 0.23173, 4.64923);
+		if (ball.body) {
+			ball.body.position.set(2.10559, 0.23173, 4.64923);
+			ball.body.velocity.set(0, 0, 0);
+			ball.body.angularVelocity.set(0, 0, 0);
+		}
+	});
+}
 window.onload = () => {
 	// Load data
 	const guestData = __logger.init();
@@ -373,6 +479,7 @@ window.onload = () => {
 	camera = document.querySelector("#camera");
 	btnUse = document.querySelector("#btn-use");
 	btnMissions = document.querySelector("#btn-missions");
+	btnFirefly = document.querySelector("#btn-throwfirefly");
 	const btnHome = document.querySelector("#btn-home");
 	const btnCloses = document.querySelectorAll("[btn-close]");
 
@@ -410,12 +517,23 @@ window.onload = () => {
 		camera.emit("update-xy", { x: -0.076, y: 0.766 });
 		camera.emit("update-position", { x: 8.32, y: 2.2, z: 11.519 });
 	});
+
 	missionHandler();
 	visitorHandler();
 	visitorSubmition();
 	guideHandler();
 	// Gọi load lần đầu
 	loadMessagesPage();
+
+	throwButtonHandle();
+
+	ballRecall();
+
+	window.addEventListener("dev-tools-detected", () => {
+		setTimeout(() => {
+			__missions.unlockMission("dev_tools");
+		}, 1500);
+	});
 }
 
 window.onbeforeunload = function () {

@@ -1,26 +1,102 @@
 const __gallery = [
 	{
 		id: 0,
-		title: "GDG Devfest 2024",
+		title: "Faculty-level Research Student - SSRC-I, 2025",
+		images: [
+			"/assets/images/album/svnck24_01.jpg",
+			"/assets/images/album/svnck24_02.jpg",
+			"/assets/images/album/svnck24_03.jpg",
+		],
+	},
+	{
+		id: 0,
+		title: "Technical Staff @ GDG Devfest x Sudo Code 2024",
 		images: [
 			"/assets/images/album/devfest2024_01.jpg",
 			"/assets/images/album/devfest2024_02.jpg",
 			"/assets/images/album/devfest2024_03.jpg",
 		],
-		// images: [
-		// 	"https://res.cloudinary.com/dqgvyfpv9/image/upload/v1751398302/albums-portfolio/devfest2024_02_sqgs3j.jpg",
-		// 	"https://res.cloudinary.com/dqgvyfpv9/image/upload/v1751398292/albums-portfolio/devfest2024_01_mzfuq4.jpg",
-		// 	"https://res.cloudinary.com/dqgvyfpv9/image/upload/v1751398265/albums-portfolio/devfest2024_03_xdrvyt.jpg",
-		// ],
 	},
 	{
-		id: 1,
-		title: "GDG Devfest 2025",
+		id: 0,
+		title: "Technical Staff @ Google I/O Extended HCMC 2024",
 		images: [
-			"/assets/images/album/devfest2024_02.jpg",
-			"/assets/images/album/devfest2024_01.jpg",
-			"/assets/images/album/devfest2024_03.jpg",
-		]
+			"/assets/images/album/gdgio24_01.jpg",
+			"/assets/images/album/gdgio24_02.jpg",
+			"/assets/images/album/gdgio24_03.jpg",
+		],
+	},
+	{
+		id: 0,
+		title: "Speaker/Organizer @ Workshop Java Swing\nIUH DSC 2024",
+		images: [
+			"/assets/images/album/gdsc_wsjava_01.jpg",
+			"/assets/images/album/gdsc_wsjava_02.jpg",
+			"/assets/images/album/gdsc_wsjava_03.jpg",
+		],
+	},
+	{
+		id: 0,
+		title: "Collaborator @ DevFest GDG Cloud HCMC 2023",
+		images: [
+			"/assets/images/album/gdgcdevfest23_01.jpg",
+			"/assets/images/album/gdgcdevfest23_02.jpg",
+			"/assets/images/album/gdgcdevfest23_03.jpg",
+		],
+	},
+	{
+		id: 0,
+		title: "Collaborator @ DevFest GDG HCMC 2023",
+		images: [
+			"/assets/images/album/gdgdevfest23_01.jpg",
+			"/assets/images/album/gdgdevfest23_02.jpg",
+			"/assets/images/album/gdgdevfest23_03.jpg",
+		],
+	},
+	{
+		id: 0,
+		title: "Speaker/Organizer @ Workshop Git for Beginner\nIUH DSC 2023",
+		images: [
+			"/assets/images/album/gdsc_wsgit_01.jpg",
+			"/assets/images/album/gdsc_wsgit_02.jpg",
+			"/assets/images/album/gdsc_wsgit_03.jpg",
+		],
+	},
+	{
+		id: 0,
+		title: "Contributor @ Code Mely 2023",
+		images: [
+			"/assets/images/album/sncodemely_01.jpg",
+			"/assets/images/album/sncodemely_02.jpg",
+			"/assets/images/album/sncodemely_03.jpg",
+		],
+	},
+	{
+		id: 0,
+		title: "Binh Phuoc Innovation Startup Contest (I) 2021",
+		images: [
+			"/assets/images/album/ctkndm_01.jpg",
+			"/assets/images/album/ctkndm_02.jpg",
+			"/assets/images/album/ctkndm_03.jpg",
+		],
+	},
+	{
+		id: 0,
+		title: "Contributor @ Exam Season Support Volunteer 2020",
+		images: [
+			"/assets/images/album/tsmt_01.jpg",
+			"/assets/images/album/tsmt_02.jpg",
+			"/assets/images/album/tsmt_03.jpg",
+		],
+	},
+	{
+		id: 0,
+		title: "And more... I'm actively involved in communities, events. What you see here is just a glimpse!",
+		images: [
+			"/assets/images/album/mycore_01.jpg",
+			"/assets/images/album/mycore_02.jpg",
+			"/assets/images/album/mycore_03.jpg",
+		],
 	},
 ];
 
@@ -184,10 +260,7 @@ AFRAME.registerComponent("gallery-component", {
     renderAlbum: function(id = 0){
         
         if (!this.el.getAttribute("visible")){
-            console.log("[Gallery] Not visible")
             return;
-        } else {
-            console.log("[Gallery] Rendering!")
         }
 
         this.listImages.innerHTML = this.createImageListDom(

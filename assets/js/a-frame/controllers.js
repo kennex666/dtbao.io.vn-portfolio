@@ -51,11 +51,11 @@ AFRAME.registerComponent("adaptive-cursor", {
 			></a-entity>`;
 		}
 
-		console.log(
-			`[adaptive-cursor] Setup for ${
-				isHeadset ? "VR" : isMobile ? "Mobile" : "PC"
-			}: rayOrigin=${rayOrigin}, fuse=${useFuse}`
-		);
+		// console.log(
+		// 	`[adaptive-cursor] Setup for ${
+		// 		isHeadset ? "VR" : isMobile ? "Mobile" : "PC"
+		// 	}: rayOrigin=${rayOrigin}, fuse=${useFuse}`
+		// );
 	},
 });
 
