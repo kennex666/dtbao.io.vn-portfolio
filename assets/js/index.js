@@ -2,6 +2,7 @@ var scene = null;
 var camera = null;
 var btnUse = null;
 var btnMissions = null;
+var btnFirefly = null;
 
 function loadScript (element, current = 0, options = {}){
     if (element.script[current]?.value)
@@ -255,7 +256,6 @@ const sceneScript = {
 };
 
 function createToast(message, duration = 3000) {
-	// Kiểm tra xem đã có chưa
 	let existing = document.getElementById("redirect-toast");
 	if (!existing) {
 		const toast = document.createElement("div");
@@ -282,7 +282,6 @@ function createToast(message, duration = 3000) {
 	existing.textContent = message;
 	existing.style.display = "block";
 
-	// Clear cũ nếu có
 	if (createToast._timeout) clearTimeout(createToast._timeout);
 	createToast._timeout = setTimeout(() => {
 		existing.style.display = "none";
@@ -290,7 +289,6 @@ function createToast(message, duration = 3000) {
 }
 
 function createDoneToast(data, duration = 5000) {
-	// Kiểm tra xem đã có chưa
 	let existing = document.getElementById("done-toast");
 
 	if (!existing) {
@@ -315,7 +313,6 @@ function createDoneToast(data, duration = 5000) {
                     ${data.description}
                 </div>
 		`;
-	// Clear cũ nếu có
 	if (createDoneToast._timeout) clearTimeout(createDoneToast._timeout);
 	createDoneToast._timeout = setTimeout(() => {
 		setTimeout(() => {
@@ -344,6 +341,29 @@ function guideHandler (){
 	})
 }
 
+function throwFirefly(spread = 5, count = 30) {
+	const cameraPos = camera.getAttribute("position");
+	const fireflyRaw = document.createElement("a-entity");
+	fireflyRaw.setAttribute(
+		"firefly",
+		{
+			spread,
+			count,
+			size: 0.02,
+			randomSize: 0.03
+		}
+	);
+	const positionCamera = document.createElement("a-entity");
+	positionCamera.setAttribute("position", {
+		x: cameraPos.x,
+		y: cameraPos.y,
+		z: cameraPos.z,
+	});
+	positionCamera.appendChild(fireflyRaw);
+	positionCamera.classList.toggle("addon-firefly", true);
+	scene.appendChild(positionCamera);
+}
+
 function escapeHTML(str) {
 	return str.replace(/[&<>'"]/g, function (c) {
 		return {
@@ -356,6 +376,287 @@ function escapeHTML(str) {
 	});
 }
 
+function throwButtonHandle () {
+	let dismissNotificationFireFly = false;
+	let holdTimer = null;
+	let noHandleClick = false;
+	btnFirefly.addEventListener("click", (e) => {
+		if (noHandleClick)
+			return;
+		if (dismissNotificationFireFly) {
+			throwFirefly();
+			return;
+			}
+		let existingPopup = document.getElementById("firefly-warning-popup");
+		if (existingPopup) existingPopup.remove();
+		const popup = document.createElement("div");
+		popup.id = "firefly-warning-popup";
+		popup.innerHTML = `
+		<div style="padding: 12px; width: 240px; background: #fff8dc; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-size: 1rem;">
+			<strong>Cảnh báo:</strong><br>
+			Thả đom đóm có thể khiến máy lag 🐞<br>
+			<i>Nhấn giữ để thu hồi đom đóm</i>
+			<br>
+			<br>
+			<button id="continue-firefly" style="margin-top: 6px; padding: 6px 12px; background-color: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">Tiếp tục</button>
+			<button id="dismiss-firefly" style="margin-top: 6px; padding: 6px 12px; background-color: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer;">Bỏ qua</button>
+		</div>
+	`;
+		const offsetX = -220;
+		const offsetY = 10; 
+		popup.style.position = "fixed";
+		popup.style.left = `${e.clientX + offsetX}px`;
+		popup.style.top = `${e.clientY + offsetY}px`;
+		popup.style.zIndex = 9999;
+
+		document.body.appendChild(popup);
+
+		document
+			.getElementById("continue-firefly")
+			.addEventListener("click", () => {
+				popup.remove();
+				throwFirefly(); 
+				dismissNotificationFireFly = true;
+			});
+
+		document
+			.getElementById("dismiss-firefly")
+			.addEventListener("click", () => {
+				popup.remove();
+			});
+		setTimeout(() => {
+			popup.remove();
+		}, 5000);
+	});
+
+	btnFirefly.addEventListener("mousedown", (e) => {
+		holdTimer = setTimeout(() => {
+			document.querySelectorAll(".addon-firefly").forEach(el => el.remove())
+			noHandleClick = true;
+		}, 500); 
+	});
+
+	btnFirefly.addEventListener("mouseup", () => {
+		setTimeout(() => {
+			noHandleClick = false;
+		}, 100)
+		clearTimeout(holdTimer); 
+	});
+
+	btnFirefly.addEventListener("mouseleave", () => {
+		setTimeout(() => {
+			noHandleClick = false;
+		}, 100);
+		clearTimeout(holdTimer); 
+	});
+}
+function ballRecall() {
+	document.querySelector("#btn-ballrecall").addEventListener("click", () => {
+		const ball = document.querySelector("[kick-ball]");
+
+		ball.object3D.position.set(2.10559, 0.23173, 4.64923);
+		if (ball.body) {
+			ball.body.position.set(2.10559, 0.23173, 4.64923);
+			ball.body.velocity.set(0, 0, 0);
+			ball.body.angularVelocity.set(0, 0, 0);
+		}
+	});
+}
+
+function enableMerryChristmas() {
+	// Sound theme & unlock mission
+	setTimeout(() => {
+		__playlist.push({
+			title: "Chirstmas Theme",
+			artist: "Easter Egg: Đêm lành",
+			uri: "/assets/sounds/albums/christmas_theme.mp3",
+		});
+
+		MediaPlayer.controllers.switchMusic(__playlist.length - 1);
+		if (MediaPlayer.status == MediaPlayer_Status.pause) {
+			MediaPlayer.controllers.playMusic();
+		}
+
+		__missions.unlockMission("merry_chirstmas");
+	}, 5000);
+
+	// Tree
+	const christmasTree = document.createElement("a-entity");
+	christmasTree.classList.toggle("clickable", true);
+	christmasTree.setAttribute("event-theme", "chirstmas");
+	christmasTree.setAttribute("addon-physic", "");
+	christmasTree.setAttribute(
+		"gltf-model",
+		"assets/models/event-item/ChristmasTree.glb"
+	);
+	christmasTree.setAttribute("position", "4.11336 0.75537 4.84004");
+	christmasTree.setAttribute("scale", "2 2 2");
+	christmasTree.setAttribute("animation__pop", {
+		property: "scale",
+		from: "1.9 1.9 1.9",
+		to: "2 2 2",
+		dir: "alternate",
+		dur: 300,
+		loop: false,
+		easing: "easeInOutQuad",
+		startEvents: "click",
+	});
+
+	christmasTree.setAttribute("sound", {
+		src: "#chirstmas-tree-hit-sound",
+		on: "click",
+	});
+
+	scene.appendChild(christmasTree);
+
+	// Presents
+	const presents = document.createElement("a-entity");
+	presents.setAttribute("event-theme", "chirstmas");
+	presents.classList.toggle("clickable", true);
+	presents.setAttribute("addon-physic", "");
+	presents.setAttribute(
+		"gltf-model",
+		"assets/models/event-item/ChristmasPresents.glb"
+	);
+	presents.setAttribute("position", "4.034 0.251 4.735");
+	presents.setAttribute("rotation", "0 180 0");
+	presents.setAttribute("scale", "0.4 0.4 0.4");
+	presents.setAttribute("animation__pop", {
+		property: "scale",
+		from: "0.38 0.38 0.38",
+		to: "0.4 0.4 0.4",
+		dir: "alternate",
+		dur: 300,
+		loop: false,
+		easing: "easeInOutQuad",
+		startEvents: "click",
+	});
+
+	presents.setAttribute("sound", {
+		src: "#chirstmas-tree-hit-sound",
+		on: "click",
+	});
+
+	scene.appendChild(presents);
+
+	// Santa
+	const santa = document.createElement("a-entity");
+	santa.setAttribute("event-theme", "chirstmas");
+	santa.classList.toggle("clickable", true);
+	santa.setAttribute("addon-physic", "");
+	santa.setAttribute("gltf-model", "assets/models/event-item/santa.glb");
+	santa.setAttribute("position", "7.03995 1.27381 9.2941");
+	santa.setAttribute("rotation", "0 185 0");
+	santa.setAttribute("scale", "0.7 0.7 0.7");
+
+	santa.setAttribute("animation__pop", {
+		property: "scale",
+		from: "0.6 0.6 0.6",
+		to: "0.7 0.7 0.7",
+		dir: "alternate",
+		dur: 300,
+		loop: false,
+		easing: "easeInOutQuad",
+		startEvents: "click",
+	});
+
+	santa.setAttribute("sound", {
+		src: "#merry-chirstmas-toy-sound",
+		on: "click",
+		volume: 1.2,
+	});
+	scene.appendChild(santa);
+
+	// Firefly
+	const fireflyColors = [
+		{ color: "#ff3b3b", emissive: "#ff7a7a" }, // đỏ tươi
+		{ color: "#00ff9c", emissive: "#66ffc2" }, // Xanh lá neon
+		{ color: "#ffd700", emissive: "#fff066" }, // Vàng kim
+		{ color: "#8ecfff", emissive: "#b6e6ff" }, // Xanh băng
+		{ color: "#fffac8", emissive: "#ffffe0" }, // Vàng kem nhẹ
+		{ color: "#ff69b4", emissive: "#ff9fd0" }, // Hồng đậm
+		{ color: "#9370db", emissive: "#b499ff" }, // Tím lavender
+		{ color: "#00bfff", emissive: "#66dfff" }, // Xanh nước biển
+		{ color: "#00ffaa", emissive: "#66ffd2" }, // Xanh lá chuối
+		{ color: "#ff8c00", emissive: "#ffc266" }, // Cam rực
+	];
+
+	fireflyColors.forEach((combo) => {
+		const fireflyRaw = document.createElement("a-entity");
+		fireflyRaw.setAttribute("firefly", {
+			spread: 1.4,
+			count: 5,
+			size: 0.02,
+			randomSize: 0.02,
+			color: combo.color,
+			emissive: combo.emissive,
+		});
+		const positionCamera = document.createElement("a-entity");
+		positionCamera.setAttribute("event-theme", "chirstmas");
+		positionCamera.setAttribute("position", "4.11336 1.32 4.84004");
+		positionCamera.appendChild(fireflyRaw);
+		scene.appendChild(positionCamera);
+	});
+}
+
+function enableBirthday() {
+	// Sound theme & unlock mission
+	setTimeout(() => {
+		__missions.unlockMission("happy_birthday");
+	}, 5000);
+
+	// Birthday cake
+	const birthdayCake = document.createElement("a-entity");
+	birthdayCake.setAttribute("event-theme", "chirstmas");
+	birthdayCake.classList.toggle("clickable", true);
+	birthdayCake.setAttribute("addon-physic", "");
+	birthdayCake.setAttribute(
+		"gltf-model",
+		"assets/models/event-item/CakeBirthday.glb"
+	);
+	birthdayCake.setAttribute("position", "8.184 1.155 5.083");
+	birthdayCake.setAttribute("scale", "0.3 0.3 0.3");
+
+	birthdayCake.setAttribute("animation__pop", {
+		property: "scale",
+		from: "0.28 0.28 0.28",
+		to: "0.3 0.3 0.3",
+		dir: "alternate",
+		dur: 300,
+		loop: false,
+		easing: "easeInOutQuad",
+		startEvents: "click",
+	});
+
+	birthdayCake.setAttribute("sound", {
+		src: "#birthday-cake-hit-sound",
+		on: "click",
+		volume: 1.2,
+	});
+
+	birthdayCake.innerHTML = `
+	<a-entity id="candleLight" light="color: #ffdca8; distance: 3.22; intensity: 2.93; type: point" position="0.02907 0.98408 0.63214">
+	</a-entity>`;
+	scene.appendChild(birthdayCake);
+}
+
+function eventScene (date = new Date()) {
+
+	console.log(date)
+	if (date.getMonth() == 11) {
+		enableMerryChristmas();
+		if (date.getDate() == 19) {
+			enableBirthday();
+		}
+	} else {
+		setTimeout( ( ) => {
+			if (MediaPlayer.status == MediaPlayer_Status.pause) {
+				MediaPlayer.controllers.playMusic();
+			}
+		}, 5000)
+
+	}
+}
 window.onload = () => {
 	// Load data
 	const guestData = __logger.init();
@@ -373,6 +674,7 @@ window.onload = () => {
 	camera = document.querySelector("#camera");
 	btnUse = document.querySelector("#btn-use");
 	btnMissions = document.querySelector("#btn-missions");
+	btnFirefly = document.querySelector("#btn-throwfirefly");
 	const btnHome = document.querySelector("#btn-home");
 	const btnCloses = document.querySelectorAll("[btn-close]");
 
@@ -410,12 +712,34 @@ window.onload = () => {
 		camera.emit("update-xy", { x: -0.076, y: 0.766 });
 		camera.emit("update-position", { x: 8.32, y: 2.2, z: 11.519 });
 	});
+
 	missionHandler();
 	visitorHandler();
 	visitorSubmition();
 	guideHandler();
 	// Gọi load lần đầu
 	loadMessagesPage();
+
+	throwButtonHandle();
+
+	ballRecall();
+
+	// Unlock theme - for testing purpose
+	// eventScene(new Date("2025-12-19"));
+
+	eventScene();
+
+	window.addEventListener("dev-tools-detected", () => {
+		setTimeout(() => {
+			__missions.unlockMission("dev_tools");
+		}, 1500);
+
+		__logger.logToSheet({
+			type: "dev-tools-detected"
+		})
+
+		window.dispatchEvent(new Event("clear-console"));
+	});
 }
 
 window.onbeforeunload = function () {

@@ -5,7 +5,9 @@ AFRAME.registerComponent("firefly", {
 		existence: { type: "number", default: -1 },
 		size: { type: "number", default: 0.03 },
 		randomSize: { type: "number", default: 0 },
-        light: { type: "boolean", default: false }
+		light: { type: "boolean", default: false },
+		color: { type: "string", default: "#ffeeaa" },
+		emissive: { type: "string", default: "#ffaa00" },
 	},
 	init: function () {
 		const originCoor = this.el.object3D.position;
@@ -34,8 +36,8 @@ AFRAME.registerComponent("firefly", {
 
 			firefly.setAttribute("material", {
 				shader: "flat",
-				color: "#ffeeaa",
-				emissive: "#ffaa00",
+				color: this.data.color,
+				emissive: this.data.emissive,
 				emissiveIntensity: 1,
 				transparent: true,
 				opacity: 0.7,
@@ -79,7 +81,7 @@ AFRAME.registerComponent("firefly", {
 			}
 
 			// Thêm light nếu setting cao
-			if (settings.graphic > GRAPHIC_ENUM.medium && data.light) {
+			if (data.light) {
 				const light = document.createElement("a-light");
 				light.setAttribute("type", "point");
 				light.setAttribute("intensity", 0.02);
@@ -94,7 +96,7 @@ AFRAME.registerComponent("firefly", {
 
 		// Lắng nghe graphic-changed MỘT LẦN thôi
 		this.el.sceneEl.addEventListener("graphic-changed", (e) => {
-            console.log("🎯 Emitted graphic-changed:", e);
+			console.log("🎯 Emitted graphic-changed:", e);
 			this.updateGraphics(e.detail.level);
 		});
 	},
@@ -113,10 +115,9 @@ AFRAME.registerComponent("firefly", {
 					light.setAttribute("decay", 2);
 					light.setAttribute("color", "#ffaa00");
 					firefly.appendChild(light);
-                    
 				}
 			} else {
-                console.log("Remove")
+				console.log("Remove");
 				if (existingLight) {
 					existingLight.remove();
 				}

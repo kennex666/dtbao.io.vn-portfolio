@@ -114,19 +114,30 @@ function missionHandler( ) {
 
 const __missions = {
 	saveKey: "missions_unlock",
+	requireKPVV: [
+		"the_great_wave_off_kanagawa",
+		"phong_tranh_ao",
+		"giai_ma_nhan_danh",
+		"choi_bong",
+		"choi_dan",
+		"tuong_tac_den",
+		"sy_quan",
+		"su_tich_cay_bonsai",
+		"hoa_hong_cua_me",
+	],
 	isUnlocked: (id) => {
 		const isUnlocked = __missions.unlocked.findIndex((e) => e.id == id);
-		return isUnlocked != -1	
+		return isUnlocked != -1;
 	},
 	loadMission: () => {
 		let data = window.localStorage.getItem(__missions.saveKey);
-		if (data){
+		if (data) {
 			try {
 				data = JSON.parse(data);
 			} catch (error) {
 				data = [];
 			}
-		} else{
+		} else {
 			data = [];
 		}
 		data.forEach((e) => {
@@ -135,7 +146,16 @@ const __missions = {
 				__missions.unlocked.push(e);
 				__missions.total[mission].done = true;
 			}
-		})
+		});
+		setTimeout(() => {
+			if (__missions.isUnlocked("cuu_xuc_chi_uoc")) {
+				__playlist.push({
+					title: "Please Tell Me Why",
+					artist: "Easter Egg Cũ (REMASTER)",
+					uri: "/assets/sounds/albums/old-easteregg.mp3",
+				});
+			}
+		}, 1000);
 	},
 	saveMission: (data) => {
 		window.localStorage.setItem(__missions.saveKey, JSON.stringify(data));
@@ -171,12 +191,14 @@ const __missions = {
 		const mission = __missions.getMission(id);
 
 		if (!mission) return;
+
 		if (__missions.unlocked.findIndex((v) => v.id == id) != -1) return;
+
 
 		__missions.queueNotification.push(mission);
 		__missions.unlocked.push({
 			id,
-			time: new Date().getTime()
+			time: new Date().getTime(),
 		});
 		__missions.total[mission.index].done = true;
 		__missions.saveMission(__missions.unlocked);
@@ -184,7 +206,30 @@ const __missions = {
 		if (__missions.queueNotification[0].index == mission.index) {
 			__missions.loadNotification(mission);
 		}
-		
+
+		if (mission.data.id == "cuu_xuc_chi_uoc") {
+			__playlist.push({
+				title: "Please Tell Me Why",
+				artist: "Easter Egg Cũ (REMASTER)",
+				uri: "/assets/sounds/albums/old-easteregg.mp3",
+			});
+
+			MediaPlayer.controllers.switchMusic(__playlist.length - 1);
+			if (MediaPlayer.status == MediaPlayer_Status.pause) {
+				MediaPlayer.controllers.playMusic();
+			}
+		} else if (id != "kham_pha_van_vat") {
+			if (
+				__missions.requireKPVV.every((id) =>
+					__missions.unlocked.some((el) => id == el.id)
+				)
+			) {
+				setTimeout(() => {
+					__missions.unlockMission("kham_pha_van_vat");
+				}, 100);
+			}
+		}
+
 		__logger.logToSheet({
 			type: "missions-unlock",
 			metadata: {
@@ -203,7 +248,7 @@ const __missions = {
 			id: "chien_binh_ranh_roi",
 			name: "Chiến Binh Rảnh Rỗi",
 			display: "Chiến Binh Rảnh Rỗi",
-			rating: 4,
+			rating: 6,
 			isHidden: false,
 			description:
 				"Không phải vì tò mò, mà là vì quá rảnh.\nHắn ta đã đi đến nơi tận cùng - để làm gì chứ?",
@@ -230,6 +275,16 @@ const __missions = {
 			description:
 				"Vạn vật đều có linh. Những ký ức đã ngủ quên trong từng món đồ đang chờ được đánh thức. Bạn có thể nhìn thấy điều người khác không thấy?",
 			hint: "",
+		},
+		{
+			id: "the_great_wave_off_kanagawa",
+			name: "The Great Wave off Kanagawa",
+			display: "Làn sóng Kanagawa",
+			rating: 2,
+			isHidden: false,
+			description:
+				"Giữa làn sóng dữ dội, vẫn có một con thuyền dũng cảm vươn mình tiến về phía trước - như cách mình đối mặt thử thách trong hành trình sáng tạo.",
+			hint: "🖼️",
 		},
 		// added
 		{
@@ -289,17 +344,18 @@ const __missions = {
 			id: "choi_bong",
 			name: "Giấc Mơ Sân Cỏ",
 			display: "Giấc Mơ Sân Cỏ",
-			rating: 4,
+			rating: 3,
 			isHidden: false,
 			description:
 				"Mỗi cú chạm bóng là một nhịp tim. Mỗi bước chạy là một mảnh ước mơ được chắp cánh. Cảm ơn vì đã ghé qua giấc mơ này - nơi sân cỏ không chỉ là trò chơi, mà là cả tuổi trẻ.",
 			hint: "PSG - PSG - PSG ⚽",
 		},
+		// added
 		{
 			id: "choi_dan",
 			name: "Âm Thanh Ngọt Ngào",
 			display: "Âm Thanh Ngọt Ngào",
-			rating: 4,
+			rating: 2,
 			isHidden: false,
 			description:
 				"Oops... Tiếng gì thế? À, quý lữ khách, đừng làm hỏng cây đàn của tôi nhé!",
@@ -310,7 +366,7 @@ const __missions = {
 			id: "sy_quan",
 			name: "Vì Dải Đất Này",
 			display: "Vì Dải Đất Này",
-			rating: 5,
+			rating: 4,
 			isHidden: false,
 			description:
 				"Lần đầu tiên mình mơ trở thành một người lính là năm lớp 9, để trở thành một người có thể bảo vệ những thứ mình thương 🪖🇻🇳 Giấc mộng vẫn đang mang, nhưng hành trình này đã khác...",
@@ -327,15 +383,16 @@ const __missions = {
 				"Tối quá. Ta có thể nhận lấy một chút hào quang từ ngươi?",
 			hint: "Workspace",
 		},
+		// added
 		{
 			id: "bi_an_long_dat",
 			name: "Bí Ẩn Vực Sâu",
 			display: "Bí Ẩn Vực Sâu",
-			rating: 3,
+			rating: 5,
 			isHidden: false,
 			description:
 				"Thế giới này xây dựng với bề nổi, liệu có tảng băng nào đang chìm không nhỉ?",
-			hint: "??? -> Rapper chuyên nghiệp",
+			hint: "??? -> Rapper chuyên nghiệp (Scroll?)",
 		},
 		// added
 		{
@@ -390,6 +447,7 @@ const __missions = {
 			description: "Nhiệm vụ này... Rốt cuộc đâu mới là góc khuất?",
 			hint: "Nơi mà bạn không thể nhìn thấy từ trên cao",
 		},
+		// added
 		{
 			id: "dev_tools",
 			name: "Đồng Dev",

@@ -20,9 +20,10 @@ AFRAME.registerComponent("adaptive-cursor", {
 		}
 		// Mobile (touch screen)
 		else if (isMobile || settings.isTouchable) {
-			rayOrigin = "entity";
-			useFuse = false;
-			btnUse.style.display = "block";
+			// Bug quá :)) Dẹp 
+			// rayOrigin = "entity";
+			// useFuse = false;
+			// btnUse.style.display = "block";
 		}
 		// PC (default mouse)
 		else {
@@ -42,20 +43,20 @@ AFRAME.registerComponent("adaptive-cursor", {
 
 		settings.device = isHeadset ? "vr" : isMobile ? "mobile" : "pc";
 
-		if (settings.device != "pc" || settings.isTouchable) {
-			camera.innerHTML = `<a-entity
-				a-entity=""
-				position="0 0 -1"
-				geometry="primitive: ring; radiusInner: 0.001; radiusOuter: 0.005"
-				material="shader: flat; color: #ffffff"
-			></a-entity>`;
-		}
+		// if (settings.device != "pc" || settings.isTouchable) {
+		// 	camera.innerHTML = `<a-entity
+		// 		a-entity=""
+		// 		position="0 0 -1"
+		// 		geometry="primitive: ring; radiusInner: 0.001; radiusOuter: 0.005"
+		// 		material="shader: flat; color: #ffffff"
+		// 	></a-entity>`;
+		// }
 
-		console.log(
-			`[adaptive-cursor] Setup for ${
-				isHeadset ? "VR" : isMobile ? "Mobile" : "PC"
-			}: rayOrigin=${rayOrigin}, fuse=${useFuse}`
-		);
+		// console.log(
+		// 	`[adaptive-cursor] Setup for ${
+		// 		isHeadset ? "VR" : isMobile ? "Mobile" : "PC"
+		// 	}: rayOrigin=${rayOrigin}, fuse=${useFuse}`
+		// );
 	},
 });
 
@@ -109,7 +110,7 @@ AFRAME.registerComponent("joystick-keyboard", {
 			mode: "static",
 			position: { left: "5vw", bottom: "10vh" },
 			color: "white",
-			size: 100,
+			size: 110,
 			multitouch: true, // hỗ trợ đa điểm
 		});
 

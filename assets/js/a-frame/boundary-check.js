@@ -28,3 +28,19 @@ AFRAME.registerComponent("sky-boundary-check", {
 		}
 	},
 });
+
+AFRAME.registerComponent("underground", {
+	tick() {
+		const cameraPos = this.el.object3D.position;
+		const distanceY = cameraPos.y;
+		if (distanceY < -1) {
+			if (__missions.isUnlocked("bi_an_long_dat")) {
+				this.el.removeAttribute("underground");
+				return;
+			}
+			__missions.unlockMission("bi_an_long_dat");
+			this.el.removeAttribute("underground");
+		}
+	},
+});
+

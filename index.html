@@ -20,13 +20,10 @@
 		<meta name="twitter:image" content="https://dtbao.io.vn/assets/images/player-card-min.png">
 		<meta name="application-name" content="Bao's Portfolio">
 		<meta name="generator" content="A-Frame, Three.js, HTML5, JavaScript">
-
-        
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	    <link rel="preconnect" href="https://aframe.io" crossorigin>
 	    <link rel="preconnect" href="https://unpkg.com" crossorigin>
-
         <link rel="icon" href="/assets/favicon/favicon.ico" />
         <link rel="manifest" href="/assets/favicon/manifest.json" />
         <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/android-chrome-192x192.png" />
@@ -65,7 +62,7 @@
 
             <!-- Controllers color="#0a0a1f" -->
             <a-sky src="#sky-bg"></a-sky>
-            <a-plane color="#222" width="60" height="60" depth="3" rotation="-90 0 0" shadow="receive: true"></a-plane>
+            <a-plane addon-physic color="#222" width="60" height="60" depth="3" rotation="-90 0 0" shadow="receive: true"></a-plane>
 
             <!-- Camera -->
             <a-entity 
@@ -73,32 +70,28 @@
             camera
             joystick-keyboard
             sky-boundary-check
+            underground
             touch-drag-look
             lock-camera
             adaptive-cursor
             custom-look>
             </a-entity>
 
-            <!-- World here (❁´◡`❁) -->
-
+            <!-- My world here (❁´◡`❁) -->
             <!-- Nhà -->
             <!-- Tường phải -->
-            <a-box material="src: #wall-m" position="5.475 1.519 4.379" width="7.39" height="4.550" depth="0.05" shadow></a-box>
+            <a-box addon-physic material="src: #wall-m" position="5.475 1.519 4.379" width="7.39" height="4.550" depth="0.05" shadow></a-box>
             <!-- Tường trái  color="#FCDCB1"-->
-            <a-box material="src: #wall-m" position="1.812 1.519 7.971" rotation="0 -90 0" width="7.230" height="4.550" depth="0.05" shadow></a-box> 
+            <a-box addon-physic material="src: #wall-m" position="1.812 1.519 7.971" rotation="0 -90 0" width="7.230" height="4.550" depth="0.05" shadow></a-box> 
             <!-- Sàn nhà color="#D4BEAA" -->
-            <a-box id="floor" visible="false" material="src: #floor-m" width="7.420" height="7.230" depth="0.100" position="5.463 0.001 7.981" rotation="-90 0 0"></a-box>
-            
-            
+            <a-box addon-physic id="floor" visible="false" material="src: #floor-m" width="7.420" height="7.230" depth="0.100" position="5.463 0.001 7.981" rotation="-90 0 0"></a-box>
+            <a-troika-text position="5.4801 -0.13484 8.27428" troika-text="align: center; color: #ffffff; fontSize: 0.33; maxWidth: 5.71; value: Fun fact: This website took me a whole month of research and development\n---------\nScreenshot this and send it my way\nI'd love that!\n---------\nCopyright ©2025 Duong Thai Bao\nAll rights reserved" rotation="90 0 0"></a-troika-text>
             <!-- Outsite -->
             <a-entity gltf-model="#model-forest1" position="-18.755 2.718 -9.942" scale="10 10 10" rotation="0 30 0"></a-entity>
 
-
-            <!-- Insite -->
-
             <!-- Workspace -->
-            <a-entity gltf-model="#model-chair" position="7.117 0.077 5.502" scale="1.3 1.5 1.3" rotation="0 180 0"></a-entity>
-            <a-entity gltf-model="#model-desk" position="6.789 0.077 4.903" scale="2.370 2.5 1.480" rotation="0 0 0"></a-entity>
+            <a-entity addon-physic gltf-model="#model-chair" position="7.117 0.077 5.502" scale="1.3 1.5 1.3" rotation="0 180 0"></a-entity>
+            <a-entity addon-physic gltf-model="#model-desk" position="6.789 0.077 4.903" scale="2.370 2.5 1.480" rotation="0 0 0"></a-entity>
             <a-entity gltf-model="#model-monitor" position="7.157 1.158 4.706" scale="0.003 0.003 0.003" rotation="0 0 0"></a-entity>
             <a-entity gltf-model="#model-keyboard" position="7.161 1.151 5.069" scale="0.002 0.002 0.002" rotation="0 0 0"></a-entity>
             <a-entity gltf-model="#model-mouse" position="7.775 1.159 5.091" scale="1 1 1" rotation="0 0 0"></a-entity>
@@ -106,8 +99,8 @@
             
             <!-- Picture frame -->
             <a-entity>
-                <a-entity gltf-model="#model-pictureframe" position="5.36648 1.28267 4.75755" scale="0.3 0.6 0.48" rotation="0 -90 10"></a-entity>
-                <a-plane id="frame-screen" material="src: #computer-bg" position="5.38873 1.29345 4.76327" rotation="-10.24 0 0" geometry="height: 0.245; width: 0.275"></a-plane>
+                <a-entity gltf-model="#model-pictureframe" position="5.36648 1.28267 4.75755" scale="0.3 0.6 0.59" rotation="0 -90 10"></a-entity>
+                <a-plane id="frame-screen" material="src: #frm-picture-anhem" position="5.38873 1.29345 4.76327" rotation="-10.24 0 0" geometry="height: 0.245; width: 0.345"></a-plane>
             </a-entity>
 
             <!-- Bonsai -->
@@ -122,16 +115,16 @@
                 <!-- Left note -->
                 <a-plane width="0.5" height="0.3" position="5.7996 1.794 4.40828" geometry="width: 0.4" material="color: #ffffff; emissive: #e2a1a1; emissiveIntensity: 0.22"></a-plane>
                 <a-plane width="0.1" height="0.1" material="src: #logo" position="5.65581 1.88524 4.412" geometry="height: 0.03; width: 0.03"></a-plane>
-                <a-troika-text value="Hehehhe" position="5.79866 1.76408 4.40961" troika-text="color: #242424; fontSize: 0.02; value: bao@dtbao.io.vn:~$ webver\n&gt;&gt; Recently updated: 25/06/2025\n&gt;&gt; v1.0.0\n&gt;&gt; ---------\nCopyright ©2025 Duong Thai Bao\nAll rights reserved"></a-troika-text><a-troika-text value="Hehehhe" position="5.82004 1.88475 4.41" troika-text="align: center; color: #000000; fontSize: 0.025; value: WEBSITE INFORMATION"></a-troika-text>
+                <a-troika-text position="5.79866 1.76408 4.40961" troika-text="color: #242424; fontSize: 0.02; value: bao@dtbao.io.vn:~$ webver\n&gt;&gt; Recently updated: 08/07/2025\n&gt;&gt; v1.7.5\n&gt;&gt; ---------\nCopyright ©2025 Duong Thai Bao\nAll rights reserved"></a-troika-text><a-troika-text position="5.82004 1.88475 4.41" troika-text="align: center; color: #000000; fontSize: 0.025; value: WEBSITE INFORMATION"></a-troika-text>
                 
-                <a-plane width="0.5" height="0.3" position="8.66464 1.8187 4.40828" geometry="width: 0.4"></a-plane>
+                <a-plane width="0.5" height="0.3" position="8.66464 1.8187 4.40828" geometry="width: 0.4" material="emissive: #739679"></a-plane>                <a-troika-text position="8.66639 1.81041 4.40961" troika-text="align: center; color: #242424; font: #font-patrickhand; fontSize: 0.045; maxWidth: 0.29; value: &quot;Move in silence, only speak when it's time to say checkmate.&quot;"></a-troika-text>
             </a-entity>
             
-            <a-entity gltf-model="#model-guitar" position="2.00008 1.93378 5.19422" scale="1.4 1.4 1.4" rotation="-6 90 0"></a-entity>
+            <a-entity class="clickable" mission-click="missionId: choi_dan;" gltf-model="#model-guitar" position="2.00008 1.93378 5.19422" scale="1.4 1.4 1.4" rotation="-6 90 0" sound="src: #my-guitar-sound; on: click; volume: 2"></a-entity>
             
-            <a-entity gltf-model="#model-ball" position="2.10559 0.23173 4.64923" scale="0.05 0.05 0.05"></a-entity>
+            <a-entity class="clickable" mission-click="missionId: choi_bong;" addon-physic="type: dynamic-body; shape: auto;" kick-ball gltf-model="#model-ball" position="2.10559 0.23173 4.64923" scale="0.05 0.05 0.05" sound="src: #my-ball-hit-sound; on: click; volume: 1.5; refDistance: 3"></a-entity>
 
-            <a-entity gltf-model="#model-bookshelf" position="5.31114 0.39626 4.6856" custom-color="color: #331A14" shadow="" rotation="0 90 0" scale="1.22 1.12 0.88"></a-entity>
+            <a-entity addon-physic gltf-model="#model-bookshelf" position="5.31114 0.39626 4.6856" custom-color="color: #331A14" shadow="" rotation="0 90 0" scale="1.22 1.12 0.88"></a-entity>
             
             <a-entity gltf-model="#model-calendar" position="4.76535 1.15332 4.81843" shadow="" scale="0.015 0.015 0.015" rotation="0 10 0"></a-entity>
             <a-entity gltf-model="#model-piggybank" position="5.75827 1.2744 4.75782" shadow="" scale="0.25 0.25 0.25" rotation="0 -30 0"></a-entity>
@@ -211,15 +204,15 @@
                     </a-entity>
                 </a-entity>
                 
-                <a-entity gltf-model="#model-table" position="6.710 0.489 9.799" scale="1.6 1.1 1.6" rotation="0 0 0"></a-entity>
-                <a-entity gltf-model="#model-stool" position="5.719 0.041 9.824" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
-                <a-entity gltf-model="#model-stool" position="7.713 0.041 9.839" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
-                <a-entity gltf-model="#model-stool" position="6.723 0.041 8.757" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
-                <a-entity gltf-model="#model-stool" position="6.748 0.041 10.754" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
+                <a-entity addon-physic gltf-model="#model-table" position="6.710 0.489 9.799" scale="1.6 1.1 1.6" rotation="0 0 0"></a-entity>
+                <a-entity addon-physic gltf-model="#model-stool" position="5.719 0.041 9.824" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
+                <a-entity addon-physic gltf-model="#model-stool" position="7.713 0.041 9.839" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
+                <a-entity addon-physic gltf-model="#model-stool" position="6.723 0.041 8.757" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
+                <a-entity addon-physic gltf-model="#model-stool" position="6.748 0.041 10.754" scale="0.100 0.065 0.100" rotation="0 0 0"></a-entity>
                 </a-entity>
                 <a-entity position="6.649 1.078 10.287">
                     <a-entity log-click="name: Visitors Book" use-items="id: visitors" hover-highlight="title: Visitors" class="clickable" gltf-model="#model-openbook" scale="0.6 0.6 0.6" rotation="0 0 0"></a-entity>
-                    <a-entity firefly="spread: 0.2; count: 20; size: 0.007; randomSize: 0.001; light: true;" position="0 0.12 0"></a-entity>
+                    <a-entity firefly="spread: 0.2; count: 20; size: 0.007; randomSize: 0.001; light: false;" position="0 0.12 0"></a-entity>
             </a-entity>
             
             <!-- Ánh sáng môi trường -->      
@@ -238,8 +231,6 @@
             <!-- sáng trắng ấm -->
             <a-light type="ambient" color="#fef6e4" intensity="0.280"></a-light>
 
-                
-                    
 
             <!-- Ánh sáng từ đèn tổ ong -->
             <a-entity position="0.979 -0.004 0">
@@ -277,12 +268,22 @@
                 <a-image class="clickable btn-next" src="#btn-media-next" position="7.25774 1.519 4.714" geometry="height: 0.08; width: 0.08"></a-image>
                 
                 
-                <a-entity class="clickable speaker" sound="src: #; autoplay: false; maxDistance: 30; refDistance: 3" gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"
-                animation__playing="property: scale; from: 0.05 0.05 0.05; to: 0.051 0.051 0.051; dir: alternate; dur: 500; loop: true"></a-entity>
+                <a-entity class="clickable speaker" sound="src: #; autoplay: false; maxDistance: 30; refDistance: 3" gltf-model="#model-stereo" position="6.28938 1.15858 4.64917" scale="0.05 0.05 0.05" rotation="0 15 0"></a-entity>
+
+                <a-entity class="media-vl-control" visible="false">
+                    <a-troika-text class="media-vl-down clickable" color="#fff" align="center" font-size="0.16" max-width="3" position="6.22826 1.61661 4.8117" font="#font-patrickhand" troika-text="fontSize: 0.1; value: -" rotation="0 15 0"
+                    animation__playing="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dir: alternate; dur: 1200; loop: true">
+                    </a-troika-text>
+
+                    <a-troika-text class="media-vl-up clickable" color="#fff" align="center" font-size="0.16" max-width="3" position="6.42052 1.61661 4.76525" font="#font-patrickhand" troika-text="fontSize: 0.1; value: +" rotation="0 15 0"
+                    animation__playing="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dir: alternate; dur: 1200; loop: true">
+                    </a-troika-text>
+                </a-entity>
             </a-entity>
 
-            <!-- Logo -->
+            <!-- Logo: Thử click 9 lần đi Đồng đép 🤡 -->
             <a-plane class="clickable" mission-click="missionId: cuu_xuc_chi_uoc; totalClickActivation: 9" width="0.1" height="0.1" material="src: #logo;" position="1.876 2.783 11.165" rotation="0 90 0" ></a-plane>
+
             <a-plane class="clickable" mission-click="missionId: cuu_xuc_chi_uoc; totalClickActivation: 9" width="0.1" height="0.1" material="src: #logo;" position="6.147 1.163 5.277" rotation="-90 0 0" ></a-plane>
 
             <!-- Đèn bàn -->
@@ -295,7 +296,7 @@
             <!-- Đèn bảng -->
             <a-entity class="light" light="color: #f0e4b7; decay: 1.52; distance: 4.33; intensity: 1; type: point" position="3.88907 2.17062 9.77798" scale="0.5 0.5 0.5"> </a-entity>
 
-            <!-- Mũi tên hover -->
+            <!-- Hover  -->
             <a-entity>
                 <a-entity id="hover-arrow"
                     geometry="primitive: cone; radiusBottom: 0.05; radiusTop: 0; height: 0.15"
@@ -344,10 +345,20 @@
             </a-entity>
           
             <!-- Tường ghi chú | Giấy notes -->
+            <!-- <a-entity>
+                <a-image class="clickable" hover-highlight="" src="assets/images/sunny-day.jpg" width="0.5" height="0.3" position="1.85823 2.32441 7.43285" rotation="0 -90 0" geometry="height: 0.5; width: 0.63" material="shader: standard" scale="1.4 1.4 1"></a-image>
+
+                <a-entity gltf-model="assets/models/Frame.glb" position="1.8644 2.323 7.43133" scale="1.43 1.08 0.45" rotation="0 90 0"></a-entity>
+                
+                <a-entity gltf-model="assets/models/Frame.glb" position="1.8644 2.32252 6.14886" scale="1.59 1.08 0.45" rotation="0 90 0"></a-entity>
+                <a-image class="clickable" hover-highlight="" src="assets/images/tgwok.jpg" width="0.5" height="0.3" position="1.85823 2.31795 6.1463" rotation="0 -90 0" geometry="height: 0.5; width: 0.71" material="shader: standard" scale="1.4 1.4 1"></a-image>
+            </a-entity> -->
+
             <a-entity>
-                <a-plane width="0.5" height="0.3" position="1.85823 2.61969 7.44678" rotation="-180 -90 0" geometry="width: 0.4"></a-plane>
-                <a-text value="Hihi" color="black" align="center" position="1.85823 2.61969 7.44678" rotation="0 90 0" scale="0.3 0.3 0.3"></a-text> 
+                <a-entity gltf-model="#model-frame" position="1.8644 2.32252 6.12622" scale="1.59 1.08 0.45" rotation="0 90 0"></a-entity>
+                <a-image class="clickable" mission-click="missionId: the_great_wave_off_kanagawa;" src="#pic-tgwok" width="0.5" height="0.3" position="1.85823 2.31795 6.1265" rotation="0 -90 0" geometry="height: 0.5; width: 0.71" material="shader: standard" scale="1.4 1.4 1"></a-image>
             </a-entity>
+            
 
             <!-- Space Certificate -->
             <a-entity position="-0.018 -0.214 0">
@@ -388,7 +399,7 @@
             </a-troika-text>
 
 
-            <!-- Không gian tranh -->
+            <!-- Không gian ảo VR -->
             <a-entity visible="false" class="fade-overlay-gallery" geometry="primitive: plane; height: 2; width: 2" material="shader: flat; color: #ffffff; opacity: 1; transparent: true; depthTest: false" position="7.98696 2.2 8.717" rotation="0 -90 0"></a-entity>
 
             <a-entity id="gallery-vr" visible="false" gallery-component="" position="10.10633 2.00498 8.99662">
@@ -423,18 +434,27 @@
         </div>
 
         <!-- Controllers -->
-        <div style="position: fixed; top: 5vh; right: 5vh; z-index: 10; width: 50px; max-width: 100px;">
-           <div id="btn-missions" title="Thành tựu" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
-                <img src-load="btnMissions" alt="Missions" style="width: 80%; height: 80%; object-fit: contain; ">
+        <div style="position: fixed; top: 5vh; right: 5vh; z-index: 10; opacity: 0.7; display: flex; gap: 15px;">
+           <div id="btn-missions" title="Thành tựu" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+                <img src-load="btnMissions" alt="Missions" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
            </div>
+
+            <div id="btn-guide" title="Hướng dẫn" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+                 <img src-load="btnGuide" alt="Guide" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
+             </div>
            
-           <div id="btn-home" title="Recall" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
-                <img src-load="btnHome" alt="Home" style="width: 80%; height: 80%; object-fit: contain; ">
+           <div id="btn-home" title="Recall" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+                <img src-load="btnHome" alt="Home" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
             </div>
            
-            <div id="btn-guide" title="Hướng dẫn" style="background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 1; text-align: center; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
-                 <img src-load="btnHome" alt="Guide" style="width: 80%; height: 80%; object-fit: contain; ">
+
+            <div id="btn-throwfirefly" title="Nhấn thả đom đóm/Giữ thu hồi" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+                 <img src-load="btnFirefly" alt="Guide" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
              </div>
+
+            <div id="btn-ballrecall" title="Ball recall" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+                <img src-load="btnBallRecall" alt="Guide" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
+            </div>
         </div>
 
         <!-- Mission book -->
@@ -447,8 +467,6 @@
                     <div class="book-content" new-scroll>
                         <h2 class="text-5xl mb-2 text-center">Achievements</h2>
                         <p data-missions-count class="text-xl mb-4">Đã hoàn thành: {mission_unlocked}/{missions_total}</p>
-                            
-                        <!-- Danh sách nhiệm vụ có scroll -->
                         <div class="overflow-y-auto" new-scroll>
                             <ol class="md:text-xl space-y-4" list-missions>
                             </ol>
@@ -470,13 +488,13 @@
                         <h2 class="text-5xl mb-2 text-center">Visitors</h2>
                         <p class="text-xl mb-4">Cảm ơn mọi người đã ghé thăm Portfolio của Bảo 🥰💖</p>
 
-                        <!-- Section: Danh sách lời nhắn -->
+                        <!-- Section: lowif nhắn -->
                         <div id="tab-messages" currentpage="0" class="flex-1 overflow-y-auto space-y-4" new-scroll list-visitors>
                             
                         </div>
                         
 
-                        <!-- Section: Form ghi danh -->
+                        <!-- Section: ghi danh -->
                         <div id="tab-form" class="hidden flex-1">
                             <p class="text-xl tracking-wide bg-gradient-to-r from-rose-700 via-amber-600 to-yellow-400 bg-clip-text text-transparent drop-shadow">
                                 Ghi danh và để lại lời nhắn:
@@ -510,9 +528,7 @@
                             </div>
                         </div>
                         
-                        
-                        
-                       <!-- Tabs -->
+                        <!-- My tabs -->
                        <div class="flex justify-center gap-4 mt-4 w-full">
                             <button data-tab="messages" class="tab-btn px-4 py-2 rounded border border-[#7b4b25] bg-[#f5e0b7] hover:bg-[#ecd3a0] text-[#4a2f1c] font-semibold transition w-full">
                                 Xem lời nhắn
@@ -528,16 +544,11 @@
 
         <!-- Image Viewer -->
         <div id="image-viewer" class="hidden fixed inset-0 z-[99] flex justify-center items-center bg-black/70 backdrop-blur-sm">
-            <!-- Nút đóng -->
             <div class="absolute top-[5vh] right-[5vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer" onclick="closeImageViewer()">
                 <img src-load="btnClose" alt="Close">
             </div>
-
-            <!-- Nội dung ảnh và nút -->
             <div class="flex flex-col items-center space-y-4">
                 <img id="image-viewer-img" src="" alt="Preview" class="max-w-[90vw] max-h-[80vh] rounded-xl shadow-xl border-4 border-white" />
-
-                <!-- Nút Tìm hiểu thêm -->
                 <a id="image-viewer-link" href="#" target="_blank"
                     class="hidden px-6 py-2 rounded-lg font-semibold text-white transition-all duration-300 ease-in-out
                     bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 shadow-lg hover:shadow-xl
@@ -555,17 +566,17 @@
                 </div>
                 <div class="book-open absolute text-black">
                     <div class="book-content">
-                        <h2 class="text-5xl mb-6 text-center font-bold">Hướng dẫn & Lưu ý khi trải nghiệm</h2>
+                        <h2 class="text-4xl mb-6 text-center font-bold">Hướng dẫn & Lưu ý khi trải nghiệm</h2>
                     
-                        <div class="space-y-4 text-lg leading-relaxed px-6 pb-4 overflow-y-auto"  new-scroll>
+                        <div class="space-y-4 text-lg leading-relaxed pb-4 overflow-y-auto"  new-scroll>
+                            
                             <p>🌟 Bạn sắp bước vào một hành trình độc đáo - nơi mỗi chi tiết đều ẩn chứa thông điệp.</p>
+                    
+                            <p>🎧 Portfolio có <b class="underline">âm thanh</b>, để có trải nghiệm tốt nhất, xin hãy đeo tai nghe!</p>
                     
                             <p>🕹️ <b>Cách điều hướng:</b> Dùng chuột để kéo, WASD để di chuyển, cuộn để tăng chiều cao <b>hoặc</b> chạm màn hình nếu đang dùng thiết bị di động.</p>
                     
                             <p>🔍 <b>Tương tác:</b> Nhấn vào các vật thể để khám phá thêm. Một số chi tiết nhỏ có thể chứa bất ngờ thú vị đó!</p>
-                    
-                            <p>🎧 <b>Âm thanh:</b> Bật loa để không bỏ lỡ trải nghiệm toàn diện.</p>
-                    
                             <p>💡 <b>Lưu ý:</b> Trình duyệt Chrome là tối ưu nhất. Một số hiệu ứng 3D có thể không hiển thị đúng trên Safari hoặc các trình duyệt cũ.</p>
                             
                             <p>⚠️ <b>Cảnh báo:</b> Nên sử dụng máy tính, thiết bị di động có thể bị lag hoặc không được tối ưu một số thao tác.</p>
@@ -591,51 +602,58 @@
                 </div>
             </div>
         </div>
-        <!-- Useful Links Overlay -->
-        <div id="useful-links" class="fixed inset-0 z-[100] hidden bg-gradient-to-br from-[#fdfaf6] via-[#f7f4ef] to-[#f1ede8] text-[#3a2d1f] backdrop-blur-sm no-select">
-            <!-- Nút đóng -->
+        <!-- Useful link -->
+        <div id="useful-links" class="fixed inset-0 z-[100] hidden bg-gradient-to-br from-[#1b1b1b] via-[#2c2c2c] to-[#1a1a1a] text-[#e0ddd6] backdrop-blur-sm no-select">
             <div class="absolute top-[6vh] right-[6vh] z-[101] w-12 h-12 cursor-pointer hover:opacity-60 transition" btn-close>
                 <img src-load="btnClose" alt="Đóng">
             </div>
-
-            <!-- Nội dung -->
             <div class="h-full w-full flex flex-col justify-center items-center px-6">
-                <h2 class="text-4xl md:text-5xl font-bold text-center mb-10 text-[#4f3e2d] drop-shadow-sm">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-10 text-[#f1f1f1] drop-shadow-md">
                     🔗 Kết nối với Bảo
                 </h2>
-
+        
                 <div class="w-full max-w-4xl grid gap-6 md:grid-cols-2">
                     <a href="https://github.com/kennex666" target="_blank"
-                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#faf8f5] via-[#f0ebe7] to-[#eae5df] shadow-sm hover:shadow-md hover:scale-[1.02] transition">
-                        <h3 class="font-bold text-xl mb-1 text-[#3f3326]">💻 GitHub</h3>
-                        <p class="text-sm opacity-80">Khám phá các dự án cá nhân & open-source.</p>
-                        <p class="mt-1 font-mono text-sm">@kennex666</p>
+                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#2a2a2a] via-[#333] to-[#1f1f1f] shadow-md hover:shadow-lg hover:scale-[1.02] transition">
+                        <h3 class="font-bold text-xl mb-1 text-[#e2e2e2]">💻 GitHub</h3>
+                        <p class="text-sm opacity-70">Khám phá các dự án cá nhân & open-source.</p>
+                        <p class="mt-1 font-mono text-sm text-[#bbb]">@kennex666</p>
                     </a>
-
+        
                     <a href="https://youtube.com/c/kennex666" target="_blank"
-                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#f5f8f7] via-[#eaf1f0] to-[#e2eae9] shadow-sm hover:shadow-md hover:scale-[1.02] transition">
-                        <h3 class="font-bold text-xl mb-1 text-[#2f3b3a]">📺 YouTube</h3>
-                        <p class="text-sm opacity-80">Video chia sẻ công nghệ & trải nghiệm sáng tạo.</p>
-                        <p class="mt-1 font-mono text-sm">@kennex666</p>
+                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#2d2f2f] via-[#3a3d3d] to-[#1f2020] shadow-md hover:shadow-lg hover:scale-[1.02] transition">
+                        <h3 class="font-bold text-xl mb-1 text-[#f0f0f0]">📺 YouTube</h3>
+                        <p class="text-sm opacity-70">Video chia sẻ công nghệ & trải nghiệm sáng tạo.</p>
+                        <p class="mt-1 font-mono text-sm text-[#bbb]">@kennex666</p>
                     </a>
-
+        
                     <a href="https://tiktok.com/@kennex666" target="_blank"
-                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#fdf5f7] via-[#f7ebee] to-[#f2e4e7] shadow-sm hover:shadow-md hover:scale-[1.02] transition">
-                        <h3 class="font-bold text-xl mb-1 text-[#4c2c31]">📽️ TikTok</h3>
-                        <p class="text-sm opacity-80">Nơi Bảo sáng tạo tự nhiên, mang đậm màu cá nhân.</p>
-                        <p class="mt-1 font-mono text-sm">@kennex666</p>
+                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#2f2a2b] via-[#3c3133] to-[#231c1d] shadow-md hover:shadow-lg hover:scale-[1.02] transition">
+                        <h3 class="font-bold text-xl mb-1 text-[#f2e6e8]">📽️ TikTok</h3>
+                        <p class="text-sm opacity-70">Nơi Bảo sáng tạo tự nhiên, mang đậm màu cá nhân.</p>
+                        <p class="mt-1 font-mono text-sm text-[#d3c6c8]">@kennex666</p>
                     </a>
-
+        
                     <a href="https://dtbao.io.vn/?s=portfolio3d" target="_blank"
-                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#f3f6fd] via-[#e9eef7] to-[#e3e9f2] shadow-sm hover:shadow-md hover:scale-[1.02] transition">
-                        <h3 class="font-bold text-xl mb-1 text-[#2d3b4f]">🌏 Portfolio 2D</h3>
-                        <p class="text-sm opacity-80">Bạn có thể chuyển sang Portfolio 2D thiết bị không đáp ứng</p>
-                        <p class="mt-1 font-mono text-sm">dtbao.io.vn</p>
+                        class="block p-6 rounded-2xl bg-gradient-to-br from-[#1e2733] via-[#273544] to-[#1c2230] shadow-md hover:shadow-lg hover:scale-[1.02] transition">
+                        <h3 class="font-bold text-xl mb-1 text-[#cfd9ea]">🌏 Portfolio 2D</h3>
+                        <p class="text-sm opacity-70">Bạn có thể chuyển sang Portfolio 2D thiết bị không đáp ứng</p>
+                        <p class="mt-1 font-mono text-sm text-[#aeb9cc]">dtbao.io.vn</p>
                     </a>
                 </div>
             </div>
         </div>
 
+        <!-- Beta notifications -->
+        <div id="beta-banner"
+            style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: linear-gradient(to right, #fff9e6, #fff3cd);
+            color: #856404; padding: 12px 20px; border: 1px solid #ffeeba;
+            border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); z-index: 9999; display: none; transition: opacity 0.5s ease;">
+            🚧 Đây là bản <strong>beta</strong>, nếu có thể xin hãy feedback với mình qua tin nhắn :> <br>
+            Mình sẽ rất vui và trân trọng những đóng góp vàng của quý lữ khách 💛<br>
+            <i>Bảo - Jasper Kennex</i>
+        </div>
 
     </body>
 
@@ -683,6 +701,7 @@
     <script src="assets/js/a-frame/controllers.js"></script>
     <script src="assets/js/a-frame/firefly.js"></script>
     <script src="assets/js/a-frame/clock.js"></script>
+    <script src="assets/js/a-frame/physics.js"></script>
     <script src="assets/js/a-frame/custom-look.js"></script>
     <script src="assets/js/a-frame/redirect.js"></script>
     <script src="assets/js/a-frame/mouse_event.js"></script>
@@ -700,6 +719,39 @@
     <script src="assets/js/index.js"></script>
     
     
+    <script>
+        const styleTitle = "color: red; font-size: 18px; font-weight: bold;";
+        const styleDesc = "color: orange; font-size: 14px;";
+        const styleNote =
+            "color: white; background-color: #222; padding: 4px 8px; border-radius: 4px;";
+
+        console.log("%c⚠️ Security Warning", styleTitle);
+        console.log(
+            "%cThis browser tab is being monitored for security purposes.",
+            styleDesc
+        );
+        console.log(
+            "%cIf you're not sure what you're doing, it's best to close the console now.",
+            styleNote
+        );
+    </script>
+
+    <!-- Beta notifications -->
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("friends") === "true") {
+            const banner = document.getElementById("beta-banner");
+            banner.style.display = "block";
+            banner.style.opacity = "1";
+
+            // Sau 6 giây, làm mờ và ẩn
+            setTimeout(() => {
+                banner.style.opacity = "0";
+                setTimeout(() => banner.style.display = "none", 500); // chờ hiệu ứng mờ xong
+            }, 8000);
+        }
+    </script>
+
     <footer>
     </footer>
 </html>
