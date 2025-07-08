@@ -39,7 +39,7 @@ const __logger = {
 	key_version: "3d_last_version",
 	key_user_id: "3d_user_id",
 	key_message: "3d_send_message",
-	disabled: true,
+	disabled: false,
 	data: {},
 	init: () => {
 		const data = {};
