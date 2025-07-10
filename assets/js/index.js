@@ -454,6 +454,7 @@ function muteButtonHandle() {
 	btnMute.addEventListener("click", () => {
 		settings.audio = !settings.audio;
 		if (!settings.audio) {
+			MediaPlayer.vol = 0;
 			if (MediaPlayer.status == MediaPlayer_Status.playing) {
 				MediaPlayer.controllers.playMusic();
 			}
@@ -465,8 +466,8 @@ function muteButtonHandle() {
 
 			btnMute.querySelector("img").src =
 				window.assetMap.lazyLoad.src.btnMute;
-			MediaPlayer.vol = 0;
 		} else {
+			MediaPlayer.vol = 1;
 			document.querySelectorAll("[sound]").forEach((el) => {
 				const soundComp = el.components.sound;
 				soundComp.pool.children[0].setVolume(1);
@@ -474,8 +475,6 @@ function muteButtonHandle() {
 
 			btnMute.querySelector("img").src =
 				window.assetMap.lazyLoad.src.btnUnmute;
-				
-			MediaPlayer.vol = 0;
 		}
 	})
 }
@@ -488,6 +487,7 @@ function enableMerryChristmas() {
 			artist: "Easter Egg: Đêm lành",
 			uri: "/assets/sounds/albums/christmas_theme.mp3",
 		});
+		MediaPlayer.vol = 0.5
 
 		MediaPlayer.controllers.switchMusic(__playlist.length - 1);
 		if (MediaPlayer.status == MediaPlayer_Status.pause) {

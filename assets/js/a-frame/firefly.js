@@ -7,7 +7,7 @@ AFRAME.registerComponent("firefly", {
 		randomSize: { type: "number", default: 0 },
 		light: { type: "boolean", default: false },
 		color: { type: "string", default: "#ffeeaa" },
-		emissive: { type: "string", default: "#ffaa00" },
+		emissive: { type: "string", default: "#ffeeaa" },
 	},
 	init: function () {
 		const originCoor = this.el.object3D.position;
@@ -81,7 +81,7 @@ AFRAME.registerComponent("firefly", {
 			}
 
 			// Thêm light nếu setting cao
-			if (data.light) {
+			if (settings.graphic > GRAPHIC_ENUM.medium || data.light) {
 				const light = document.createElement("a-light");
 				light.setAttribute("type", "point");
 				light.setAttribute("intensity", 0.02);
