@@ -86,18 +86,26 @@ const sceneScript = {
 			},
 		],
 		init: () => {
-			const text = document.querySelector("#intro__text");
-			camera.setAttribute(
-				"position",
-				`8.320 ${settings.cameraHeight} 11.519`
-			);
-			camera.emit("update-xy", { x: -0.076, y: 0.766 });
-			loadScript(sceneScript.skipIntro, 0, { text });
-			
 			__logger.logToSheet({
 				type: "load-script",
-				metadata: "skip-intro"
-			})
+				metadata: "introjs",
+			});
+			const letGo = () => {
+				const text = document.querySelector("#intro__text");
+				camera.setAttribute(
+					"position",
+					`8.320 ${settings.cameraHeight} 11.519`
+				);
+				camera.emit("update-xy", { x: -0.076, y: 0.766 });
+				loadScript(sceneScript.skipIntro, 0, { text });
+
+				__logger.logToSheet({
+					type: "load-script",
+					metadata: "skip-intro",
+				});
+			}
+			introJs.tour().oncomplete( () => { letGo(); }).onexit(() => {letGo();}).start()
+			
 		},
 		detroy: () => {
 			setTimeout(() => {
@@ -162,18 +170,26 @@ const sceneScript = {
 			},
 		],
 		init: () => {
-			const text = document.querySelector("#intro__text");
-			camera.setAttribute(
-				"position",
-				`8.320 ${settings.cameraHeight} 11.519`
-			);
-			camera.emit("update-xy", { x: -0.076, y: 0.766 });
-			loadScript(sceneScript.firstTime, 0, { text });
-			
 			__logger.logToSheet({
 				type: "load-script",
-				metadata: "intro-first",
+				metadata: "introjs",
 			});
+			const letGo = () => {
+				const text = document.querySelector("#intro__text");
+				camera.setAttribute(
+					"position",
+					`8.320 ${settings.cameraHeight} 11.519`
+				);
+				camera.emit("update-xy", { x: -0.076, y: 0.766 });
+				loadScript(sceneScript.firstTime, 0, { text });
+				
+				__logger.logToSheet({
+					type: "load-script",
+					metadata: "intro-first",
+				});
+			}
+			introJs.tour().oncomplete( () => { letGo(); }).onexit(() => {letGo();}).start()
+
 		},
 		detroy: () => {
 			setTimeout(() => {
@@ -367,9 +383,7 @@ function throwButtonHandle () {
 		<div style="padding: 12px; width: 240px; background: #fff8dc; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-size: 1rem;">
 			<strong>Cảnh báo:</strong><br>
 			Thả đom đóm có thể khiến máy lag 🐞<br>
-			<i>Nhấn giữ để thu hồi đom đóm</i>
-			<br>
-			<br>
+			<p class="text-red-500 font-bold">Giữ nút để thu hồi đom đóm</p>
 			<button id="continue-firefly" style="margin-top: 6px; padding: 6px 12px; background-color: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer;">Tiếp tục</button>
 			<button id="dismiss-firefly" style="margin-top: 6px; padding: 6px 12px; background-color: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer;">Bỏ qua</button>
 		</div>
@@ -652,11 +666,11 @@ function eventScene (date = new Date()) {
 			enableBirthday();
 		}
 	} else {
-		setTimeout( ( ) => {
-			if (MediaPlayer.status == MediaPlayer_Status.pause) {
-				MediaPlayer.controllers.playMusic();
-			}
-		}, 5000)
+		// setTimeout( ( ) => {
+		// 	if (MediaPlayer.status == MediaPlayer_Status.pause) {
+		// 		MediaPlayer.controllers.playMusic();
+		// 	}
+		// }, 5000)
 	}
 }
 window.onload = () => {

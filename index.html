@@ -35,8 +35,10 @@
         <script src="https://unpkg.com/aframe-render-order-component@1.1.0/dist/aframe-render-order-component.min.js"></script> 
         <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.9.0/dist/nipplejs.min.js"></script>
+        <script src="https://unpkg.com/intro.js/intro.js"></script>
         <script src="https://cdn.tailwindcss.com/"></script>
         <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="stylesheet" href="https://unpkg.com/intro.js/introjs.css">
         <style>
             .a-enter-vr{
                 display: none;
@@ -429,34 +431,34 @@
         
         <!-- For mobile controll -->
         <div id="joystick-container" style="position: fixed; bottom: 10vh; left: 5vw; z-index: 10; display: none;"></div>
-        <div id="btn-use" style="position: fixed; bottom: 10vh; right: 5vw; z-index: 10; display: none; width: 15vh; height: 15vh; max-width: 100px; max-height: 100px; background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 0.3; text-align: center; pointer-events: none; user-select: none;">
+        <!-- <div id="btn-use" style="position: fixed; bottom: 10vh; right: 5vw; z-index: 10; display: none; width: 15vh; height: 15vh; max-width: 100px; max-height: 100px; background: rgba(255, 255, 255 , 1); border-radius: 50%; opacity: 0.3; text-align: center; pointer-events: none; user-select: none;">
             <img src-load="btnUse" alt="Use" style="width: 80%; height: 80%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;">
-        </div>
+        </div> -->
 
         <!-- Controllers -->
         <div style="position: fixed; top: 5vh; right: 5vh; z-index: 10; opacity: 0.7; display: flex; gap: 15px;">
-           <div id="btn-missions" title="Thành tựu" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+           <div id="btn-missions" data-step="1" data-intro="Xem các thành tựu và nội dung khám phá" title="Thành tựu" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
                 <img src-load="btnMissions" alt="Missions" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
            </div>
 
-            <div id="btn-guide" title="Hướng dẫn" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <div id="btn-guide" data-step="2" data-intro="Đọc lại hướng dẫn" title="Hướng dẫn" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
                  <img src-load="btnGuide" alt="Guide" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
              </div>
            
-           <div id="btn-home" title="Recall" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+           <div id="btn-home" data-step="3" data-intro="Quay về vị trí xuất phát" title="Recall" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
                 <img src-load="btnHome" alt="Home" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
             </div>
            
 
-            <div id="btn-throwfirefly" title="Nhấn thả đom đóm/Giữ thu hồi" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <div id="btn-throwfirefly" data-step="4" data-intro="Nhấn để thả đom đóm, giữ để thu hồi đom đóm (Có thể gây lag)" title="Nhấn thả đom đóm/Giữ thu hồi" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
                  <img src-load="btnFirefly" alt="Thả đóm" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
              </div>
 
-            <div id="btn-ballrecall" title="Ball recall" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <div id="btn-ballrecall" data-step="5" data-intro="Triệu hồi quả banh" title="Ball recall" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
                 <img src-load="btnBallRecall" alt="Ball recall" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
             </div>
             
-            <div id="btn-volume-mute" title="Tắt/bật âm thanh" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <div id="btn-volume-mute" data-step="6" data-intro="Tắt tất cả âm thanh. Nếu bạn muốn nghe nhạc trong lúc khám phá, hãy lại bật nhạc tại máy tính."  title="Tắt/bật âm thanh" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
                 <img src-load="btnUnmute" alt="Tắt âm" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
             </div>
         </div>
@@ -467,7 +469,7 @@
                 <div btn-close class="absolute top-[10vh] right-[10vh] z-[100] w-12 h-12 hover:opacity-50 hover:cursor-pointer">
                     <img src-load="btnClose">
                 </div>
-                <div class="book-open absolute text-black text-justify">
+                <div class="book-open absolute text-black">
                     <div class="book-content" new-scroll>
                         <h2 class="text-5xl mb-2 text-center">Achievements</h2>
                         <p data-missions-count class="text-xl mb-4">Đã hoàn thành: {mission_unlocked}/{missions_total}</p>
@@ -578,14 +580,14 @@
                     
                             <p>🎧 Portfolio có <b class="underline">âm thanh</b>, bạn có thể <strong>tắt tiếng</strong> ở góc trên bên phải.</p>
                     
-                            <p>🕹️ <b>Cách điều hướng:</b> Dùng chuột để kéo, WASD để di chuyển, cuộn để tăng chiều cao <b>hoặc</b> chạm màn hình nếu đang dùng thiết bị di động.</p>
+                            <p>🕹️ <b>Cách điều hướng:</b> Dùng chuột để kéo, WASD để di chuyển (<strong>tắt unikey</strong> để tránh lỗi di chuyển), cuộn để tăng chiều cao <b>hoặc</b> chạm màn hình nếu đang dùng thiết bị di động.</p>
                     
                             <p>🔍 <b>Tương tác:</b> Nhấn vào các vật thể để khám phá thêm. Một số chi tiết nhỏ có thể chứa bất ngờ thú vị đó!</p>
                             <p>💡 <b>Lưu ý:</b> Trình duyệt Chrome là tối ưu nhất. Một số hiệu ứng 3D có thể không hiển thị đúng trên Safari hoặc các trình duyệt cũ.</p>
                             
                             <p>⚠️ <b>Cảnh báo:</b> Nên sử dụng máy tính, thiết bị di động có thể bị lag hoặc không được tối ưu một số thao tác.</p>
                             
-                            <p>💻 <b>Khuyến nghị:</b> Để có trải nghiệm tốt nhất, hãy sử dụng Windows/MacsOS có cấu hình Intel i5 Gen 8, RAM 8GB, GPU onboard hỗ trợ WebGL2, Chrome 114 trở lên</p>
+                            <p>💻 <b>Khuyến nghị:</b> Để có trải nghiệm tốt nhất, hãy sử dụng Windows/MacOS có cấu hình Intel i5 Gen 8, RAM 8GB, GPU onboard hỗ trợ WebGL2, Chrome 114 trở lên</p>
 
                             <p>🌏 Nếu thiết bị không đáp ứng gây ra hiện tượng lag, giật, bạn có thể xem portfolio bản 2d <a href="https://dtbao.io.vn/?s=portfolio3d" target="_blank" class="text-red-500 hover:underline">tại đây</a>.</p>
                     

@@ -9,22 +9,30 @@ function missionHandler( ) {
 
 		let dataCount = document.querySelector("[data-missions-count]");
 		dataCount.innerText = `Đã hoàn thành: ${__missions.unlocked.length}/${__missions.total.length}`;
+
+		let currentTag = 0;
 		listMissions.innerHTML = __missions.total
 			.sort((a, b) => {
+				if (a.tag !== b.tag) return a.tag - b.tag;
+
+
+				// 2. Ưu tiên hiện ra (isHidden = false đứng trước)
+				if (a.isHidden !== b.isHidden) {
+					return a.isHidden ? 1 : -1;
+				}
+
+				// 3. Ưu tiên theo rating tăng dần
 				return a.rating - b.rating;
 			})
-			.sort((a, b) => {
-				if (a.isHidden && a.isHidden == b.isHidden) {
-					return 0;
-				}
-				if (a.isHidden) return 1;
-				if (b.isHidden) return -1;
-				return 0;
-			})
 			.map((v) => {
+				let tagHTML = "";
+				if (currentTag != v.tag) {
+					currentTag = v.tag;
+					tagHTML = `<div class="text-xl font-bold mb-1 border-t pt-1 border-[#6e5844]">${__missions.tag[currentTag]}</div>`;
+				}
 				let isUnlocked = __missions.isUnlocked(v.id);
 				if (v.isHidden) {
-					return `<li>
+					return `${tagHTML}<li>
                                 <div class="flex gap-x-2 items-center mb-1">
                                     <img src="${
 										isUnlocked
@@ -68,7 +76,7 @@ function missionHandler( ) {
                                 </div>
                             </li>`;
 				}
-				return `
+				return `${tagHTML}
                             <li>
                                 <div class="flex gap-x-2 items-center mb-1">
                                     <img src="${
@@ -242,6 +250,11 @@ const __missions = {
 		});
 	},
 	unlocked: [],
+	tag: {
+		1: "Khám phá",
+		2: "Khai phá",
+		3: "Ngày đặc biệt Tháng 12"
+	},
 	total: [
 		// added
 		{
@@ -253,6 +266,7 @@ const __missions = {
 			description:
 				"Không phải vì tò mò, mà là vì quá rảnh.\nHắn ta đã đi đến nơi tận cùng - để làm gì chứ?",
 			hint: "Đến ranh giới của thời không",
+			tag: 1
 		},
 		// added
 		{
@@ -265,6 +279,7 @@ const __missions = {
 			description:
 				"Gì thế lữ khách? 9 lần? Đó là cách gọi ta xuất hiện, ta - Jasper Kennex - Số 09 đến đây ⚽",
 			hint: "Easter egg này thuộc portfolio 2D, đoán mò đi, hẹ hẹ hẹ",
+			tag: 2
 		},
 		{
 			id: "kham_pha_van_vat",
@@ -275,6 +290,7 @@ const __missions = {
 			description:
 				"Vạn vật đều có linh. Những ký ức đã ngủ quên trong từng món đồ đang chờ được đánh thức. Bạn có thể nhìn thấy điều người khác không thấy?",
 			hint: "",
+			tag: 1
 		},
 		{
 			id: "the_great_wave_off_kanagawa",
@@ -285,6 +301,7 @@ const __missions = {
 			description:
 				"Giữa làn sóng dữ dội, vẫn có một con thuyền dũng cảm vươn mình tiến về phía trước - như cách mình đối mặt thử thách trong hành trình sáng tạo.",
 			hint: "🖼️",
+			tag: 1
 		},
 		// added
 		{
@@ -295,6 +312,7 @@ const __missions = {
 			isHidden: false,
 			description: "Một căn phòng phủ đầy ảo ảnh. Tất cả. đều là. ký ức?",
 			hint: "VR Headset",
+			tag: 1
 		},
 		// added
 		{
@@ -306,6 +324,7 @@ const __missions = {
 			description:
 				"Mỗi hành trình đều bắt đầu bằng một bước chân. Cảm ơn quý lữ khách đã để bước chân ấy chạm vào nơi này.",
 			hint: "",
+			tag: 1
 		},
 		// added
 		{
@@ -317,6 +336,7 @@ const __missions = {
 			description:
 				"Cảm ơn quý lữ khách đã quay trở lại. Dù đã từng đặt chân đến nơi này, sự hiện diện của bạn hôm nay vẫn mang theo một điều rất đặc biệt. Chúc hành trình tiếp theo sẽ thật trọn vẹn!",
 			hint: "3 lần tham quan",
+			tag: 1
 		},
 		// added
 		{
@@ -328,6 +348,7 @@ const __missions = {
 			description:
 				"Mỗi cái tên là một câu chuyện. Việc lưu danh vào sổ chỉ là bước đầu - nhưng là dấu mốc đầu tiên để nơi này nhớ đến quý lữ khách.",
 			hint: "Ghi danh tại quyển tập đang mở",
+			tag: 1
 		},
 		// added
 		{
@@ -339,6 +360,7 @@ const __missions = {
 			description:
 				"Cảm ơn vì đã dành thời gian nhìn vào cái tên này. Phía sau nó là một câu chuyện, những lựa chọn, và cả những điều chưa nói thành lời. Hy vọng hành trình khai phá ấy khiến người thấy được một phần thật của tôi.",
 			hint: "Bảng thông tin",
+			tag: 1
 		},
 		{
 			id: "choi_bong",
@@ -349,6 +371,7 @@ const __missions = {
 			description:
 				"Mỗi cú chạm bóng là một nhịp tim. Mỗi bước chạy là một mảnh ước mơ được chắp cánh. Cảm ơn vì đã ghé qua giấc mơ này - nơi sân cỏ không chỉ là trò chơi, mà là cả tuổi trẻ.",
 			hint: "PSG - PSG - PSG ⚽",
+			tag: 1
 		},
 		// added
 		{
@@ -360,6 +383,7 @@ const __missions = {
 			description:
 				"Oops... Tiếng gì thế? À, quý lữ khách, đừng làm hỏng cây đàn của tôi nhé!",
 			hint: "🎸",
+			tag: 1
 		},
 		// added
 		{
@@ -371,6 +395,7 @@ const __missions = {
 			description:
 				"Lần đầu tiên mình mơ trở thành một người lính là năm lớp 9, để trở thành một người có thể bảo vệ những thứ mình thương 🪖🇻🇳 Giấc mộng vẫn đang mang, nhưng hành trình này đã khác...",
 			hint: "🪖",
+			tag: 1
 		},
 		// added
 		{
@@ -382,6 +407,7 @@ const __missions = {
 			description:
 				"Tối quá. Ta có thể nhận lấy một chút hào quang từ ngươi?",
 			hint: "Workspace",
+			tag: 1
 		},
 		// added
 		{
@@ -393,6 +419,7 @@ const __missions = {
 			description:
 				"Thế giới này xây dựng với bề nổi, liệu có tảng băng nào đang chìm không nhỉ?",
 			hint: "??? -> Rapper chuyên nghiệp (Scroll?)",
+			tag: 1
 		},
 		// added
 		{
@@ -404,6 +431,7 @@ const __missions = {
 			description:
 				"Là mẹ của tôi đã nói rằng bà ấy thích hoa hồng, thế là mẹ chọn cho tôi chậu hoa này. Bà nói hãy đặt nó ở đây 🌹💖",
 			hint: "🌹",
+			tag: 1
 		},
 		// added
 		{
@@ -415,6 +443,7 @@ const __missions = {
 			description:
 				"Tương truyền có một người dành cả đời chỉ để uốn một cây bonsai. Mỗi sáng, ông tưới nước, chỉnh từng nhánh nhỏ, dù chẳng ai khen. Khi người ta hỏi vì sao chưa bỏ cuộc, ông chỉ đáp: 'Vì ngày mai nó sẽ đẹp hơn hôm nay một chút.'",
 			hint: "🌲",
+			tag: 1
 		},
 		{
 			id: "merry_chirstmas",
@@ -426,6 +455,7 @@ const __missions = {
 			description:
 				"Tháng 12 rồi sao? Tôi làm trang này từ đầu tháng 06/2025 và lúc viết nhiệm vụ này là lúc 23/06/2025. Thời gian thấm thoát thoi đưa, ayyyy... Lên chủ đề Noel thôi~",
 			hint: "🎄",
+			tag: 3
 		},
 		{
 			id: "happy_birthday",
@@ -437,6 +467,7 @@ const __missions = {
 			description:
 				"Cuộc hành trình bắt đầu vào một ngày như hôm nay, và sẽ viết tiếp những câu chuyện cho những người muốn khám phá.",
 			hint: "🎂",
+			tag: 3
 		},
 		{
 			id: "bi_an_goc_khuat",
@@ -446,6 +477,7 @@ const __missions = {
 			isHidden: false,
 			description: "Nhiệm vụ này... Rốt cuộc đâu mới là góc khuất?",
 			hint: "Nơi mà bạn không thể nhìn thấy từ trên cao",
+			tag: 1
 		},
 		// added
 		{
@@ -457,6 +489,7 @@ const __missions = {
 			description:
 				"Ấy daaa. Một lữ khách tò mò. Căn nhà này không có gì đâu ヾ(≧▽≦*)o",
 			hint: "Hãy nói lớn: 'Tôi là lập trình viên' 3 lần sẽ mở khoá thành tựu 🤡",
+			tag: 1
 		},
 	],
 	sky: {
