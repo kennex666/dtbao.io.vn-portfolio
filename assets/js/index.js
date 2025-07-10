@@ -486,9 +486,7 @@ function setupEscapeHandler() {
 			btnCloses.forEach((btn) => {
 				btn?.click && btn?.click();
 			})
-			
 			closeImageViewer();
-
 		}
 	});
 }
@@ -822,6 +820,76 @@ function preventInspector() {
 		}
 	})
 }
+
+function isMobileLandscape(threshold = 768) {
+	return window.innerWidth > window.innerHeight && window.innerHeight < threshold;
+}
+
+function resizeForLowDevice() {
+	const fontMap = {
+		"text-5xl": "text-base",
+		"text-4xl": "text-base",
+		"text-3xl": "text-base",
+		"text-2xl": "text-base",
+		"text-xl": "text-base",
+		"text-lg": "text-base",
+	};
+
+	let isSmall = window.innerHeight < 500;
+
+	function downgradeElement(el) {
+		el.classList.forEach((cls) => {
+			if (fontMap[cls]) {
+				el.classList.replace(cls, fontMap[cls]);
+			}
+		});
+	}
+
+	function processAll() {
+		if (!isSmall) return;
+
+		document.querySelectorAll("[class*='text-']").forEach(downgradeElement);
+	}
+
+	// 1. Xử lý ban đầu
+	processAll();
+
+	// 2. Quan sát DOM thay đổi
+	const observer = new MutationObserver((mutations) => {
+		if (!isSmall) return;
+
+		for (const mutation of mutations) {
+			mutation.addedNodes.forEach((node) => {
+				if (node.nodeType !== 1) return; // Chỉ element
+
+				// Nếu node là element có class text-*
+				if (node.matches?.("[class*='text-']")) {
+					downgradeElement(node);
+				}
+
+				// Và nếu nó chứa con nào text-* thì cũng xử lý
+				node.querySelectorAll?.("[class*='text-']").forEach(
+					downgradeElement
+				);
+			});
+		}
+	});
+
+	observer.observe(document.body, {
+		childList: true,
+		subtree: true,
+	});
+
+	// 3. Xử lý khi resize
+	window.addEventListener("resize", () => {
+		const newSmall = window.innerHeight < 500;
+		if (newSmall !== isSmall) {
+			isSmall = newSmall;
+			processAll();
+		}
+	});
+}
+
 window.onload = () => {
 	// Load data
 	const guestData = __logger.init();
@@ -860,13 +928,17 @@ window.onload = () => {
 	btnCloses.forEach((btn) => {
 		btn.addEventListener("click", (e) => {
 			const elClosest = btn.closest("[id]");
-			elClosest?.id &&
-				__logger.logToSheet({
-					type: "close-item",
-					metadata: elClosest.id,
-				});
-			settings.disableScroll = false;
-			elClosest.classList.toggle("hidden", true);
+			if (!elClosest.classList.contains("hidden")){
+				console.log("send log?")
+				elClosest?.id &&
+					__logger.logToSheet({
+						type: "close-item",
+						metadata: elClosest.id,
+					});
+				settings.disableScroll = false;
+				elClosest.classList.toggle("hidden", true);
+
+			}
 		});
 	});
 
@@ -888,6 +960,7 @@ window.onload = () => {
 	setupEscapeHandler();
 	projectsLoad();
 	preventInspector();
+	resizeForLowDevice();
 	// Unlock theme - for testing purpose
 	// eventScene(new Date("2025-12-19"));
 

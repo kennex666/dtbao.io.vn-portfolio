@@ -403,7 +403,7 @@
 
 
             <!-- Không gian ảo VR -->
-            <a-entity class="shader-flat" visible="false" class="fade-overlay-gallery" geometry="primitive: plane; height: 2; width: 2" material="shader: flat; color: #ffffff; opacity: 1; transparent: true; depthTest: false" position="7.98696 2.2 8.717" rotation="0 -90 0"></a-entity>
+            <a-entity class="fade-overlay-gallery shader-flat" visible="false" geometry="primitive: plane; height: 2; width: 2" material="shader: flat; color: #ffffff; opacity: 1; transparent: true; depthTest: false" position="7.98696 2.2 8.717" rotation="0 -90 0"></a-entity>
 
             <a-entity id="gallery-vr" visible="false" gallery-component="" position="10.10633 2.00498 8.99662">
                 <a-entity class="list-images">
@@ -602,15 +602,23 @@
                             <p class="italic text-sm text-[#6e5844]">— Hãy giữ tinh thần cởi mở, tò mò, và đừng ngại thử mọi thứ nhé!</p>
                         </div>
                     
-                        <div class="flex justify-center gap-6 mt-6">
-                            <button id="btn-start-intro" class="px-6 py-3 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-500 rounded-full text-white font-bold shadow-lg hover:scale-105 transition-all duration-300">
+                        <div class="flex justify-center gap-6 mt-2">
+                            <button
+                                id="btn-start-intro"
+                                class="text-base min-w-[120px] h-12 inline-flex items-center justify-center 
+                                bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-500 
+                                rounded-full text-white font-bold shadow-lg hover:scale-105 transition-all duration-300">
                                 🎬 Intro
                             </button>
-                    
-                            <button id="btn-skip-intro" class="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-black rounded-full font-semibold shadow">
+                        
+                            <button
+                                id="btn-skip-intro"
+                                class="text-base min-w-[120px] h-12 inline-flex items-center justify-center 
+                                bg-gray-300 hover:bg-gray-400 text-black rounded-full font-semibold shadow">
                                 ⏭️ Bỏ qua intro
                             </button>
                         </div>
+                        
                     </div>
                     
                 </div>
@@ -671,8 +679,8 @@
 
         <!-- Portfolio Project Showcase -->
         <div id="project-showcase" class="fixed inset-0 z-[100] hidden bg-[#121212] text-gray-100 backdrop-blur-sm overflow-y-auto no-select">
-            <div class="absolute top-6 right-6 z-[101] w-10 h-10 cursor-pointer hover:opacity-70 transition" btn-close>
-                <span class="text-3xl font-bold text-white">&times;</span>
+            <div class="absolute top-[6vh] right-[6vh] z-[101] w-12 h-12 cursor-pointer hover:opacity-60 transition" btn-close>
+                <img src-load="btnClose" alt="Đóng">
             </div>
 
             <div class="min-h-screen w-full flex flex-col justify-start items-center px-6 py-12">
