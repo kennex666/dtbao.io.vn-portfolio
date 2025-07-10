@@ -673,19 +673,27 @@ function eventScene (date = new Date()) {
 		// }, 5000)
 	}
 }
+
+function handleChangeGraphic () {
+	const settingSelect = document.getElementById("graphicsSetting");
+	settingSelect.addEventListener("change", (e) => {
+		const level = e.target.value;
+		settings.controllers.graphic.changeGraphic(level);
+	});
+}
 window.onload = () => {
 	// Load data
 	const guestData = __logger.init();
 
-	__logger.logToSheet({ 
+	__logger.logToSheet({
 		type: "login",
 		metadata: {
 			touchable: settings.isTouchable,
 			device: settings.device,
 			raw_log: __logger.data,
 		},
-	})
-	
+	});
+
 	scene = document.querySelector("#scene");
 	camera = document.querySelector("#camera");
 	btnUse = document.querySelector("#btn-use");
@@ -735,14 +743,13 @@ window.onload = () => {
 	guideHandler();
 	// Gọi load lần đầu
 	loadMessagesPage();
-
 	throwButtonHandle();
-
 	ballRecall();
+	muteButtonHandle();
+	handleChangeGraphic();
 
 	// Unlock theme - for testing purpose
 	// eventScene(new Date("2025-12-19"));
-	muteButtonHandle();
 
 	window.addEventListener("dev-tools-detected", () => {
 		setTimeout(() => {
@@ -750,8 +757,8 @@ window.onload = () => {
 		}, 1500);
 
 		__logger.logToSheet({
-			type: "dev-tools-detected"
-		})
+			type: "dev-tools-detected",
+		});
 
 		window.dispatchEvent(new Event("clear-console"));
 	});
@@ -771,7 +778,9 @@ window.onload = () => {
 		introRange.setAttribute("visible", false);
 
 		floor.setAttribute("visible", true);
-	})
+
+		settings.controllers.graphic.changeGraphic(settings.graphic);
+	});
 }
 
 window.onbeforeunload = function () {

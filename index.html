@@ -47,15 +47,15 @@
 	</head>
 
 	<body style="position: relative; margin: 0;">
-        <a-scene id="scene" shadow="type: pcfsoft">
+        <a-scene id="scene">
             <!-- Assets -->
             <a-assets id="scene-assets">
                 <!-- Mixin  -->
-                <a-mixin id="hexagon"
+                <a-mixin id="hexagon" class="shader-flat"
                     geometry="primitive: cylinder; radius: 1; height: 0.1; segmentsRadial: 6"
                     rotation="90 0 0"
                     scale="0.2 0.2 0.2"
-                    material="color: #111; emissive: #fef6e4; emissiveIntensity: 0.65; metalness: 0.1; roughness: 0.4"
+                    material="emissive: #fef6e4; emissiveIntensity: 0.65; metalness: 0.1; roughness: 0.4"
                     light="type: point; intensity: 1.2; distance: 18; decay: 1.8; color: #fef6e4"
                     shadow="cast: true">
                 </a-mixin>
@@ -63,7 +63,7 @@
             </a-assets>
 
             <!-- Controllers color="#0a0a1f" -->
-            <a-sky src="#sky-bg"></a-sky>
+            <a-sky class="shader-flat" src="#sky-bg"></a-sky>
             <a-plane addon-physic color="#222" width="60" height="60" depth="3" rotation="-90 0 0" shadow="receive: true"></a-plane>
 
             <!-- Camera -->
@@ -133,7 +133,7 @@
 
             <a-entity>
                 <a-entity class="clickable" log-click="name: Gallery Open" mission-click="missionId: phong_tranh_ao;" gallery-vr hover-highlight="title: Jasper Quest 9; adjustTitle: 0.2" class="clickable" gltf-model="#model-vrheadset" position="4.87272 0.68098 4.81039" shadow="" scale="0.016 0.016 0.016"></a-entity>
-                <a-entity visible="false" log-click="name: Gallery Close" class="vr-headset-hidden" geometry="primitive: ring; radiusInner: 0.45; radiusOuter: 0.5; segmentsTheta: 24" material="shader: flat; color: #f29c9c" position="4.89078 0.7266 4.73637" rotation="-90 0 0" scale="0.4 0.4 0.5"></a-entity>
+                <a-entity visible="false" log-click="name: Gallery Close" class="vr-headset-hidden flat" geometry="primitive: ring; radiusInner: 0.45; radiusOuter: 0.5; segmentsTheta: 24" material="shader: flat; color: #f29c9c" position="4.89078 0.7266 4.73637" rotation="-90 0 0" scale="0.4 0.4 0.5"></a-entity>
             </a-entity>
 
 
@@ -252,7 +252,7 @@
 
             <!-- Màn hình -->
             <a-entity media-controller>
-                <a-plane id="computer-screen" width="1.100" height="0.610" material="shader: flat; src: #bg-musicplayer" position="7.151 1.669 4.713"></a-plane>
+                <a-plane id="computer-screen" class="shader-flat" width="1.100" height="0.610" material="shader: flat; src: #bg-musicplayer" position="7.151 1.669 4.713"></a-plane>
                 <a-light type="point" color="#ffffff" intensity="2" distance="25" decay="2" position="7.156 1.669 5.842">
                 </a-light>
 
@@ -386,6 +386,7 @@
             <a-cylinder id="intro__range" position="7.08655 1.8961 10.16491" radius="4" height="7" material="opacity: 1; side: back; color: #222; opacity: 0.850">
             </a-cylinder>
             <a-troika-text
+                class="shader-flat"
                 id="intro__text"
                 value="Đang khởi động..."
                 align="center"
@@ -402,7 +403,7 @@
 
 
             <!-- Không gian ảo VR -->
-            <a-entity visible="false" class="fade-overlay-gallery" geometry="primitive: plane; height: 2; width: 2" material="shader: flat; color: #ffffff; opacity: 1; transparent: true; depthTest: false" position="7.98696 2.2 8.717" rotation="0 -90 0"></a-entity>
+            <a-entity class="shader-flat" visible="false" class="fade-overlay-gallery" geometry="primitive: plane; height: 2; width: 2" material="shader: flat; color: #ffffff; opacity: 1; transparent: true; depthTest: false" position="7.98696 2.2 8.717" rotation="0 -90 0"></a-entity>
 
             <a-entity id="gallery-vr" visible="false" gallery-component="" position="10.10633 2.00498 8.99662">
                 <a-entity class="list-images">
@@ -413,9 +414,9 @@
                 <a-image class="clickable btn-next" src="#arrow-gallery" material="opacity: 0.9446519627592906; blending: additive; color: #b5b5b5" geometry="height: 0.11; width: 0.174" animation__pulse="dir: alternate; dur: 1200; easing: easeInOutSine; from: 0.6; loop: true; property: material.opacity; to: 1" animation__glow="dir: alternate; dur: 1500; easing: easeInOutSine; from: 1 1 1; loop: true; property: scale; to: 1.03 1.03 1"  rotation="-10 -90 0" position="-0.717 -0.55264 0.27614">
                 </a-image>
                 
-                <a-troika-text class="gallery-title" value="GDG Devfest 2025" align="center" rotation="11.14574652753213 -90 -2.431273137783164e-15" position="-0.66511 0.46787 -0.22405" font-size="0.12" max-width="3" shader="flat" color="#fff" fill-opacity="0.9752355887014752" animation__blink="dir: alternate; dur: 3000; from: 1; loop: true; property: fill-opacity; to: 0.6">
+                <a-troika-text class="gallery-title shader-flat" value="GDG Devfest 2025" align="center" rotation="11.14574652753213 -90 -2.431273137783164e-15" position="-0.66511 0.46787 -0.22405" font-size="0.12" max-width="3" shader="flat" color="#fff" fill-opacity="0.9752355887014752" animation__blink="dir: alternate; dur: 3000; from: 1; loop: true; property: fill-opacity; to: 0.6">
                 </a-troika-text>
-                <a-troika-text class="gallery-number" value="GDG Devfest 2024" align="center" rotation="-10 -90 -2.431273137783164e-15" position="-0.74777 -0.53577 -0.22405" font-size="0.12" max-width="3" shader="flat" color="#fff" fill-opacity="0.9497780287794666" animation__blink="dir: alternate; dur: 3000; from: 1; loop: true; property: fill-opacity; to: 0.6" troika-text="fontSize: 0.07; value: 1/10">
+                <a-troika-text class="gallery-number shader-flat" value="GDG Devfest 2024" align="center" rotation="-10 -90 -2.431273137783164e-15" position="-0.74777 -0.53577 -0.22405" font-size="0.12" max-width="3" shader="flat" color="#fff" fill-opacity="0.9497780287794666" animation__blink="dir: alternate; dur: 3000; from: 1; loop: true; property: fill-opacity; to: 0.6" troika-text="fontSize: 0.07; value: 1/10">
                 </a-troika-text>
             </a-entity>
         </a-scene>
@@ -437,28 +438,35 @@
 
         <!-- Controllers -->
         <div style="position: fixed; top: 5vh; right: 5vh; z-index: 10; opacity: 0.7; display: flex; gap: 15px;">
-           <div id="btn-missions" data-step="1" data-intro="Xem các thành tựu và nội dung khám phá" title="Thành tựu" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <div class="grid place-items-center">
+                <select id="graphicsSetting" class="px-3 rounded bg-white text-black h-8">
+                    <option value="1">Đồ hoạ thấp</option>
+                    <option value="2" selected>Đồ hoạ TB</option>
+                    <option value="3">Đồ hoạ cao</option>
+                </select>
+            </div>
+           <div id="btn-missions" data-step="1" data-intro="Xem các thành tựu và nội dung khám phá" title="Thành tựu" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
                 <img src-load="btnMissions" alt="Missions" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
            </div>
 
-            <div id="btn-guide" data-step="2" data-intro="Đọc lại hướng dẫn" title="Hướng dẫn" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <div id="btn-guide" data-step="2" data-intro="Đọc lại hướng dẫn" title="Hướng dẫn" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
                  <img src-load="btnGuide" alt="Guide" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
              </div>
            
-           <div id="btn-home" data-step="3" data-intro="Quay về vị trí xuất phát" title="Recall" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+           <div id="btn-home" data-step="3" data-intro="Quay về vị trí xuất phát" title="Recall" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
                 <img src-load="btnHome" alt="Home" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
             </div>
            
 
-            <div id="btn-throwfirefly" data-step="4" data-intro="Nhấn để thả đom đóm, giữ để thu hồi đom đóm (Có thể gây lag)" title="Nhấn thả đom đóm/Giữ thu hồi" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <div id="btn-throwfirefly" data-step="4" data-intro="Nhấn để thả đom đóm, giữ để thu hồi đom đóm (Có thể gây lag)" title="Nhấn thả đom đóm/Giữ thu hồi" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
                  <img src-load="btnFirefly" alt="Thả đóm" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
              </div>
 
-            <div id="btn-ballrecall" data-step="5" data-intro="Triệu hồi quả banh" title="Ball recall" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <div id="btn-ballrecall" data-step="5" data-intro="Triệu hồi quả banh" title="Ball recall" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
                 <img src-load="btnBallRecall" alt="Ball recall" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
             </div>
             
-            <div id="btn-volume-mute" data-step="6" data-intro="Tắt tất cả âm thanh. Nếu bạn muốn nghe nhạc trong lúc khám phá, hãy lại bật nhạc tại máy tính."  title="Tắt/bật âm thanh" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 18px;">
+            <div id="btn-volume-mute" data-step="6" data-intro="Tắt tất cả âm thanh. Nếu bạn muốn nghe nhạc trong lúc khám phá, hãy lại bật nhạc tại máy tính."  title="Tắt/bật âm thanh" style="background: rgba(255, 255, 255 , 1); border-radius: 5px; opacity: 1; text-align: center; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
                 <img src-load="btnUnmute" alt="Tắt âm" style="width: 80%; height: 80%; object-fit: contain; user-select: none;">
             </div>
         </div>
