@@ -256,10 +256,10 @@ function createToast(message, duration = 3000) {
 			color: "white",
 			padding: "10px 16px",
 			borderRadius: "8px",
-			fontSize: "14px",
+			fontSize: "1rem",
 			zIndex: "1000",
 			display: "none",
-			maxWidth: "80vw",
+			maxWidth: "33vw",
 			userSelect: "none",
 			pointerEvents: "none",
 		});
@@ -848,6 +848,12 @@ function resizeForLowDevice() {
 	function processAll() {
 		if (!isSmall) return;
 
+		setTimeout(() => {
+			createToast(
+				"Vì thiết bị có chiều cao không đáp ứng, font chữ portfolio sẽ được giảm kích thước, có thể gây lỗi một số khu vực. Nếu có thể, xin hãy sử dụng máy tính.",
+				7000
+			);
+		}, 3000)
 		document.querySelectorAll("[class*='text-']").forEach(downgradeElement);
 	}
 
