@@ -24,6 +24,8 @@ AFRAME.registerComponent("adaptive-cursor", {
 			// rayOrigin = "entity";
 			// useFuse = false;
 			// btnUse.style.display = "block";
+			rayOrigin = "mouse";
+			useFuse = false;
 		}
 		// PC (default mouse)
 		else {
