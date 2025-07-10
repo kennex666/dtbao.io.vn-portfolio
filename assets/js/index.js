@@ -283,7 +283,7 @@ function createDoneToast(data, duration = 5000) {
 		const toast = document.createElement("div");
 		toast.id = "done-toast";
 		toast.classList =
-			"top-[10vh] left-[20px] fixed bg-white w-[30vw] p-4 rounded-lg text-[#536493]";
+			"top-[10vh] left-[20px] fixed bg-white w-[30vw] p-4 rounded-lg text-[#536493] z-[9999]";
 		document.body.appendChild(toast);
 		existing = toast;
 	}
@@ -493,6 +493,107 @@ function setupEscapeHandler() {
 	});
 }
 
+function projectsLoad () {
+	let cache = null;
+	let retry = 0;
+	async function loadProjects() {
+		const container = document.getElementById("projects-container");
+		let data = null;
+		if (cache) {
+			data = cache;
+		} else {
+			container.classList =
+				"w-full max-w-6xl grid gap-8 md:grid-cols-2 lg:grid-cols-3";
+					container.innerHTML = `
+
+				${[1, 2, 3, 4, 5, 6, 7, 8, 9]
+					.map(
+						() => `
+					<div class="w-full bg-[#2a2a2a] rounded-xl p-6 shadow-lg">
+						<div class="h-5 w-1/3 bg-[#3a3a3a] rounded mb-4"></div>
+						<div class="h-4 w-2/3 bg-[#3a3a3a] rounded mb-2"></div>
+						<div class="h-4 w-1/2 bg-[#3a3a3a] rounded mb-4"></div>
+						<div class="h-40 w-full bg-[#3b3b3b] rounded-xl"></div>
+					</div>
+				`
+					)
+					.join("")}
+		`;
+			try { 
+				const res = await fetch(
+					"https://script.google.com/macros/s/AKfycbzMk-J5G--mAl8Tr9wHrznNUD0TCjSiy7b-iwGy5-iQL7bFnxO57-9MDtc8_eFbTI0Krw/exec"
+				); // Đường dẫn đến file JSON bên ngoài
+				if (!res.ok) throw new Error("Không thể tải dữ liệu.");
+				data = await res.json();
+			} catch(e){
+				container.classList = "w-full max-w-6xl grid gap-8 ";
+				container.innerHTML = `
+				<div class="w-full text-center bg-red-900/20 border border-red-700 text-red-300 rounded-xl p-6 max-w-xl mx-auto shadow-md">
+					<h3 class="text-2xl font-bold mb-2 text-red-200">⚠️ Không thể tải danh sách dự án</h3>
+					<p class="text-lg mb-2">Lỗi mạng bất định, ${retry < 4 ? "đang kết nối lại lần thứ " + (retry + 1) : " hãy thử tải lại trang này"}!</p>
+				</div>
+			`;
+				if (retry < 5){
+					console.log("Đang cố gắng kết nối với project showcase - ", retry)
+					setTimeout(() => {
+						++retry;
+						loadProjects();
+					}, 5000);
+				}
+					
+				data = null;
+				cache = null
+				return; // dừng luôn, không render gì nữa
+			} finally{
+				if (data) cache = data;
+			}
+		}
+		if (!data)
+			return;
+		container.classList =
+			"w-full max-w-6xl grid gap-8 md:grid-cols-2 lg:grid-cols-3";
+		container.innerHTML = ""; // Xoá trước khi render lại
+
+		data.forEach((project) => {
+			const card = document.createElement("div");
+			card.className =
+				"bg-gradient-to-br from-[#1d1d1d] via-[#222] to-[#151515] rounded-xl shadow-lg border border-[#2c2c2c] p-5 hover:shadow-xl transition duration-300 flex flex-col justify-between";
+
+			let linksHTML = "";
+			if (project.url_demo) {
+				linksHTML += `<a href="${project.url_demo}" target="_blank" class="text-sm text-blue-400 hover:underline mr-4">🌏 Xem Demo</a>`;
+			}
+			if (project.url_source) {
+				linksHTML += `<a href="${project.url_source}" target="_blank" class="text-sm text-green-400 hover:underline">💻 GitHub</a>`;
+			}
+
+			card.innerHTML = `
+				<div>
+					<img src="${project.thumb}" alt="${
+					project.title
+				}" class="rounded-lg mb-4 aspect-video object-cover border border-[#2a2a2a]">
+					<h3 class="text-xl font-semibold mb-2 text-white">${project.title}</h3>
+					<p class="text-sm text-gray-400 mb-3">${project.desc}</p>
+				</div>
+				<div>
+					<div class="flex flex-wrap gap-2 mb-4">
+						${project.tech
+							.map(
+								(tech) =>
+									`<span class="text-xs bg-[#2a2a2a] text-gray-200 px-2 py-1 rounded">${tech}</span>`
+							)
+							.join("")}
+					</div>
+					<div class="flex gap-4">${linksHTML}</div>
+				</div>
+			`;
+
+			container.appendChild(card);
+		});
+	}
+	loadProjects();
+}
+
 function enableMerryChristmas() {
 	// Sound theme & unlock mission
 	setTimeout(() => {
@@ -695,9 +796,39 @@ function handleChangeGraphic () {
 		settings.controllers.graphic.changeGraphic(level);
 	});
 }
+
+function preventInspector() {
+	const openInspector = () => {
+		settings.disableScroll = true;
+		try {
+		setTimeout(() => {
+			if (AFRAME && AFRAME.INSPECTOR) {
+				AFRAME.INSPECTOR.close();
+				const inspector = document.getElementById("aframeInspector");
+				if (inspector) {
+					inspector.innerHTML = "";
+					//   Create a popup html warning and hide after 5s using absolute
+				}
+			}
+		}, 300);
+	} catch (e) {
+	}}
+
+	window.addEventListener("keydown", function (event) {
+		if (!settings.isDevMode) {
+			if (event.ctrlKey && event.altKey && event.key === "i")
+				openInspector();
+			return;
+		}
+	})
+}
 window.onload = () => {
 	// Load data
 	const guestData = __logger.init();
+
+	if (settings.isDevMode){
+		__logger.disabled = true;
+	}
 
 	__logger.logToSheet({
 		type: "login",
@@ -725,13 +856,6 @@ window.onload = () => {
 			else sceneScript.welcomeBack.init();
 		});
 	}
-
-	window.addEventListener("keydown", (e) => {
-		if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "i") {
-			settings.isDevMode = !settings.isDevMode;
-			console.log("Dev mode!");
-		}
-	});
 
 	btnCloses.forEach((btn) => {
 		btn.addEventListener("click", (e) => {
@@ -762,7 +886,8 @@ window.onload = () => {
 	muteButtonHandle();
 	handleChangeGraphic();
 	setupEscapeHandler();
-
+	projectsLoad();
+	preventInspector();
 	// Unlock theme - for testing purpose
 	// eventScene(new Date("2025-12-19"));
 

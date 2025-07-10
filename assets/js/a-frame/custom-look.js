@@ -7,10 +7,10 @@ AFRAME.registerComponent("custom-look", {
 		}
 		function loopAdjustY() {
 			if (isCtrlHeld) {
-				adjustY(-0.05); // Giảm dần
+				adjustY(-0.02); // Giảm dần
 			}
 			if (isSpaceHeld) {
-				adjustY(0.05); // Tăng dần
+				adjustY(0.02); // Tăng dần
 			}
 			if (isCtrlHeld || isSpaceHeld) {
 				requestAnimationFrame(loopAdjustY);
