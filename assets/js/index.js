@@ -479,6 +479,20 @@ function muteButtonHandle() {
 	})
 }
 
+function setupEscapeHandler() {
+	document.addEventListener("keydown", (event) => {
+		if (event.key === "Escape") {
+			const btnCloses = document.querySelectorAll("[btn-close]");
+			btnCloses.forEach((btn) => {
+				btn?.click && btn?.click();
+			})
+			
+			closeImageViewer();
+
+		}
+	});
+}
+
 function enableMerryChristmas() {
 	// Sound theme & unlock mission
 	setTimeout(() => {
@@ -747,6 +761,7 @@ window.onload = () => {
 	ballRecall();
 	muteButtonHandle();
 	handleChangeGraphic();
+	setupEscapeHandler();
 
 	// Unlock theme - for testing purpose
 	// eventScene(new Date("2025-12-19"));

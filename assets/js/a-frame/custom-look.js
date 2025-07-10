@@ -1,6 +1,27 @@
 AFRAME.registerComponent("custom-look", {
 	init: function () {
+		function adjustY(delta) {
+			const pos = el.getAttribute("position");
+			pos.y += delta;
+			el.setAttribute("position", pos);
+		}
+		function loopAdjustY() {
+			if (isCtrlHeld) {
+				adjustY(-0.05); // Giảm dần
+			}
+			if (isSpaceHeld) {
+				adjustY(0.05); // Tăng dần
+			}
+			if (isCtrlHeld || isSpaceHeld) {
+				requestAnimationFrame(loopAdjustY);
+			}
+		}
+
 		let el = this.el;
+		let isCtrlHeld = false;
+		let isSpaceHeld = false;
+
+
 		el.addEventListener("update-xy", function (t) {
 			let lookControls = el.components["look-controls"];
 			if (lookControls) {
@@ -9,19 +30,41 @@ AFRAME.registerComponent("custom-look", {
 			}
 		});
 
-		el.addEventListener("update-position", function(t) {
-			camera.setAttribute("position", { x: t.detail.x, y: t.detail.y, z:  t.detail.z});
+		el.addEventListener("update-position", function (t) {
+			camera.setAttribute("position", {
+				x: t.detail.x,
+				y: t.detail.y,
+				z: t.detail.z,
+			});
 		});
-		
+
 		window.addEventListener("wheel", (e) => {
-			if (settings.isDevMode)
-				return;
-			if (settings.disableScroll)
-				return;
-			const dir = e.deltaY > 0 ? -0.2 : 0.2; 
-			const pos = this.el.getAttribute("position");
-			pos.y += dir;
-			this.el.setAttribute("position", pos);
+			if (settings.isDevMode) return;
+			if (settings.disableScroll) return;
+			const dir = e.deltaY > 0 ? -0.2 : 0.2;
+			adjustY(dir);
+		});
+
+		window.addEventListener("keydown", (e) => {
+			if (settings.isDevMode || settings.disableScroll) return;
+
+			if (e.key === "Control" && !isCtrlHeld) {
+				isCtrlHeld = true;
+				loopAdjustY();
+			}
+			if (e.code === "Space" && !isSpaceHeld) {
+				e.preventDefault();
+				isSpaceHeld = true;
+				loopAdjustY();
+			}
+		});
+		window.addEventListener("keyup", (e) => {
+			if (e.key === "Control") {
+				isCtrlHeld = false;
+			}
+			if (e.code === "Space") {
+				isSpaceHeld = false;
+			}
 		});
 	},
 	getCurrentRotation: function () {
