@@ -100,19 +100,6 @@ const sceneScript = {
 			})
 		},
 		detroy: () => {
-			const text = document.querySelector("#intro__text");
-			const introRange = document.querySelector("#intro__range");
-			const floor = document.querySelector("#floor");
-			camera.setAttribute(
-				"wasd-controls",
-				`enabled: true; acceleration: ${settings.speed.walk}`
-			);
-			text.setAttribute("visible", "false");
-			text.removeAttribute("animation__blink");
-			startWatermark();
-			introRange.setAttribute("visible", false);
-
-			floor.setAttribute("visible", true);
 			setTimeout(() => {
 				__logger.isDoneGuide(true);
 				__missions.unlockMission("lan_dau_tham_quan");
@@ -122,6 +109,8 @@ const sceneScript = {
 				type: "load-script",
 				metadata: "end-skip-intro",
 			});
+			
+			dispatchEvent(new Event("end-openning"));
 		},
 	},
 	firstTime: {
@@ -187,18 +176,6 @@ const sceneScript = {
 			});
 		},
 		detroy: () => {
-			const text = document.querySelector("#intro__text");
-			const introRange = document.querySelector("#intro__range");
-			const floor = document.querySelector("#floor");
-			camera.setAttribute(
-				"wasd-controls",
-				`enabled: true; acceleration: ${settings.speed.walk}`
-			);
-			text.setAttribute("visible", "false");
-			text.removeAttribute("animation__blink");
-			startWatermark();
-			introRange.setAttribute("visible", false);
-			floor.setAttribute("visible", true);
 			setTimeout(() => {
 				__missions.unlockMission("lan_dau_tham_quan");
 				__logger.isDoneGuide(true);
@@ -209,6 +186,8 @@ const sceneScript = {
 				type: "load-script",
 				metadata: "end-intro-first",
 			});
+			
+			dispatchEvent(new Event("end-openning"));
 		},
 	},
 	welcomeBack: {
@@ -234,18 +213,6 @@ const sceneScript = {
 			});
 		},
 		detroy: () => {
-			const text = document.querySelector("#intro__text");
-			const introRange = document.querySelector("#intro__range");
-			const floor = document.querySelector("#floor");
-			camera.setAttribute(
-				"wasd-controls",
-				`enabled: true; acceleration: ${settings.speed.walk}`
-			);
-			text.setAttribute("visible", "false");
-			text.removeAttribute("animation__blink");
-			startWatermark();
-			introRange.setAttribute("visible", false);
-			floor.setAttribute("visible", true);
 			setTimeout(() => {
 				__missions.unlockMission("chao_mung_tro_lai");
 			}, 3000);
@@ -254,6 +221,8 @@ const sceneScript = {
 				type: "load-script",
 				metadata: "end-welcome-back",
 			});
+			
+			dispatchEvent(new Event("end-openning"));
 		},
 	},
 };
@@ -479,11 +448,20 @@ function muteButtonHandle() {
 				soundComp.pool.children[0].setVolume(0);
 				soundComp.stopSound();
 			})
+
+			btnMute.querySelector("img").src =
+				window.assetMap.lazyLoad.src.btnMute;
+			MediaPlayer.vol = 0;
 		} else {
 			document.querySelectorAll("[sound]").forEach((el) => {
 				const soundComp = el.components.sound;
 				soundComp.pool.children[0].setVolume(1);
 			});
+
+			btnMute.querySelector("img").src =
+				window.assetMap.lazyLoad.src.btnUnmute;
+				
+			MediaPlayer.vol = 0;
 		}
 	})
 }
@@ -750,8 +728,6 @@ window.onload = () => {
 
 	// Unlock theme - for testing purpose
 	// eventScene(new Date("2025-12-19"));
-
-	eventScene();
 	muteButtonHandle();
 
 	window.addEventListener("dev-tools-detected", () => {
@@ -765,6 +741,23 @@ window.onload = () => {
 
 		window.dispatchEvent(new Event("clear-console"));
 	});
+
+	window.addEventListener("end-openning", () => {
+		eventScene();
+		const text = document.querySelector("#intro__text");
+		const introRange = document.querySelector("#intro__range");
+		const floor = document.querySelector("#floor");
+		camera.setAttribute(
+			"wasd-controls",
+			`enabled: true; acceleration: ${settings.speed.walk}`
+		);
+		text.setAttribute("visible", "false");
+		text.removeAttribute("animation__blink");
+		startWatermark();
+		introRange.setAttribute("visible", false);
+
+		floor.setAttribute("visible", true);
+	})
 }
 
 window.onbeforeunload = function () {

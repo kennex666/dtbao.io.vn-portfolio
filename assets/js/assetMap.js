@@ -13,6 +13,8 @@ window.assetMap = {
 			btnBallRecall: "assets/images/ico-ball.png",
 			btnClose: "assets/images/buttons/btn-close.png",
 			btnUse: "assets/images/buttons/btn-use.png",
+			btnUnmute: "assets/images/buttons/ico-unmute.png",
+			btnMute: "assets/images/buttons/ico-mute.png",
 			icoInfo: "assets/images/ico-info.png",
 			icoTrophy: "assets/images/ico-trophy.png",
 			icoTrophyLock: "assets/images/ico-lock.png",

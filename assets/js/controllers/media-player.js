@@ -47,6 +47,7 @@ const MediaPlayer = {
 		uri: __playlist[0].uri,
 		index: 0,
 	},
+	vol: 1,
 	status: MediaPlayer_Status.pause,
 };
 
@@ -105,20 +106,18 @@ AFRAME.registerComponent("media-controller", {
 
 	tangVolume:	function() {
 		const soundComp = MediaPlayer.player.components.sound;
-		let vol = soundComp.pool.children[0].getVolume();
-		if (vol < 2) {
-			vol += 0.1;
-			soundComp.pool.children[0].setVolume(Math.min(vol, 2));
+		if (MediaPlayer.vol < 2) {
+			MediaPlayer.vol += 0.1;
+			soundComp.pool.children[0].setVolume(Math.min(MediaPlayer.vol, 2));
 		}
 	},
 
 	// Giảm âm lượng
 	giamVolume: function () {
 		const soundComp =  MediaPlayer.player.components.sound;
-		let vol = soundComp.pool.children[0].getVolume();
-		if (vol > 0) {
-			vol -= 0.1;
-			soundComp.pool.children[0].setVolume(Math.max(vol, 0));
+		if (MediaPlayer.vol > 0) {
+			MediaPlayer.vol -= 0.1;
+			soundComp.pool.children[0].setVolume(Math.max(MediaPlayer.vol, 0));
 		}
 	},
 
@@ -141,13 +140,15 @@ AFRAME.registerComponent("media-controller", {
 			MediaPlayer.player.setAttribute("sound", {
 				src: `url(${MediaPlayer.current.uri})`,
 				autoplay: true,
+				volume: MediaPlayer.vol,
 			});
         } else {
             MediaPlayer.player.components.sound.stopSound();
             MediaPlayer.player.setAttribute("sound", {
-                src: `url(${MediaPlayer.current.uri})`,
-                autoplay: false,
-            });
+				src: `url(${MediaPlayer.current.uri})`,
+				autoplay: false,
+				volume: MediaPlayer.vol,
+			});
         }
 	},
 	playNext: function (direction = 1) {
