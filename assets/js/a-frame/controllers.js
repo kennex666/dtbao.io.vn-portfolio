@@ -9,56 +9,7 @@ AFRAME.registerComponent("adaptive-cursor", {
 	init: function () {
 		const isMobile = AFRAME.utils.device.isMobile();
 		const isHeadset = AFRAME.utils.device.checkHeadsetConnected();
-
-		let rayOrigin = "mouse";
-		let useFuse = false;
-
-		// VR headset
-		if (isHeadset) {
-			rayOrigin = "entity";
-			useFuse = true;
-		}
-		// Mobile (touch screen)
-		else if (isMobile || settings.isTouchable) {
-			// Bug quá :)) Dẹp 
-			// rayOrigin = "entity";
-			// useFuse = false;
-			// btnUse.style.display = "block";
-			rayOrigin = "mouse";
-			useFuse = false;
-		}
-		// PC (default mouse)
-		else {
-			rayOrigin = "mouse";
-			useFuse = false;
-		}
-
-		this.el.setAttribute("cursor", {
-			rayOrigin: rayOrigin,
-			fuse: useFuse,
-			fuseTimeout: 1500,
-		});
-
-		this.el.setAttribute("raycaster", {
-			objects: ".clickable",
-		});
-
 		settings.device = isHeadset ? "vr" : isMobile ? "mobile" : "pc";
-
-		// if (settings.device != "pc" || settings.isTouchable) {
-		// 	camera.innerHTML = `<a-entity
-		// 		a-entity=""
-		// 		position="0 0 -1"
-		// 		geometry="primitive: ring; radiusInner: 0.001; radiusOuter: 0.005"
-		// 		material="shader: flat; color: #ffffff"
-		// 	></a-entity>`;
-		// }
-
-		// console.log(
-		// 	`[adaptive-cursor] Setup for ${
-		// 		isHeadset ? "VR" : isMobile ? "Mobile" : "PC"
-		// 	}: rayOrigin=${rayOrigin}, fuse=${useFuse}`
-		// );
 	},
 });
 
@@ -166,17 +117,8 @@ AFRAME.registerComponent("touch-drag-look", {
 		this.touchId = null;
 		this.dragging = false;
 		const isMobile = AFRAME.utils.device.isMobile();
-		const isHeadset = AFRAME.utils.device.checkHeadsetConnected();
 
-		// VR headset
-		if (isHeadset) {
-			this.el.setAttribute(
-				"look-controls",
-				"enabled: true; magicWindowTrackingEnabled: true;"
-			);
-		}
-		// Mobile (touch screen)
-		else if (isMobile || settings.isTouchable) {
+		if (isMobile || settings.isTouchable) {
 			this.el.setAttribute(
 				"look-controls",
 				"enabled: false; magicWindowTrackingEnabled: false;"

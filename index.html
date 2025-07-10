@@ -73,6 +73,8 @@
             <!-- Camera -->
             <a-entity 
             id="camera"
+            raycaster="objects: .clickable"
+            cursor="rayOrigin: mouse; fuse: false"
             camera
             joystick-keyboard
             sky-boundary-check
