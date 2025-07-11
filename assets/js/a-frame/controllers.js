@@ -146,6 +146,14 @@ AFRAME.registerComponent("touch-drag-look", {
 			"touchend",
 			this.onTouchEnd.bind(this)
 		);
+
+		if (isMobile || settings.isTouchable) {
+			console.log("touch update listening")
+			this.el.addEventListener("update-xy", (t) => {
+				this.el.object3D.rotation.set(t.detail.x, t.detail.y, 0);
+			});
+		}
+		
 	},
 	onTouchStart: function (e) {
 		if (!this.data.enabled) return;
@@ -155,6 +163,11 @@ AFRAME.registerComponent("touch-drag-look", {
 				this.touchId = t.identifier;
 				this.startX = t.clientX;
 				this.startY = t.clientY;
+					
+				const rot = this.el.object3D.rotation;
+				this.xRotation = THREE.MathUtils.radToDeg(rot.x);
+				this.yRotation = THREE.MathUtils.radToDeg(rot.y);
+
 				this.dragging = true;
 				e.preventDefault();
 				break;
