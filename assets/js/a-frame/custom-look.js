@@ -22,13 +22,17 @@ AFRAME.registerComponent("custom-look", {
 		let isSpaceHeld = false;
 
 
-		el.addEventListener("update-xy", function (t) {
-			let lookControls = el.components["look-controls"];
-			if (lookControls) {
-				lookControls.pitchObject.rotation.x = t.detail.x;
-				lookControls.yawObject.rotation.y = t.detail.y;
-			}
-		});
+		if (!AFRAME.utils.device.isMobile() && !settings.isTouchable){
+			console.log("update xy pc listening")
+			el.addEventListener("update-xy", function (t) {
+				let lookControls = el.components["look-controls"];
+				if (lookControls) {
+					lookControls.pitchObject.rotation.x = t.detail.x;
+					lookControls.yawObject.rotation.y = t.detail.y;
+				} else {
+				}
+			});
+		}
 
 		el.addEventListener("update-position", function (t) {
 			camera.setAttribute("position", {

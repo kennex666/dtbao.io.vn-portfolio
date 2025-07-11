@@ -259,7 +259,7 @@ function createToast(message, duration = 3000) {
 			fontSize: "1rem",
 			zIndex: "1000",
 			display: "none",
-			maxWidth: "33vw",
+			maxWidth: "50vw",
 			userSelect: "none",
 			pointerEvents: "none",
 		});
@@ -283,7 +283,7 @@ function createDoneToast(data, duration = 5000) {
 		const toast = document.createElement("div");
 		toast.id = "done-toast";
 		toast.classList =
-			"top-[10vh] left-[20px] fixed bg-white w-[30vw] p-4 rounded-lg text-[#536493] z-[9999]";
+			"top-[10vh] left-[20px] fixed bg-white w-[30vw] min-w-[250px] p-4 rounded-lg text-[#536493] z-[9999]";
 		document.body.appendChild(toast);
 		existing = toast;
 	}
@@ -292,7 +292,7 @@ function createDoneToast(data, duration = 5000) {
 
 	existing.innerHTML = `
                 <div class="flex gap-x-3 items-center mb-2">
-                    <img src="${window.assetMap.lazyLoad.src.icoTrophy}" class="w-10 h-10"/>
+                    <img src="${data?.unlockico ? data.unlockico  : window.assetMap.lazyLoad.src.icoTrophy}" class="w-10 h-10"/>
                     <div class="flex-1 flex text-2xl font-semibold">
                         <span>${data.display}</span>
                     </div>
@@ -821,10 +821,6 @@ function preventInspector() {
 	})
 }
 
-function isMobileLandscape(threshold = 768) {
-	return window.innerWidth > window.innerHeight && window.innerHeight < threshold;
-}
-
 function resizeForLowDevice() {
 	const fontMap = {
 		"text-5xl": "text-base",
@@ -835,7 +831,8 @@ function resizeForLowDevice() {
 		"text-lg": "text-base",
 	};
 
-	let isSmall = window.innerHeight < 500;
+	let isSmall = (window.innerWidth / window.innerHeight < 0.6);
+
 
 	function downgradeElement(el) {
 		el.classList.forEach((cls) => {
@@ -850,7 +847,7 @@ function resizeForLowDevice() {
 
 		setTimeout(() => {
 			createToast(
-				"Vì thiết bị có chiều cao không đáp ứng, font chữ portfolio sẽ được giảm kích thước, có thể gây lỗi một số khu vực. Nếu có thể, xin hãy sử dụng máy tính.",
+				"Vì thiết bị có chiều cao không đáp ứng, font chữ portfolio sẽ được giảm kích thước, có thể gây lỗi một số khu vực. Nếu có thể, xin hãy sử dụng máy tính hoặc xoay ngang màn hình",
 				7000
 			);
 		}, 3000)
@@ -888,7 +885,7 @@ function resizeForLowDevice() {
 
 	// 3. Xử lý khi resize
 	window.addEventListener("resize", () => {
-		const newSmall = window.innerHeight < 500;
+		const newSmall = window.innerWidth / window.innerHeight < 0.6;
 		if (newSmall !== isSmall) {
 			isSmall = newSmall;
 			processAll();
