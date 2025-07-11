@@ -831,7 +831,7 @@ function resizeForLowDevice() {
 		"text-lg": "text-base",
 	};
 
-	let isSmall =  (window.innerWidth / window.innerHeight < 0.6);
+	let isSmall = (window.innerWidth / window.innerHeight < 0.6);
 
 
 	function downgradeElement(el) {
@@ -885,7 +885,7 @@ function resizeForLowDevice() {
 
 	// 3. Xử lý khi resize
 	window.addEventListener("resize", () => {
-		const newSmall = window.innerHeight < 500;
+		const newSmall = window.innerWidth / window.innerHeight < 0.6;
 		if (newSmall !== isSmall) {
 			isSmall = newSmall;
 			processAll();
