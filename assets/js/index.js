@@ -259,7 +259,7 @@ function createToast(message, duration = 3000) {
 			fontSize: "1rem",
 			zIndex: "1000",
 			display: "none",
-			maxWidth: "33vw",
+			maxWidth: "50vw",
 			userSelect: "none",
 			pointerEvents: "none",
 		});
@@ -283,7 +283,7 @@ function createDoneToast(data, duration = 5000) {
 		const toast = document.createElement("div");
 		toast.id = "done-toast";
 		toast.classList =
-			"top-[10vh] left-[20px] fixed bg-white w-[30vw] p-4 rounded-lg text-[#536493] z-[9999]";
+			"top-[10vh] left-[20px] fixed bg-white w-[30vw] min-w-[250px] p-4 rounded-lg text-[#536493] z-[9999]";
 		document.body.appendChild(toast);
 		existing = toast;
 	}
@@ -292,7 +292,7 @@ function createDoneToast(data, duration = 5000) {
 
 	existing.innerHTML = `
                 <div class="flex gap-x-3 items-center mb-2">
-                    <img src="${window.assetMap.lazyLoad.src.icoTrophy}" class="w-10 h-10"/>
+                    <img src="${data?.unlockico ? data.unlockico  : window.assetMap.lazyLoad.src.icoTrophy}" class="w-10 h-10"/>
                     <div class="flex-1 flex text-2xl font-semibold">
                         <span>${data.display}</span>
                     </div>
