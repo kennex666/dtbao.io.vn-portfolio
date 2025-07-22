@@ -128,7 +128,7 @@ AFRAME.registerComponent("touch-drag-look", {
 		else {
 			this.el.setAttribute(
 				"look-controls",
-				"enabled: true; magicWindowTrackingEnabled: false;"
+				"enabled: true; magicWindowTrackingEnabled: false; reverseMouseDrag: true;"
 			);
 		}
 
@@ -183,8 +183,8 @@ AFRAME.registerComponent("touch-drag-look", {
 				const deltaX = t.clientX - this.startX;
 				const deltaY = t.clientY - this.startY;
 
-				this.yRotation -= deltaX * 0.12;
-				this.xRotation -= deltaY * 0.12;
+				this.yRotation += deltaX * 0.12;
+				this.xRotation += deltaY * 0.12;
 
 				this.xRotation = Math.max(-90, Math.min(90, this.xRotation));
 
