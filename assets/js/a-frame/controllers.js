@@ -128,7 +128,7 @@ AFRAME.registerComponent("touch-drag-look", {
 		else {
 			this.el.setAttribute(
 				"look-controls",
-				"enabled: true; magicWindowTrackingEnabled: false;"
+				"enabled: true; magicWindowTrackingEnabled: false; reverseMouseDrag: true;"
 			);
 		}
 
