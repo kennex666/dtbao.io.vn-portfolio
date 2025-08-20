@@ -956,6 +956,7 @@ window.onload = () => {
 	guideHandler();
 	// Gọi load lần đầu
 	loadMessagesPage();
+	loadVisitorsTotal();
 	throwButtonHandle();
 	ballRecall();
 	muteButtonHandle();

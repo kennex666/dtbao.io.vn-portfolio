@@ -33,7 +33,7 @@ function makeid(length) {
 
 const __logger = {
 	uuid: "not_available",
-	versionWeb: "1.9.4",
+	versionWeb: "2.0.9",
 	key_visit: "3d_visit_total",
 	key_last_time: "3d_visit_last_time",
 	key_version: "3d_last_version",
