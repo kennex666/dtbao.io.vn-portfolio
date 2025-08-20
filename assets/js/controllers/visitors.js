@@ -58,6 +58,30 @@ function removeLoadingNote(el) {
     el.querySelectorAll("[loading-note]").forEach((el) => el.remove())
 }
 
+async function loadVisitorsTotal() {
+	try {
+		const visitorsCounter = document.querySelector("#counter-visitors");
+		if (!visitorsCounter) {
+			return;
+		}
+		const res = await fetch(
+			"https://script.google.com/macros/s/AKfycby4zN1KdxZeRvX-pp4z3uAhLClwXNi2zEP8PiyBuI25ftsigNaPTEehjikLns-Wa41t/exec"
+		);
+		const data = await res.json();
+
+		if (data?.data?.total) {
+			const formattedData = data.data.total
+				.toString()
+				.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+			visitorsCounter.innerText = formattedData;
+			return;
+		}
+
+	} catch (err) {
+		console.error("Lỗi khi load số visitors:", err);
+	}
+}
 
 async function loadMessagesPage() {
 	if (isLoading || allLoaded) return;
