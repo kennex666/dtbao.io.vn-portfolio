@@ -33,7 +33,7 @@ function makeid(length) {
 
 const __logger = {
 	uuid: "not_available",
-	versionWeb: "2.0.9",
+	versionWeb: "2.1.5",
 	key_visit: "3d_visit_total",
 	key_last_time: "3d_visit_last_time",
 	key_version: "3d_last_version",
@@ -76,14 +76,13 @@ const __logger = {
 		if (set) {
 			window.localStorage.setItem(__logger.isDoneGuide, 1);
 			return true;
-		} 
+		}
 		let data = window.localStorage.getItem(__logger.isDoneGuide) || false;
 		if (data == "1") {
 			return true;
 		}
 		window.localStorage.setItem(__logger.isDoneGuide, 0);
 		return false;
-		
 	},
 	saveVisit: () => {
 		let data = window.localStorage.getItem(__logger.key_visit) || 0;

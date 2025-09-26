@@ -252,8 +252,8 @@ function createToast(message, duration = 3000) {
 			position: "fixed",
 			top: "40vh",
 			right: "20px",
-			background: "#ed5c71",
-			color: "white",
+			background: "#facc15",
+			color: "#333",
 			padding: "10px 16px",
 			borderRadius: "8px",
 			fontSize: "1rem",
@@ -326,6 +326,16 @@ function guideHandler (){
 		guideBook.classList.toggle("hidden", false);
 		settings.disableScroll = true;
 		btnStart.parentElement.classList.toggle("hidden", true);
+		btnSkip.parentElement.classList.toggle("hidden", true);
+	})
+}
+
+function changeLogHandler () {
+	const btnChangelog = document.querySelector("#btn-changelog");
+	btnChangelog.addEventListener("click", () => {
+		const changeLogPage = document.querySelector("#change-log-book");
+		changeLogPage.classList.toggle("hidden", false);
+		settings.disableScroll = true;
 	})
 }
 
@@ -476,6 +486,23 @@ function muteButtonHandle() {
 			btnMute.querySelector("img").src =
 				window.assetMap.lazyLoad.src.btnUnmute;
 		}
+	})
+}
+
+function invertMouseHandle() {
+	const btnInvertMouse = document.querySelector("#btn-invert-mouse");
+	btnInvertMouse.addEventListener("click", () => {
+		settings.invertMouse = !settings.invertMouse;
+		const cameraLook = camera.getAttribute("look-controls");
+		camera.setAttribute("look-controls", {
+			...cameraLook,
+			reverseMouseDrag: settings.invertMouse,
+		});
+
+		createToast(
+			"Chuột đã được đảo ngược!",
+			3000
+		);
 	})
 }
 
@@ -959,7 +986,9 @@ window.onload = () => {
 	loadVisitorsTotal();
 	throwButtonHandle();
 	ballRecall();
+	changeLogHandler();
 	muteButtonHandle();
+	invertMouseHandle();
 	handleChangeGraphic();
 	setupEscapeHandler();
 	projectsLoad();

@@ -128,7 +128,7 @@ AFRAME.registerComponent("touch-drag-look", {
 		else {
 			this.el.setAttribute(
 				"look-controls",
-				"enabled: true; magicWindowTrackingEnabled: false; reverseMouseDrag: true;"
+				"enabled: true; magicWindowTrackingEnabled: false; reverseMouseDrag: false;"
 			);
 		}
 
@@ -180,8 +180,8 @@ AFRAME.registerComponent("touch-drag-look", {
 		for (let i = 0; i < e.changedTouches.length; i++) {
 			const t = e.changedTouches[i];
 			if (t.identifier == this.touchId) {
-				const deltaX = t.clientX - this.startX;
-				const deltaY = t.clientY - this.startY;
+				const deltaX = settings.invertMouse ? -(t.clientX - this.startX) : (t.clientX - this.startX);
+				const deltaY = settings.invertMouse ? -(t.clientY - this.startY) : (t.clientY - this.startY);
 
 				this.yRotation -= deltaX * 0.12;
 				this.xRotation -= deltaY * 0.12;
