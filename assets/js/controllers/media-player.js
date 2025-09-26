@@ -1,5 +1,10 @@
 const __playlist = [
 	{
+		title: "Đừng Làm Trái Tim Anh Đau",
+		artist: "Sơn Tùng M-TP",
+		uri: "/assets/sounds/albums/dunglamtraitimanhdau.mp3",
+	},
+	{
 		title: "Phonecert (Vietnamese)",
 		artist: "Hoàng Dũng",
 		uri: "/assets/sounds/albums/phonecert.mp3",
