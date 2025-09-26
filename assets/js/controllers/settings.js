@@ -10,6 +10,7 @@ const settings = {
 		walk: 20,
 	},
 	disableScroll: false,
+	invertMouse: false,
 	cameraHeight: 2.0,
 	device: "pc",
 	audio: true,

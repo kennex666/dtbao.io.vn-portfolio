@@ -479,6 +479,18 @@ function muteButtonHandle() {
 	})
 }
 
+function invertMouseHandle() {
+	const btnInvertMouse = document.querySelector("#btn-invert-mouse");
+	btnInvertMouse.addEventListener("click", () => {
+		settings.invertMouse = !settings.invertMouse;
+		const cameraLook = camera.getAttribute("look-controls");
+		camera.setAttribute("look-controls", {
+			...cameraLook,
+			reverseMouseDrag: settings.invertMouse,
+		});
+	})
+}
+
 function setupEscapeHandler() {
 	document.addEventListener("keydown", (event) => {
 		if (event.key === "Escape") {
@@ -960,6 +972,7 @@ window.onload = () => {
 	throwButtonHandle();
 	ballRecall();
 	muteButtonHandle();
+	invertMouseHandle();
 	handleChangeGraphic();
 	setupEscapeHandler();
 	projectsLoad();

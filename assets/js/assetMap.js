@@ -15,6 +15,7 @@ window.assetMap = {
 			btnUse: "assets/images/buttons/btn-use.png",
 			btnUnmute: "assets/images/buttons/ico-unmute.png",
 			btnMute: "assets/images/buttons/ico-mute.png",
+			btnMouseInvert: "assets/images/buttons/ico-mouse-invert.png",
 			icoInfo: "assets/images/ico-info.png",
 			icoTrophy: "assets/images/ico-trophy.png",
 			icoTrophyLock: "assets/images/ico-lock.png",
